@@ -27,6 +27,12 @@
 <h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><p>GitHub是最大的代码托管中心。可以将自己的代码托管在这个网站上（简单说相当于是给自己的代码提供了一个云盘存放，当然GitHub本身其实是有很多很方便的特性）。<br>.io库，是github提供的一个服务器，相当于一个静态网页代码的托管，可以用它完成个人主页的创建，之后会有专门的文章记录我的个人主页创建过程。</p>
 <p>文章之后还会慢慢修改补充，当前只整理了这些。<br>感谢大佬的教程相助！</p>
 ]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -46,5 +52,211 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>markdown语法基础</title>
+    <url>/2020/04/06/markdown/</url>
+    <content><![CDATA[<h1 id="markdown-语法基础"><a href="#markdown-语法基础" class="headerlink" title="markdown 语法基础"></a>markdown 语法基础</h1><p>介绍基础的markdown语法以及常用数学表达式的latex编辑方法。</p>
+<a id="more"></a>
+<h2 id="1-基础语法"><a href="#1-基础语法" class="headerlink" title="1.基础语法"></a>1.基础语法</h2><ol>
+<li><p>六级标题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">####</span><br><span class="line">#####</span><br><span class="line">######</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有序列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 你要写的东西</span><br><span class="line">2. 你要写的东西</span><br><span class="line">3. 你要写的东西</span><br></pre></td></tr></table></figure></li>
+<li><p>无序列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 一级无序列表</span><br><span class="line">  - 二级无序列表</span><br><span class="line">    - 三级无序</span><br><span class="line">- 一级无序列表</span><br></pre></td></tr></table></figure>
+<p>这样就会显示</p>
+</li>
+</ol>
+<ul>
+<li>一级无序列表<ul>
+<li>二级无序列表<ul>
+<li>三级无序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一级无序列表 </li>
+</ul>
+<ol start="4">
+<li>表格写法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">|表头|表头|表头|</span><br><span class="line">|:---:|:---|---:|</span><br><span class="line">|居中|左对齐|右对齐|</span><br></pre></td></tr></table></figure>
+会显示如下</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">表头</th>
+<th align="left">表头</th>
+<th align="right">表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">居中</td>
+<td align="left">左对齐</td>
+<td align="right">右对齐</td>
+</tr>
+</tbody></table>
+<p>貌似这里没有解析出来，尴尬</p>
+<ol start="5">
+<li>常见渲染方式<br><em>斜体</em>      <code>*斜体*</code><br><strong>加粗</strong>    <code>**加粗**</code><br><strong><em>加粗斜体</em></strong><code>***加粗斜体***</code><br>==背景色==  <code>==背景色==</code><br><del>删除线</del><code>~~删除线~~</code><br>A<del>下标</del> A^上标^<code>~下标~^上标^</code><br>角注[^1]<code>角注[^1]</code><br>$下标<em>{下标}$`$下标</em>{下标}$<code>$上标_{上标}$</code>$上标_{上标}$`</li>
+</ol>
+<h2 id="2-数学表达式"><a href="#2-数学表达式" class="headerlink" title="2. 数学表达式"></a>2. 数学表达式</h2><h3 id="2-1-积分类"><a href="#2-1-积分类" class="headerlink" title="2.1 积分类"></a>2.1 积分类</h3><p>积分：<code>$\int$</code>$\int$</p>
+<p>二重积分：<code>$\iint$</code>$\iint$</p>
+<p>三重积分：<code>$\iiint$</code>$\iiint$</p>
+<p>环积分：<code>$\oint$</code>$\oint$</p>
+<p>二重环积分：<code>$\oiint$</code> (没有正确渲染)</p>
+<p>三重环积分：<code>$\oiiint$</code>（没有正确渲染）</p>
+<h3 id="2-2-其他"><a href="#2-2-其他" class="headerlink" title="2.2 其他"></a>2.2 其他</h3><p>求和号：<code>$\sum$</code>$\sum$</p>
+<p>极限号：<code>$\lim$</code>$\lim$</p>
+<p>分数：<code>$\frac{a}{b}$</code>$\frac{a}{b}$</p>
+<p>向量：<code>$\vec{d}$</code>$\vec{d}$</p>
+<p>奇怪字体：<code>$\frak{uu}$</code>$\frak{uu}$</p>
+<p>大于等于：<code>$\ge$</code>$\ge$</p>
+<p>远大于：<code>$\gg$</code>$\gg$</p>
+<p>点圈：<code>$\odot$</code>$\odot$</p>
+<p>约等于：<code>$\approx$</code>$\approx$</p>
+<p>交集：<code>$\cap$</code>$\cap$</p>
+<p>点积：<code>$\cdot$</code>$\cdot$</p>
+<p>省略号：<code>$\cdots$</code>$\cdots$</p>
+<p>之后会慢慢补充，希望对您有帮助～</p>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>心理学导论-条件反射和学习</title>
+    <url>/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E6%9D%A1%E4%BB%B6%E5%8F%8D%E5%B0%84%E5%92%8C%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="心理学导论——条件反射和学习"><a href="#心理学导论——条件反射和学习" class="headerlink" title="心理学导论——条件反射和学习"></a>心理学导论——条件反射和学习</h1><h2 id="学习的定义"><a href="#学习的定义" class="headerlink" title="学习的定义"></a>学习的定义</h2><p>学习是由经验引起的相对持久的行为变化。</p>
+<p>经典条件反射：形成取决于一个反应前发生的事<br>操作性条件反射：建立在反应结果的基础上，结果决定反应是否再次发生</p>
+<a id="more"></a>
+<h3 id="经典条件反射"><a href="#经典条件反射" class="headerlink" title="经典条件反射"></a>经典条件反射</h3><p>经典条件反射，人们会学会刺激与反应的关系建立，基础是人的非条件反射，通过条件刺激在非条件刺激周围徘徊，可以使条件刺激与非条件反应建立联系，从而实现条件反射。<br>习得：条件刺激在无条件刺激前出现，紧密，很快就会习得<br>期望：认知会建立新的心理期望<br>消退：条件反射是会消退的<br>自动恢复：消退不是一次性完成的，中间会有反复<br>泛化：将刺激广泛的应用到别的联系上<br>辨别：出现类似刺激，在多次训练不同强化后会辨别不同刺激的结果，也是泛化消退</p>
+<p>人类的条件反射和情绪<br>条件性情绪反射：经历后，人们会形成反射<br>间接性情绪反射：听说后人们也会建立情绪反射</p>
+<h3 id="操作性条件反射"><a href="#操作性条件反射" class="headerlink" title="操作性条件反射"></a>操作性条件反射</h3><p>这是一种把行为和结果联系起来的反射。（是人们认为这个操作可以对应一个结果，这个结果决定这个操作再发生的可能性）</p>
+<p>习得：也叫强化，通过调整结果，改变以拥有技能的出现频次，强化的时间要在正确反应后的较短时间内。但是人有期望性，所以也没关系。</p>
+<p>操作性条件反射可以解释迷信行为，即在结果和正确反应之间有别的动作参与，我们认为这个反应是正确的并也得到了强化。</p>
+<p>强化方式有正强化和负强化<br>正强化：反应得到的结果是愉快的<br>负强化：反应得到的结果是结束不愉快的<br>其实我个人感觉差不多，都是向好的。</p>
+<p>强化还可以通过惩罚和反应代价实现<br>惩罚：反应得到的结果是不愉快的<br>反应代价：反应得到的结果是结束愉快<br>这两个我个人感觉是向负的</p>
+<p>操作性消退：同样需要时间，也会反复</p>
+<p>操作性强化物：分为一级、二级强化物、反馈<br>一级强化物：指具有生理基础，满足生理需要<br>二级强化物：有习得性，可以和一级挂钩（比如钱），有比一级强化性更长的强化效应<br>反馈：给人信息来强化行为</p>
+<p>部分强化：相对连续强化，多次反应后再给出结果，有不同的间隔模式，比如：固定比率FR，不定比率VR，固定时间FI，不定时间VI<br>VR模式比FR更不容易消退，同样VI也有更好的抑制消退的效果</p>
+<h4 id="惩罚"><a href="#惩罚" class="headerlink" title="惩罚"></a>惩罚</h4><p>惩罚的正确应用：要有一致性、及时性、适度<br>惩罚的副作用：对惩罚者的情绪恶意、产生逃避反应、攻击性上升</p>
+<h3 id="其他学习方式"><a href="#其他学习方式" class="headerlink" title="其他学习方式"></a>其他学习方式</h3><p>认知学习：就是我们说的理解的学，包括潜在学习、发现式学习也是理解学习的方式。<br>榜样学习：通过观察加模仿</p>
+]]></content>
+      <categories>
+        <category>心理学</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>心理学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>专利申请和文件撰写</title>
+    <url>/2020/04/06/%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%92%8C%E6%96%87%E4%BB%B6%E6%92%B0%E5%86%99/</url>
+    <content><![CDATA[<h1 id="专利申请文件"><a href="#专利申请文件" class="headerlink" title="专利申请文件"></a>专利申请文件</h1><h2 id="1-文件构成"><a href="#1-文件构成" class="headerlink" title="1.文件构成"></a>1.文件构成</h2><p>对于专利发明和实用新型需要包括</p>
+<a id="more"></a>
+<ul>
+<li>请求书</li>
+<li>权利要求书</li>
+<li>说明书</li>
+<li>说明书附图</li>
+<li>摘要</li>
+</ul>
+<p>对于外观设计专利需要包括</p>
+<ul>
+<li>请求书</li>
+<li>外观设计的图片和照片</li>
+<li>简要说明</li>
+</ul>
+<h3 id="1-1请求书"><a href="#1-1请求书" class="headerlink" title="1.1请求书"></a>1.1请求书</h3><h3 id="1-2说明书"><a href="#1-2说明书" class="headerlink" title="1.2说明书"></a>1.2说明书</h3><p>说明书是专利申请文件的核心，是权利要求书的依据，为权利要求书提供解释</p>
+<h3 id="1-3权利要求书"><a href="#1-3权利要求书" class="headerlink" title="1.3权利要求书"></a>1.3权利要求书</h3><p>权利要求书分为两类</p>
+<ul>
+<li>产品权利要求书</li>
+<li>方法权利要求书</li>
+</ul>
+<p>撰写中权利要求书中使用的科技术语应当与说明书中使用的一致，可以有化学式或数学式， 必要时可以有表格，但不得有插图。不得使用“如说明书……部分所述”或者“如图……所示”等用语。</p>
+<p>权利要求的概念：</p>
+<ol>
+<li>并列独立权利<br>并列独立权利要求:产品、制造产品的方法，产品的用途，制造产品的设备;方法，为该方法设计 的设备。与产品描述是相互独立、并列的。可以理解为权利要求分成总分(并列独立权利)分(从属权利 要求)结构。例(沿用之前铅笔的例子):一种如权利要求 1 所述铅笔的加工方法，其特征在于:在加工过 程中在铅笔的末端固定一个橡皮。</li>
+<li>独立权利<br>独立权利要求:独立权利要求从总体上体现发明构思，保护范围最大。解决问题的不可缺少的技术特征、相对于现有技术具有新颖性和创造性。可以通过列写出发明所有的技术 特征，删去非必要技术特征、与发明不相干的特征实现。</li>
+<li>从属权利<br>从属权利要求:为独立权利 要求做限定的、附加的技术特征，构建多层保护体系。示例:根据权利要求 1 所属的汽车，其特征在于， 所述合金材料为不锈钢<h4 id="1-3-1产品权利要求书"><a href="#1-3-1产品权利要求书" class="headerlink" title="1.3.1产品权利要求书"></a>1.3.1产品权利要求书</h4>包括：物品、物质、材料、工具、 装置、设备等<br>产品权利要求需要说明产品的技术特征:零件、元器件、部件、材料、器具、设备的形状、结构尺寸; 产品元素、含量等等。示例:一种汽车，包括底盘，其特征在于底盘由合金材料制成。<h4 id="1-3-2方法权利要求书"><a href="#1-3-2方法权利要求书" class="headerlink" title="1.3.2方法权利要求书"></a>1.3.2方法权利要求书</h4>包括制造方法，使用方法，通讯方法，处理方法，将产品适用于特定用途 的方法</li>
+</ol>
+<h2 id="撰写"><a href="#撰写" class="headerlink" title="撰写"></a>撰写</h2><h3 id="权利要求书的撰写"><a href="#权利要求书的撰写" class="headerlink" title="权利要求书的撰写"></a>权利要求书的撰写</h3><p>权利要求撰写步骤</p>
+<ol>
+<li>找出主要特征，弄清关系、作用;</li>
+<li>根据现有特征确定必要技术特征;</li>
+<li>比较现有技术找到共同必要技术和特征;</li>
+<li>分析附加技术特征，将附加技术特征写入从权。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>专利申请</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>心理学导论——知觉</title>
+    <url>/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E7%9F%A5%E8%A7%89/</url>
+    <content><![CDATA[<h1 id="心理学导论——知觉"><a href="#心理学导论——知觉" class="headerlink" title="心理学导论——知觉"></a>心理学导论——知觉</h1><h4 id="1-知觉的恒常性"><a href="#1-知觉的恒常性" class="headerlink" title="1. 知觉的恒常性"></a>1. 知觉的恒常性</h4><p>知觉有：大小恒常性、形状恒常性、亮度恒常性</p>
+<h4 id="2-知觉的组织性"><a href="#2-知觉的组织性" class="headerlink" title="2. 知觉的组织性"></a>2. 知觉的组织性</h4><p>人们按照格式塔原则进行知觉组织，原则包含一下规则：</p>
+<a id="more"></a>
+<ul>
+<li>邻近原则</li>
+<li>相似性原则</li>
+<li>连续性原则</li>
+<li>闭合原则</li>
+<li>接近原则</li>
+<li>同域原则</li>
+</ul>
+<p>利用与工程设计中，好的设计应该符合人的自然知觉</p>
+<h4 id="3-深度知觉"><a href="#3-深度知觉" class="headerlink" title="3.深度知觉"></a>3.深度知觉</h4><p>深度知觉是指可以感受图像中物体深度的能力，对其是否先天具有，不同心理学家有不同观点，普遍认为，深度知觉有后天习得也有先天基础。4个月大的婴儿逐渐出现有深度感知。</p>
+<h5 id="成年人的深度知觉"><a href="#成年人的深度知觉" class="headerlink" title="成年人的深度知觉"></a>成年人的深度知觉</h5><p>人们通过包括环境特征和内部肌肉消息判断深度。按参与的眼睛数量不同线索分为单眼线索和双眼线索。</p>
+<ul>
+<li>肌肉线索：来自肌体内部，比如晶状体的调节，在1.2米内晶状体的弯曲聚焦，使之弯曲的肌肉的感觉会被传递大大脑中帮助判断，这种调节属于单眼线索</li>
+<li>辐合：来自肌体，在15米外，双眼必须向内汇聚以对准物体，这种调节是双眼调节</li>
+<li>立体视觉：利用视网膜像差</li>
+</ul>
+<p>可以通过人为线索使人有深度感，立体感，这种图形深度线索包括</p>
+<ul>
+<li>线条透视</li>
+<li>相对大小</li>
+<li>图中位置</li>
+<li>阴影</li>
+<li>遮挡</li>
+<li>纹理梯度</li>
+<li>空气透视</li>
+<li>运动视差（严格来说不算图像深度线索，但是会引起深度知觉）</li>
+</ul>
+<h4 id="4-知觉学习"><a href="#4-知觉学习" class="headerlink" title="4.知觉学习"></a>4.知觉学习</h4><p>知觉习惯：习得因素对知觉的影响很大，人们有一定的知觉习惯，比如看倒立的脸人们就不能很好的组织人脸。很多视错觉便是基于人们的知觉习惯出现的。<br>适应水平：刺激所在的环境背景也会影响知觉，这种背景可以是类似与经验一样的东西。<br>错觉：可能原因是基于人们在生活中的各种常识和知觉习惯，还有恒常性等等。</p>
+<h4 id="5-知觉与动机"><a href="#5-知觉与动机" class="headerlink" title="5.知觉与动机"></a>5.知觉与动机</h4><p>注意：在许多的感觉中，人们会选择其中一部分作知觉感受，这种选择性使人们从感觉到知觉的通道狭窄。<br>某些刺激更容易引起人们的注意：</p>
+<ul>
+<li>强度</li>
+<li>重复</li>
+<li>变化</li>
+</ul>
+<p>习惯化：接受某信息后产生的反应，为定向反应，多次刺激后，定向反应会减弱。（逐渐不敏感）（对于创造力强的人，习惯化速度往往比别人慢）<br>（禅宗大师没有表现出对刺激的习惯化）<br>动机：想什么就会注意什么</p>
+<h4 id="6-期望性知觉"><a href="#6-期望性知觉" class="headerlink" title="6.期望性知觉"></a>6.期望性知觉</h4><p>人的知觉有自上而下的组织或自下而上的组织<br>知觉定势：由于外界因素是人用一种特定的方式进行感知，形成知觉期望，人的知觉有可能被期望所改变。知觉期望经常是通过暗示形成的。<br>类别定势：比如看错形近字<br>人的知觉有很大程度上会被期望影响，眼见不一定为实。</p>
+<h4 id="去习惯化"><a href="#去习惯化" class="headerlink" title="去习惯化"></a>去习惯化</h4><ul>
+<li>知觉不是事实，是重组后的事实（严谨性）</li>
+<li>打破知觉习惯，不受习惯化影响（换一换角度）</li>
+<li>有意识的调整适应水平（多试试不同的东西）</li>
+<li>克服知觉定势（独立化）</li>
+<li>养成不断检验准确性的习惯（严谨性）</li>
+<li>注意（集中注意力）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>心理学</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>心理学</tag>
+      </tags>
   </entry>
 </search>
