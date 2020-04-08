@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="微机原理——51单片机简介单片机是单片微型计算机的简称，是典型的嵌入式微控制器。由运算器、控制器、存储器、输入输出设备构成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机基础">
+<meta property="og:url" content="http://yoursite.com/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="WxyIce">
+<meta property="og:description" content="微机原理——51单片机简介单片机是单片微型计算机的简称，是典型的嵌入式微控制器。由运算器、控制器、存储器、输入输出设备构成。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-07T08:43:39.000Z">
+<meta property="article:modified_time" content="2020-04-08T14:49:53.184Z">
+<meta property="article:author" content="wxyice">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>51单片机基础 | WxyIce</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WxyIce</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">蜗牛的成长日记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">8</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wxyice">
+      <meta itemprop="description" content="慢慢慢爬～">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WxyIce">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          51单片机基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-07 16:43:39" itemprop="dateCreated datePublished" datetime="2020-04-07T16:43:39+08:00">2020-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-08 22:49:53" itemprop="dateModified" datetime="2020-04-08T22:49:53+08:00">2020-04-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">单片机</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="微机原理——51单片机"><a href="#微机原理——51单片机" class="headerlink" title="微机原理——51单片机"></a>微机原理——51单片机</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>单片机是单片微型计算机的简称，是典型的嵌入式微控制器。由运算器、控制器、存储器、输入输出设备构成。</p>
+<a id="more"></a>
+<p>单片机具有以下特点</p>
+<ol>
+<li>体积小、使用灵活、成本低、易于产业化</li>
+<li>可靠性好，适应温度范围宽</li>
+<li>易扩展</li>
+<li>系统内无监控或系统管理程序<h3 id="1-1-数制"><a href="#1-1-数制" class="headerlink" title="1.1 数制"></a>1.1 数制</h3><h4 id="1-1-1-二进制、十六进制"><a href="#1-1-1-二进制、十六进制" class="headerlink" title="1.1.1 二进制、十六进制"></a>1.1.1 二进制、十六进制</h4>以2为基数的数制叫二进制，后缀用B表示，例如1000 1001B<br>以16为基数的数制叫十六进制，后缀用H表示，如果第一个数字是字母要加前缀0，例如：0AAH，19H<h4 id="1-1-2-一般进制转十进制"><a href="#1-1-2-一般进制转十进制" class="headerlink" title="1.1.2 一般进制转十进制"></a>1.1.2 一般进制转十进制</h4>利用以下公式：<br>$$ N=\sum_{i=-m}^{n=1} X_i*j^i$$<br>N表示十进制的值，Xi表示第i位系数，j表示数制的基数，$j^i$表示第i位的权<h4 id="1-1-3-二进制转十六进制"><a href="#1-1-3-二进制转十六进制" class="headerlink" title="1.1.3 二进制转十六进制"></a>1.1.3 二进制转十六进制</h4>每4位二进制转1位十六进制，例如：0010 1111B=2FH<h3 id="1-2-码制"><a href="#1-2-码制" class="headerlink" title="1.2 码制"></a>1.2 码制</h3>在计算机中有三种码，分别是原码，反码与补码。<br>存储在计算机中的数，一字节有8位，分为有符号数和无符号数，对于有符号数，在计算机中约定，最高位1表示负数，0表示正数，引入反码补码可以将减法变为加法，从而减轻电子电路的设计工作。<h3 id="1-2-1-反码补码的计算"><a href="#1-2-1-反码补码的计算" class="headerlink" title="1.2.1 反码补码的计算"></a>1.2.1 反码补码的计算</h3>对于一个正数，它的反码和补码等于它的原码<br>对于一个负数，它的反码等于这个数非符号位取反加符号位，它的补码等于反码加一<br>通过补码进行的计算，计算结果依旧是补码</li>
+</ol>
+<h3 id="1-2-2-BCD码"><a href="#1-2-2-BCD码" class="headerlink" title="1.2.2 BCD码"></a>1.2.2 BCD码</h3><p>就是只用0-9的二进制位表示，对于1010，1011，1100，1101，1110，1111这6个编码不用。<br>这样更加直观的表示，也节省硬件电路的转换时间。</p>
+<h3 id="1-2-3-ASCII码"><a href="#1-2-3-ASCII码" class="headerlink" title="1.2.3 ASCII码"></a>1.2.3 ASCII码</h3><p>ASCII用7位二进制来表示，可以分为高3位组和低4位组，分别表示符号的列序和行序。</p>
+<h2 id="结构及工作原理"><a href="#结构及工作原理" class="headerlink" title="结构及工作原理"></a>结构及工作原理</h2><p>MSC-51系列单片机为例</p>
+<h3 id="2-1-内部部件"><a href="#2-1-内部部件" class="headerlink" title="2.1 内部部件"></a>2.1 内部部件</h3><p>51单片机内部结构包括：</p>
+<ol>
+<li>CPU<ol>
+<li>运算器：包括ALU、布尔处理器、累加器ACC、寄存器B、暂存器TMP1、TMP2、程序状态字PSW，十进制调整电路</li>
+<li>控制器</li>
+</ol>
+</li>
+<li>内部存储器<ol>
+<li>ROM：程序存储器，是只读存储器</li>
+<li>RAM：数据存储器，随机存储器，又分为片内和片外。其中片内只有256B可用，其中高128B作为专用存储器，用户可用存储器只有128B。</li>
+</ol>
+</li>
+<li>定时器：MCS-51有两个16位的定时器/计数器</li>
+<li>中断系统控制器：有5个中断源，2个外部中断，定时中断2个，串行口中断1个</li>
+<li>并行I/O口：有4个并行的8位I/O口，P0，P1，P2，P3</li>
+<li>全双工串行口</li>
+<li>OSC：是指单片机的时钟电路，一般典型的工作频率是6MHz和12MHz<h3 id="2-2-管脚作用"><a href="#2-2-管脚作用" class="headerlink" title="2.2 管脚作用"></a>2.2 管脚作用</h3><h3 id="2-3-不同结构"><a href="#2-3-不同结构" class="headerlink" title="2.3 不同结构"></a>2.3 不同结构</h3></li>
+<li>哈佛结构</li>
+<li>冯·诺伊曼结构</li>
+</ol>
+<h3 id="2-4-存储器编码逻辑"><a href="#2-4-存储器编码逻辑" class="headerlink" title="2.4 存储器编码逻辑"></a>2.4 存储器编码逻辑</h3><h4 id="2-4-1-程序存储器ROM"><a href="#2-4-1-程序存储器ROM" class="headerlink" title="2.4.1 程序存储器ROM"></a>2.4.1 程序存储器ROM</h4><p>有内部存储器4k，一般不需要外部ROM，编码也是直接从内部到外部，没用中间跳跃。</p>
+<h4 id="2-4-2-数据存储器RAM"><a href="#2-4-2-数据存储器RAM" class="headerlink" title="2.4.2 数据存储器RAM"></a>2.4.2 数据存储器RAM</h4><p>80C51有256B的RAM，其中128B是特殊分别寄存器(SFR)，剩下的128B又分为三个部分，工作寄存器（32个字节，4组不同的工作寄存器，00H-1FH），位寻址区（16字节，20H-2FH，128位，后面128位用在SFR上了），开放区（80字节，30H-7FH）</p>
+<h4 id="2-4-3-时钟与时序"><a href="#2-4-3-时钟与时序" class="headerlink" title="2.4.3 时钟与时序"></a>2.4.3 时钟与时序</h4><ol>
+<li>振荡周期：晶体振动一次的时间</li>
+<li>状态周期：两个振荡周期等一一个状态周期</li>
+<li>机器周期：每6个状态周期一个机器周期</li>
+<li>指令周期：1～4个机器周期（没有3机器周期的指令）</li>
+</ol>
+<h2 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h2><h3 id="3-1-指令系统基础"><a href="#3-1-指令系统基础" class="headerlink" title="3.1 指令系统基础"></a>3.1 指令系统基础</h3><p>机器语言-汇编-高级语言<br>全部指令的集合叫指令系统<br>80C51有111条指令，还有8条伪指令<br>指令分类：</p>
+<ul>
+<li>字节数分类<ul>
+<li>单字节49 双字节46 三字节16</li>
+</ul>
+</li>
+<li>运算数度分类<br>  -单周期64 双45 四周期2</li>
+<li>功能<ul>
+<li>数据传输 29</li>
+<li>算数运算 24</li>
+<li>逻辑运算 24</li>
+<li>控制转移 17</li>
+<li>布尔操作 17</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-1-指令格式"><a href="#3-1-1-指令格式" class="headerlink" title="3.1.1 指令格式"></a>3.1.1 指令格式</h4><p>标号:操作码 &lt;&gt;,&lt;&gt;,&lt;&gt;;<br>操作数之间要有逗号<br>操作码：指令<br>标号是一个地址，指向程序的</p>
+<h4 id="3-1-2-通用符号"><a href="#3-1-2-通用符号" class="headerlink" title="3.1.2 通用符号"></a>3.1.2 通用符号</h4><p>Rn 当前寄存器中的8个工作寄存器<br>Ri （i=0，1）可用作地址指针的2个<br>#data 包含在指令中的8位常数，无#是地址<br>#data16 16位常数<br>direct RAM中的地址<br>addr16 16位的目的地址，用于LCALL和LJMP中<br>rel 相对地址，也指标号<br>bit 位寻址的地址<br>@ 间接寻址方式中用于表示间址寄存器</p>
+<h3 id="3-2-寻址方式"><a href="#3-2-寻址方式" class="headerlink" title="3.2 寻址方式"></a>3.2 寻址方式</h3><ol>
+<li>立即寻址<br> 指令中有一个操作数为常数，能直接参与操作称为“立即数”<br> 在指令中，带#表示立即数，不带的表示位置</li>
+<li>直接寻址<br> 指令中直接给出操作数的地址（）表示取地址中的数据</li>
+<li>寄存器寻址<br> 指令当中的操作数在特殊寄存器，或工作寄存器中</li>
+<li>寄存器间接寻址<br> 指令中的操作数的地址在寄存器中，寄存器前要加@符号<br> 可以作为间址寄存器的只有R0、R1、DPTR（16位的，对外扩展存贮器，只能用这玩意）（堆栈操作除外，SP）<br> e·g：<code>MOV A，@R0</code></li>
+<li>变址寻址<br> 以16位寄存器PC或DPTR为基址寄存器，A为变址寄存器，将两者之和作为操作数的地址，（三条指令，都是ROM的地址）<br> <code>MOVC A，@A+PC；</code><br> <code>MOVC A，@A+DPTR；</code><br> <code>JMP @A+DPTR</code></li>
+<li>相对寻址<br> 针对PC，在PC上的基础上给出额外的偏移量，用于短转移指令和条件转移指令。<br> <code>JC 03H</code></li>
+<li>位寻址<br>直接按位寻址，例如<code>acc.7</code></li>
+</ol>
+<h3 id="3-3-数据传送指令"><a href="#3-3-数据传送指令" class="headerlink" title="3.3 数据传送指令"></a>3.3 数据传送指令</h3><ol>
+<li>内部数据传送指令MOV<br>MOV&lt;目的操作数&gt;,&lt;源操作数&gt;<ul>
+<li>以累加器A为目的的操作数的数据传送指令<ul>
+<li><code>MOV A,#data;</code></li>
+<li><code>MOV A,Direct;</code>寄存器地址或者I/O口的</li>
+<li><code>MOV A,Rn;</code></li>
+<li><code>MOV A,@Ri;</code></li>
+</ul>
+</li>
+<li>以寄存器Rn为目的操作室的数据传送指令<ul>
+<li>不可以MOV Rn,Rn;</li>
+<li>其余和A寄存器指令类似</li>
+</ul>
+</li>
+<li>以RAM或端口直接地址为目的操作数的数据传送指令<ul>
+<li><code>MOV direct,A;</code></li>
+<li><code>MOV direct,Rn;</code></li>
+<li><code>MOV direct,#data;</code></li>
+<li><code>MOV direct1,direct2;</code>这句很特殊，机器码是先放direct2（机器码是逆序）</li>
+<li><code>MOV direct,@Ri;</code></li>
+</ul>
+</li>
+<li>以间接地址为目的操作数的数据传输指令<ul>
+<li><code>MOV @Ri,A;</code></li>
+<li><code>MOV @Ri,direct;</code></li>
+<li><code>MOV @Ri,#data;</code></li>
+</ul>
+</li>
+<li>16位数据传输指令<ul>
+<li><code>MOV DPTR,#data16;</code>是一个片内操作，唯一一条16位</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查表指令MOVC(针对程序存储器ROM)<br>MOVC&lt;目的操作&gt;,&lt;源操作数&gt;；MOV CODE<ul>
+<li><code>MOVC A,@A+PC;</code>变址寻址</li>
+<li><code>MOVC A,@A+DPTR;</code>变址寻址</li>
+</ul>
+</li>
+<li>片外数据传送MOVX（片外RAM只能通过间接寻址）<br>MOVX&lt;目的操作数&gt;&lt;源操作数&gt;;<ul>
+<li><code>MOVX A,@DPTR;</code>16位，数据8位（外面到里面）</li>
+<li><code>MOVX @DPTR,A;</code>片外寻址范围64KB（里面到外面）</li>
+<li><code>MOVX A,@Ri;</code></li>
+<li><code>MOVX @Ri,A;</code></li>
+</ul>
+</li>
+<li>堆栈操作数<br>堆栈的工作原理：后入先出原则。实际的堆栈是一种逻辑运用<br>有一个SP（stack point）的指针SFR中的8位寄存器，里面的地址指向栈顶，最后入堆栈的数据。复位上电后SP默认指向07H<ul>
+<li><code>MOV SP,#6FH;</code>设置堆栈从70H开始区域最低地址减一</li>
+<li><code>PUSH direct；</code>ACC是A的地址；</li>
+<li><code>POP direct；</code></li>
+</ul>
+</li>
+<li>数据交换指令<ul>
+<li><code>XCH A,Rn;</code></li>
+<li><code>XCH A,direct;</code></li>
+<li><code>XCH A,@Ri;</code></li>
+<li><code>XCHD A,@Ri;</code>换低四位</li>
+<li><code>SWAP A;</code>A的低高4位互换</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-4-算数运算指令"><a href="#3-4-算数运算指令" class="headerlink" title="3.4 算数运算指令"></a>3.4 算数运算指令</h3><p>这类指令主要是对8位数进行加减乘除，除了加一减一指令，运算结果将影响PSW的标志位CY，AC，OV</p>
+<h4 id="3-4-1-加法指令"><a href="#3-4-1-加法指令" class="headerlink" title="3.4.1 加法指令"></a>3.4.1 加法指令</h4><p>ADD，ADDC，INC</p>
+<ol>
+<li>不带进位的加法指令ADD，累加器A与操作数相加，相加结果只能放在累加器A中<ul>
+<li><code>ADD A,RN;</code></li>
+<li><code>ADD A,direct;</code></li>
+<li><code>ADD A,@Ri;</code></li>
+<li><code>ADD A,#data;</code><br>注意：有符号数加数或被加数为负数时，需要放置该负数的补码；结果为负数时，A中为该负数的结果的补码<br>8位无符号数（0～255），8位有符号数（-128～+127）（因为10000001是-127的补码，所约定10000000是-128，00000000是0，状态一直都是256的状态）<br>/无符号数用CY=1表示和溢出（把CY看成第九位）<br>\有符号数用OV=1表示和溢出<br>/若bit7和bit6有且仅有一位进位，OV=1，否则OV=0<br>\若bit3有进位，AC=1，反正AC=0（压缩BCD码）</li>
+</ul>
+</li>
+<li>带进位的加法指令ADDC累加A与操作数以及CY相加<ul>
+<li><code>ADDC A,Rn;</code></li>
+<li><code>ADDC A,direct;</code></li>
+<li><code>ADDC A,@Ri;</code></li>
+<li><code>ADDC A,#data;</code><br>可以用来做多字节相加</li>
+</ul>
+</li>
+<li>自加1的指令INC（不影响标志位）<ul>
+<li><code>INC A;</code></li>
+<li><code>INC Rn;</code></li>
+<li><code>INC direct;</code></li>
+<li><code>INC @Ri;</code></li>
+<li><code>INC DPTR;</code>有进位自己会处理<br>数据首部是字母要加一个0表示是数不是变量<br>单片机做的运算和有符号数无符号数无关，这是程序员来处理的</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-4-2-减法指令"><a href="#3-4-2-减法指令" class="headerlink" title="3.4.2 减法指令"></a>3.4.2 减法指令</h4><p>SUBB DEC</p>
+<ol>
+<li>带借位的减法 A与操作数相减，再减CY<ul>
+<li><code>SUBB A,Rn;</code></li>
+<li><code>SUBB A,direct;</code></li>
+<li><code>SUBB A,@Ri;</code></li>
+<li><code>SUBB A,#data;</code><br>bit7借位CY=1<br>bit3有借位AC=1<br>bit7bit6有且只有一位借位，OV=1</li>
+</ul>
+</li>
+<li>自减1指令DEC不影响标志位<ul>
+<li><code>DEC A;</code></li>
+<li><code>DEC Rn;</code></li>
+<li><code>DEC direct;</code></li>
+<li><code>DEC @Rn;</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="3-4-3-乘法"><a href="#3-4-3-乘法" class="headerlink" title="3.4.3 乘法"></a>3.4.3 乘法</h4><ul>
+<li><code>MUL AB；</code>A&lt;-AxB低八位，B&lt;-AxB高八位<br>只对于累加器A和B寄存器的无符号数<br>运算结果两个字节，低位放在A中，高位存在B中<br>运算结果大于00FFH，OV=1，否则OV=0。CY一定被清零，不影响AC<br>只占一个字节，速度是4个机器周期<h4 id="3-4-4-除法"><a href="#3-4-4-除法" class="headerlink" title="3.4.4 除法"></a>3.4.4 除法</h4></li>
+<li><code>DIV AB;</code>A/B，A中是商，B中是余数<br>B=0 OV=1，否则OV等于0，CY一定被清零，不影响AC</li>
+</ul>
+<h4 id="3-4-5-十进制调整指令"><a href="#3-4-5-十进制调整指令" class="headerlink" title="3.4.5 十进制调整指令"></a>3.4.5 十进制调整指令</h4><ul>
+<li><code>DA A；</code><br>若A的低四位&gt;9或AC=1，则A+06H<br>若A的高四位&gt;9或CY=1，则A+60H<br>只用于压缩BCD码加法运算后的调整<br>指令用在ADD和ADDC后不影响标志位，<br>不可以在SUBB后用</li>
+</ul>
+<h3 id="3-5-逻辑操作指令"><a href="#3-5-逻辑操作指令" class="headerlink" title="3.5 逻辑操作指令"></a>3.5 逻辑操作指令</h3><p>与、或、异或、清除、移位、取反，操作不影响标志位</p>
+<ol>
+<li>与<ul>
+<li><code>ANL A,Rn;</code></li>
+<li><code>ANL A,direct;</code></li>
+<li><code>ANL A,@Ri;</code></li>
+<li><code>ANL A,#data;</code></li>
+<li><code>ANL direct,A;</code></li>
+<li><code>ANL direct,#data;</code></li>
+</ul>
+</li>
+<li>或<ul>
+<li><code>ORL A,Rn;</code></li>
+<li><code>ORL A,direct;</code></li>
+<li><code>ORL A,@Ri;</code></li>
+<li><code>ORL A,#data;</code></li>
+<li><code>ORL direct,A;</code></li>
+<li><code>ORL direct,#data;</code></li>
+</ul>
+</li>
+<li>异或<ul>
+<li><code>XRL A,Rn;</code></li>
+<li><code>XRL A,direct;</code></li>
+<li><code>XRL A,@Ri;</code></li>
+<li><code>XRL A,#data;</code></li>
+<li><code>XRL direct,A;</code></li>
+<li><code>XRL direct,#data;</code></li>
+</ul>
+</li>
+<li>取反、清零<ul>
+<li><code>CPL A;</code>取反</li>
+<li><code>CLR A;</code>清零</li>
+</ul>
+</li>
+<li>循环移位指令<ul>
+<li><code>RL A;</code>累加器A左移位，乘2</li>
+<li><code>RR A;</code>累加器A右移位，除以2</li>
+<li><code>RLC A;</code>累加A带进位左移位，借助多字节的整体左移位</li>
+<li><code>RRC A;</code>累加A带进位右移位</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-6-控制转移指令"><a href="#3-6-控制转移指令" class="headerlink" title="3.6 控制转移指令"></a>3.6 控制转移指令</h3><p>该类指令控制PC</p>
+<ol>
+<li>无条件转移指令<ul>
+<li><code>LJMP addr16;</code>长转移 PC指向addr16 实现64K范围内程序转移</li>
+<li><code>AJMP addr11;</code>绝对转移，双字节指令，指令取出后PC+2，之后PC高5位不变，低11位被addr11覆盖（2K范围，基于AJMP执行后的PC+2）</li>
+<li><code>SJMP rel;</code>相对转移，双字节，相对于指令执行之前的PC，执行后PC=PC+2+rel。rel是有符号数，范围-128+～128</li>
+</ul>
+</li>
+<li>条件转移<ul>
+<li><code>JN rel;</code>A=0</li>
+<li><code>JNZ rel;</code>A!=0</li>
+<li><code>CJNE A,direct,rel;</code>jump if not equal，操作数1&gt;=操作数2 CY=0，反之CY=1</li>
+<li><code>CJNE A,#data,rel</code></li>
+<li><code>CJNE Rn,#data,rel</code></li>
+<li><code>CJNE @Ri,#data,rel</code></li>
+<li><code>DJNZ Rn,rel;</code>不影响标志位</li>
+<li><code>DJNZ direct,rel</code></li>
+</ul>
+</li>
+<li>间接转移指令<ul>
+<li><code>JMP @A+DPTR</code></li>
+</ul>
+</li>
+<li>子程序调用及返回指令<ul>
+<li><code>LCALL addr16;</code>PC=PC+3 PC所指的16位地址入栈 同时堆栈指针SP=SP+2</li>
+<li><code>ACALL addr11;</code></li>
+<li><code>RET；</code>子程序返回指令。用于子程序的末尾</li>
+<li><code>RETI;</code>中断服务子程序返回指令，中断不是设定的，是事件触发，外部0，1，timer0，1，串口通信 5个中断地址0000H，0003H，000BH，00013H，001BH，0023H</li>
+</ul>
+</li>
+<li>空操作指令<ul>
+<li><code>NOP；</code>消耗一个周期</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-7-位操作指令"><a href="#3-7-位操作指令" class="headerlink" title="3.7 位操作指令"></a>3.7 位操作指令</h3><p>包括位传送、位逻辑运算、位控制<br>位地址的表达防方式</p>
+<ol>
+<li>直接使用位地址，范围00H～FFH 前128个在20H～2FH，高128在SFR</li>
+<li>字节**<em>.</em>位序号可访问，如PSW。5、P0.7 20H.7，acc.7</li>
+</ol>
+<p>位操作指令</p>
+<ol>
+<li>位数据传送<ul>
+<li><code>MOV C,bit;</code>C是CY，有点像A</li>
+<li><code>MOV bit,C;</code>把c移入bit</li>
+</ul>
+</li>
+<li>位修改指令<ul>
+<li><code>CLR C</code> 设置CY=0</li>
+<li><code>CLR bit</code></li>
+<li><code>SETB C</code>设置为1</li>
+<li><code>SETB bit</code></li>
+<li><code>CPL C</code>取反操作</li>
+<li><code>CPL bit</code></li>
+</ul>
+</li>
+<li>位的逻辑运算指令<ul>
+<li><code>ANL C,bit</code></li>
+<li><code>ANL C,/bit</code></li>
+<li><code>ORL C,bit</code></li>
+<li><code>ORL C,/bit</code></li>
+</ul>
+</li>
+<li>位转移指令<ul>
+<li><code>JC rel;</code>C=1转到rel</li>
+<li><code>JNC rel;</code>C=0转</li>
+<li><code>JB bit,rel;</code>bit=1转到rel</li>
+<li><code>JNB bit rel;</code>bit=0转到</li>
+<li><code>JBC bit,rel;</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="3-8-伪指令"><a href="#3-8-伪指令" class="headerlink" title="3.8 伪指令"></a>3.8 伪指令</h3><ul>
+<li><code>ORG</code> 改变程序存放位置</li>
+<li><code>END</code> 后的程序之后就不会被编译了</li>
+<li><code>EQU</code> 赋值伪指令  <code>X1 EQU 50H；</code>把50H命名为X1</li>
+<li><code>DB</code> 定义字节</li>
+<li><code>DW</code> 定义字，两个字节16位，低地址存放高字节，高地址存饭低字节</li>
+<li><code>BIT</code> 位地址赋值 <code>L0 BIT 10H</code>表示10H位地址命名为L0</li>
+<li><code>DATA</code> </li>
+</ul>
+<h2 id="汇编语言程序设计"><a href="#汇编语言程序设计" class="headerlink" title="汇编语言程序设计"></a>汇编语言程序设计</h2><p>利用上述指令系统完成程序的编程</p>
+<h3 id="4-1-顺序程序"><a href="#4-1-顺序程序" class="headerlink" title="4.1 顺序程序"></a>4.1 顺序程序</h3><p>正常的顺序执行代码即可</p>
+<h3 id="4-2-分支程序"><a href="#4-2-分支程序" class="headerlink" title="4.2 分支程序"></a>4.2 分支程序</h3><p>通过判断语句完成不同情况的跳转，在程序中一直都是顺序执行的，但是可以用跳转指令完成语句跳跃。</p>
+<h3 id="4-3-循环程序"><a href="#4-3-循环程序" class="headerlink" title="4.3 循环程序"></a>4.3 循环程序</h3><p>同上，用跳转指令完成跳转就可以</p>
+<h3 id="4-4-查表程序"><a href="#4-4-查表程序" class="headerlink" title="4.4 查表程序"></a>4.4 查表程序</h3><p>在ROM中先定义一些结果，单遇到对应输入的时候直接在ROM中查询结果就可以，查表程序可以用PC做为基或DPTR做为基</p>
+<h3 id="4-5-子程序"><a href="#4-5-子程序" class="headerlink" title="4.5 子程序"></a>4.5 子程序</h3><p>用LCALL和RET搭配完成子程序的调用，其原理是在SP堆栈中存入了对应指令的地址，通过压入和弹出返回原调用位置，如果不使用RET用别的跳转指令也可以实现。</p>
+<h2 id="例程"><a href="#例程" class="headerlink" title="例程"></a>例程</h2><p>方法并不惟一，有更好的方法，仅做参考。</p>
+<h4 id="把单片机片内的30H～7FH-单元清零"><a href="#把单片机片内的30H～7FH-单元清零" class="headerlink" title="把单片机片内的30H～7FH 单元清零"></a>把单片机片内的30H～7FH 单元清零</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">        ORG 0000H</span><br><span class="line">CLEAR:  MOV R0,#30H     ;30H 送R0寄存器</span><br><span class="line">        MOV R6,#50H     ;50H 送R6寄存器（用作计数器）</span><br><span class="line">CLR1:   MOV A,#18H  ;18 送累加器A</span><br><span class="line">        MOV @R0,A       ;00 送到30H-7FH 单元</span><br><span class="line">        INC R0          ;R0 加1</span><br><span class="line">        DJNZ R6,CLR1    ;不到50H个字节，继续</span><br><span class="line">WAIT:   LJMP WAIT</span><br><span class="line">        END</span><br></pre></td></tr></table></figure>
+<h4 id="片外RAM中1000H～100FH单元中的数传送到片外RAM中2000H～200FH单元"><a href="#片外RAM中1000H～100FH单元中的数传送到片外RAM中2000H～200FH单元" class="headerlink" title="片外RAM中1000H～100FH单元中的数传送到片外RAM中2000H～200FH单元"></a>片外RAM中1000H～100FH单元中的数传送到片外RAM中2000H～200FH单元</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">         ORG 0000H</span><br><span class="line">         MOV DPTR,#1000H</span><br><span class="line">         MOV R0,#40H</span><br><span class="line">MOVE1:   MOVX A,@DPTR</span><br><span class="line">         MOV @R0,A</span><br><span class="line">         INC R0</span><br><span class="line">         INC DPTR</span><br><span class="line">         CJNE R0,#50H,MOVE1</span><br><span class="line">         MOV DPTR,#2000H</span><br><span class="line">         MOV R0,#40H</span><br><span class="line">MOVE2:   MOV A,@R0</span><br><span class="line">         MOVX @DPTR,A</span><br><span class="line">         INC R0</span><br><span class="line">         INC DPTR</span><br><span class="line">         CJNE R0,#50H,MOVE2</span><br><span class="line">         END</span><br></pre></td></tr></table></figure>
+<h4 id="以PC为基址寄存器，查表求30H单元中BCD码的平方，结果存入31H单元"><a href="#以PC为基址寄存器，查表求30H单元中BCD码的平方，结果存入31H单元" class="headerlink" title="以PC为基址寄存器，查表求30H单元中BCD码的平方，结果存入31H单元"></a>以PC为基址寄存器，查表求30H单元中BCD码的平方，结果存入31H单元</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">org 0000h  </span><br><span class="line">mov a,30h</span><br><span class="line">add a,#05h</span><br><span class="line">movc a,@a+pc</span><br><span class="line">mov 31H,a</span><br><span class="line">wait: ljmp wait</span><br><span class="line">tab:db 0,1,4,9,16,25,36,49,64,81</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4 id="2字节无符号数转换成BCD码"><a href="#2字节无符号数转换成BCD码" class="headerlink" title="2字节无符号数转换成BCD码"></a>2字节无符号数转换成BCD码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">        ORG 0000H       ;get 2bit into BCD 30H,31H,6-&gt;40H,41H,42H,43H,44H,45H</span><br><span class="line">        MOV R1,#40H</span><br><span class="line">CLR1:   MOV @R1,#00H</span><br><span class="line">        INC R1</span><br><span class="line">        CJNE R1,#46H,CLR1</span><br><span class="line">        MOV R6,30H      ;count</span><br><span class="line">        MOV A,31H       ;A&#x3D;F7H</span><br><span class="line">        MOV B,#100      ;B&#x3D;100</span><br><span class="line">        DIV AB          ;A&#x2F;B A&#x3D;2,B&#x3D;47</span><br><span class="line">        MOV 42H,A       ;42H&#x3D;2</span><br><span class="line">        MOV A,B         ;A&#x3D;47</span><br><span class="line">        MOV B,#10       ;B&#x3D;10</span><br><span class="line">        DIV AB          ;A&#x2F;B A&#x3D;4,B&#x3D;7</span><br><span class="line">        MOV 41H,A       ;41H&#x3D;4</span><br><span class="line">        MOV 40H,B       ;40H&#x3D;7</span><br><span class="line">ADDEE:  MOV A,#06H      ;A&#x3D;6</span><br><span class="line">        ADD A,40H       ;A&#x3D;A+40H&#x3D;13</span><br><span class="line">        MOV B,#10       ;B&#x3D;10</span><br><span class="line">        DIV AB          ;A&#x2F;B,A&#x3D;1,B&#x3D;3</span><br><span class="line">        MOV 40H,B       ;40H&#x3D;B&#x3D;3</span><br><span class="line">        MOV 50H,A       ;50H&#x3D;1</span><br><span class="line">        MOV A,#05H      ;A&#x3D;5</span><br><span class="line">        ADD A,41H       ;A&#x3D;A+41H&#x3D;5+4&#x3D;9</span><br><span class="line">        ADD A,50H       ;A&#x3D;A+50H&#x3D;9+1&#x3D;10</span><br><span class="line">        MOV B,#10       ;B&#x3D;10</span><br><span class="line">        DIV AB          ;A&#x2F;B,A&#x3D;1,B&#x3D;0</span><br><span class="line">        MOV 41H,B       ;41H&#x3D;0</span><br><span class="line">        MOV 50H,A</span><br><span class="line">        MOV A,#02H      ;A&#x3D;2</span><br><span class="line">        MOV B,#10       ;B&#x3D;10</span><br><span class="line">        ADD A,42H       ;A&#x3D;A+42H&#x3D;2+2&#x3D;4</span><br><span class="line">        ADD A,50H       ;A&#x3D;A+50H&#x3D;4+1&#x3D;5</span><br><span class="line">        MOV B,#10</span><br><span class="line">        DIV AB          ;A&#x3D;0,B&#x3D;5</span><br><span class="line">        MOV 50H,A       ;50H&#x3D;0</span><br><span class="line">        MOV 42H,B       ;42H&#x3D;5</span><br><span class="line">        MOV R1,#43H     ;R1&#x3D;43H</span><br><span class="line">HADD:   MOV A,@R1       ;A&#x3D;(43H)</span><br><span class="line">        ADD A,50H       ;A&#x3D;A+50H</span><br><span class="line">        MOV B,#10       ;B&#x3D;10</span><br><span class="line">        DIV AB          ;A&#x2F;B</span><br><span class="line">        MOV @R1,B</span><br><span class="line">        MOV 50H,A</span><br><span class="line">        INC R1</span><br><span class="line">        CJNE R1,#46H,HADD</span><br><span class="line">        DJNZ R6,ADDEE</span><br><span class="line">WAIT:   LJMP    WAIT</span><br><span class="line">        END</span><br></pre></td></tr></table></figure>
+
+<h4 id="将一个字节中的各位逆序排列"><a href="#将一个字节中的各位逆序排列" class="headerlink" title="将一个字节中的各位逆序排列"></a>将一个字节中的各位逆序排列</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">        org 0000h       ;</span><br><span class="line">        mov 30h,#82h    ;82h&#x3D;10000010b 0100 0001b&#x3D;41h</span><br><span class="line">        mov a,30h</span><br><span class="line">        mov 31h,#00h</span><br><span class="line">        mov r3,#08h     ;count&#x3D;8</span><br><span class="line">push1:</span><br><span class="line">        mov c,acc.0     ;</span><br><span class="line">        rr a</span><br><span class="line">        mov 30h,a</span><br><span class="line">        mov a,31h</span><br><span class="line">        rlc a           ;</span><br><span class="line">        mov 31h,a</span><br><span class="line">        mov a,30h</span><br><span class="line">        djnz r3,push1</span><br><span class="line">wait:   ljmp wait       ;</span><br><span class="line">        end</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    <span title="post.wordcount">
+                  4.2k words
+                </span>
+
+  <span title="post.min2read">
+                  17 min
+                </span>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag"># 单片机</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/06/%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%92%8C%E6%96%87%E4%BB%B6%E6%92%B0%E5%86%99/" rel="prev" title="专利申请和文件撰写">
+      <i class="fa fa-chevron-left"></i> 专利申请和文件撰写
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/07/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" rel="next" title="汇编语言基础">
+      汇编语言基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
+  
+
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#微机原理——51单片机"><span class="nav-number">1.</span> <span class="nav-text">微机原理——51单片机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-数制"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 数制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-二进制、十六进制"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.1.1 二进制、十六进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2-一般进制转十进制"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">1.1.2 一般进制转十进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-二进制转十六进制"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">1.1.3 二进制转十六进制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-码制"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 码制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-反码补码的计算"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.2.1 反码补码的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-BCD码"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.2.2 BCD码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-ASCII码"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.2.3 ASCII码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构及工作原理"><span class="nav-number">1.2.</span> <span class="nav-text">结构及工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-内部部件"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 内部部件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-管脚作用"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 管脚作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-不同结构"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 不同结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-存储器编码逻辑"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 存储器编码逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-程序存储器ROM"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.4.1 程序存储器ROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-数据存储器RAM"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2.4.2 数据存储器RAM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-时钟与时序"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">2.4.3 时钟与时序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令系统"><span class="nav-number">1.3.</span> <span class="nav-text">指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-指令系统基础"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 指令系统基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-指令格式"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">3.1.1 指令格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-通用符号"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">3.1.2 通用符号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-寻址方式"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 寻址方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-数据传送指令"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 数据传送指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-算数运算指令"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 算数运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-加法指令"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">3.4.1 加法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-减法指令"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">3.4.2 减法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-3-乘法"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">3.4.3 乘法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-4-除法"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">3.4.4 除法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-5-十进制调整指令"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">3.4.5 十进制调整指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-逻辑操作指令"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5 逻辑操作指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-控制转移指令"><span class="nav-number">1.3.6.</span> <span class="nav-text">3.6 控制转移指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-位操作指令"><span class="nav-number">1.3.7.</span> <span class="nav-text">3.7 位操作指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-伪指令"><span class="nav-number">1.3.8.</span> <span class="nav-text">3.8 伪指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#汇编语言程序设计"><span class="nav-number">1.4.</span> <span class="nav-text">汇编语言程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-顺序程序"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 顺序程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-分支程序"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 分支程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-循环程序"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 循环程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-查表程序"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.4 查表程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-子程序"><span class="nav-number">1.4.5.</span> <span class="nav-text">4.5 子程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例程"><span class="nav-number">1.5.</span> <span class="nav-text">例程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#把单片机片内的30H～7FH-单元清零"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">把单片机片内的30H～7FH 单元清零</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#片外RAM中1000H～100FH单元中的数传送到片外RAM中2000H～200FH单元"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">片外RAM中1000H～100FH单元中的数传送到片外RAM中2000H～200FH单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以PC为基址寄存器，查表求30H单元中BCD码的平方，结果存入31H单元"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">以PC为基址寄存器，查表求30H单元中BCD码的平方，结果存入31H单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2字节无符号数转换成BCD码"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">2字节无符号数转换成BCD码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将一个字节中的各位逆序排列"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">将一个字节中的各位逆序排列</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wxyice"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">wxyice</p>
+  <div class="site-description" itemprop="description">慢慢慢爬～</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wxyice</span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">全站共 11.7k 字</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
