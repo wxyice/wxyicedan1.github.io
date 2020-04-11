@@ -28,7 +28,7 @@
 <meta property="og:description" content="汇编语言基础汇编语言是对机器语言的符号化标记">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-07T15:37:39.000Z">
-<meta property="article:modified_time" content="2020-04-08T15:48:30.078Z">
+<meta property="article:modified_time" content="2020-04-10T04:13:49.028Z">
 <meta property="article:author" content="wxyice">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="汇编语言">
@@ -128,17 +128,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">8</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-08 23:48:30" itemprop="dateModified" datetime="2020-04-08T23:48:30+08:00">2020-04-08</time>
+                <time title="修改时间：2020-04-10 12:13:49" itemprop="dateModified" datetime="2020-04-10T12:13:49+08:00">2020-04-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -436,16 +436,18 @@
 <h2 id="相关网站"><a href="#相关网站" class="headerlink" title="相关网站"></a>相关网站</h2><p><a href="http://bbs.pediy.com" target="_blank" rel="noopener">http://bbs.pediy.com</a><br><a href="http://www.52pojie.cn" target="_blank" rel="noopener">http://www.52pojie.cn</a><br><a href="http://forum.exetools.tom" target="_blank" rel="noopener">http://forum.exetools.tom</a><br><a href="http://www.tuts4you.com" target="_blank" rel="noopener">http://www.tuts4you.com</a><br><a href="http://www.woodmann.com/crackz" target="_blank" rel="noopener">http://www.woodmann.com/crackz</a><br><a href="http://www.masm32.com" target="_blank" rel="noopener">http://www.masm32.com</a></p>
 <h2 id="例程"><a href="#例程" class="headerlink" title="例程"></a>例程</h2><h3 id="把输入存入数组，转大写并去掉空格后输出"><a href="#把输入存入数组，转大写并去掉空格后输出" class="headerlink" title="把输入存入数组，转大写并去掉空格后输出"></a>把输入存入数组，转大写并去掉空格后输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">data segment</span><br><span class="line">s db 100 dup(0)</span><br><span class="line">t db 100 dup(0)</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">assume cs:code,ds:data</span><br><span class="line"></span><br><span class="line">main:</span><br><span class="line">    mov ax,data         </span><br><span class="line">    mov ds,ax           ;赋值段地址给ds</span><br><span class="line">    mov si,0            ;si初始设为0</span><br><span class="line">getchar:</span><br><span class="line">    mov ah,1            ;调用int21-01h指令读入一个字符到al中</span><br><span class="line">    int 21h</span><br><span class="line">    cmp al,0Dh          ;判断是不是回车</span><br><span class="line">    je getchar_done     ;是回车，跳转到getchar_done</span><br><span class="line">    mov s[si],al        ;不是回车，把al放入s数组</span><br><span class="line">    add si,1            ;si指向数组下一个</span><br><span class="line">    jmp getchar         ;循环</span><br><span class="line">getchar_done:      </span><br><span class="line">    mov al,0            ;把当前的回车改成00h</span><br><span class="line">    mov s[si],al</span><br><span class="line">outputa:                ;再完成存入s后立刻输出一个回车换行</span><br><span class="line">    mov ah,2</span><br><span class="line">    mov dl,0Dh</span><br><span class="line">    int 21h             ;输出换行</span><br><span class="line">    mov si,0            ;重新赋值si，di</span><br><span class="line">    mov di,0</span><br><span class="line">put_s_to_t:            </span><br><span class="line">    mov al,s[si]        ;将s数组中的数依次取出</span><br><span class="line">    add si,1        </span><br><span class="line">    cmp al,20h          </span><br><span class="line">    je put_s_to_t       ;若元素为空格则丢弃该元素</span><br><span class="line">    cmp al,&#39;a&#39;          ;如果ascii小于‘a&#39;，跳转al_other</span><br><span class="line">    jb al_other         ;al&lt;a</span><br><span class="line">    cmp al,&#39;z&#39;          ;如果ascii大于&#39;z&#39;，跳转al_other</span><br><span class="line">    ja al_other         ;al&gt;z</span><br><span class="line">    sub al,32           ;否则，是小写字母，ascii减32变大写保存到数组t中</span><br><span class="line">al_other:               ;元素为其它字符则原样保存到t中</span><br><span class="line">    mov t[di],al        </span><br><span class="line">    add di,1</span><br><span class="line">    cmp al,00h          ;判断是否到s的结束位置</span><br><span class="line">    jne put_s_to_t      </span><br><span class="line">    mov di,0            </span><br><span class="line">output:                 ;将t数组输出</span><br><span class="line">    mov ah,2</span><br><span class="line">    mov dl,t[di]</span><br><span class="line">    int 21h</span><br><span class="line">    add di,1</span><br><span class="line">    cmp dl,00h          </span><br><span class="line">    jne output                </span><br><span class="line">    mov ah,2            ;再次输出一个换行</span><br><span class="line">    mov dl,0Dh</span><br><span class="line">    int 21h             </span><br><span class="line">exit:</span><br><span class="line">    mov ah,4Ch</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end main</span><br></pre></td></tr></table></figure>
 
+<h3 id="在文本模式下打印ascii码表"><a href="#在文本模式下打印ascii码表" class="headerlink" title="在文本模式下打印ascii码表"></a>在文本模式下打印ascii码表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">code segment </span><br><span class="line">assume cs:code</span><br><span class="line">main:</span><br><span class="line">    mov ax,0B800h</span><br><span class="line">    mov es,ax                   ;赋值段地址为映射的显卡地址B800</span><br><span class="line">    mov al,00h                  ;当前ascii码</span><br><span class="line">    mov di,00h                  ;地址</span><br><span class="line">    mov cl,00h                  ;统计256位ascii码是否用尽</span><br><span class="line">    mov si,00h                  ;记录行开头</span><br><span class="line">    mov ch,11                   ;最多11列</span><br><span class="line">next_column:</span><br><span class="line">    mov dl,25                   ;每列25个元素，每次循环开始时赋值25</span><br><span class="line">    mov si,di                   ;把开头的di值保护在si中</span><br><span class="line">row:</span><br><span class="line">    mov byte ptr es:[di],al     ;写入ascii码</span><br><span class="line">    mov byte ptr es:[di+1],0Ch  ;写入ascii码的颜色信息</span><br><span class="line">    mov bl,al                   ;</span><br><span class="line">    mov bh,al</span><br><span class="line">    and bl,0Fh                  ;取al低4位</span><br><span class="line">    and bh,0F0h                 ;取al高4位</span><br><span class="line">    ror bh,1                    ;bh连续右移4位</span><br><span class="line">    ror bh,1</span><br><span class="line">    ror bh,1</span><br><span class="line">    ror bh,1</span><br><span class="line">highcmp:                        ;高位大于9比较</span><br><span class="line">    cmp bh,9</span><br><span class="line">    ja buchanghigh              ;大于时跳转到补偿函数</span><br><span class="line">lowcmp:</span><br><span class="line">    cmp bl,9                    ;同上，大于9时跳转到补偿函数</span><br><span class="line">    ja buchanglow</span><br><span class="line">    jmp bubuchang</span><br><span class="line">buchanghigh:                    ;补偿加7</span><br><span class="line">    add bh,7</span><br><span class="line">    jmp lowcmp</span><br><span class="line">buchanglow:                     ;补偿加7</span><br><span class="line">    add bl,7</span><br><span class="line">bubuchang:                      ;不补偿下，直接加30h变成对应数字的ascii码</span><br><span class="line">    add bl,30h</span><br><span class="line">    add bh,30h</span><br><span class="line">    mov byte ptr es:[di+2],bh   ;写入第一位</span><br><span class="line">    mov byte ptr es:[di+3],0Ah  ;写入颜色</span><br><span class="line">    mov byte ptr es:[di+4],bl   ;写入第二位</span><br><span class="line">    mov byte ptr es:[di+5],0Ah  ;写入颜色</span><br><span class="line">    add di,160                  ;开始下一行  </span><br><span class="line">    sub cl,1                    ;ascii码数减1</span><br><span class="line">    jz done                     ;如果ascii码用完，跳转到done</span><br><span class="line">    add al,1                    ;下一个ascii码</span><br><span class="line">    sub dl,1                    ;行数减1</span><br><span class="line">    jnz row                     ;循环到25行全部打印完</span><br><span class="line">    add si,14                   ;下一列开头的地址</span><br><span class="line">    mov di,si</span><br><span class="line">    sub ch,1                    ;列数减1</span><br><span class="line">    jnz next_column             ;循环，直到列数为0</span><br><span class="line">done:</span><br><span class="line">    mov ah,00h                  ;键入任意键中断</span><br><span class="line">    int 16h</span><br><span class="line">    mov ah,4Ch                  ;结束</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end main</span><br></pre></td></tr></table></figure>
+
 <p>持续更新中～</p>
 
     </div>
 
     <span title="post.wordcount">
-                  3.3k words
+                  3.7k words
                 </span>
 
   <span title="post.min2read">
-                  13 min
+                  14 min
                 </span>
 
     
@@ -467,7 +469,10 @@
     <a href="/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="prev" title="51单片机基础">
       <i class="fa fa-chevron-left"></i> 51单片机基础
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="计算机网络——概述">
+      计算机网络——概述 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -528,7 +533,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编语言基础"><span class="nav-number">1.</span> <span class="nav-text">汇编语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hello-world汇编"><span class="nav-number">1.1.</span> <span class="nav-text">hello world汇编</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">1.2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">1.2.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四则运算指令"><span class="nav-number">1.2.2.</span> <span class="nav-text">四则运算指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算指令"><span class="nav-number">1.2.3.</span> <span class="nav-text">逻辑运算指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量存储与寻址"><span class="nav-number">1.2.4.</span> <span class="nav-text">变量存储与寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ptr修饰"><span class="nav-number">1.2.5.</span> <span class="nav-text">ptr修饰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本编辑模式"><span class="nav-number">1.2.6.</span> <span class="nav-text">文本编辑模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形模式编程"><span class="nav-number">1.2.7.</span> <span class="nav-text">图形模式编程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数集"><span class="nav-number">1.3.</span> <span class="nav-text">函数集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#int-21h-函数集"><span class="nav-number">1.3.1.</span> <span class="nav-text">int 21h 函数集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-10h"><span class="nav-number">1.3.2.</span> <span class="nav-text">int 10h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-13h"><span class="nav-number">1.3.3.</span> <span class="nav-text">int 13h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-16h"><span class="nav-number">1.3.4.</span> <span class="nav-text">int 16h</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关网站"><span class="nav-number">1.4.</span> <span class="nav-text">相关网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例程"><span class="nav-number">1.5.</span> <span class="nav-text">例程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把输入存入数组，转大写并去掉空格后输出"><span class="nav-number">1.5.1.</span> <span class="nav-text">把输入存入数组，转大写并去掉空格后输出</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编语言基础"><span class="nav-number">1.</span> <span class="nav-text">汇编语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hello-world汇编"><span class="nav-number">1.1.</span> <span class="nav-text">hello world汇编</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">1.2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">1.2.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四则运算指令"><span class="nav-number">1.2.2.</span> <span class="nav-text">四则运算指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算指令"><span class="nav-number">1.2.3.</span> <span class="nav-text">逻辑运算指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量存储与寻址"><span class="nav-number">1.2.4.</span> <span class="nav-text">变量存储与寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ptr修饰"><span class="nav-number">1.2.5.</span> <span class="nav-text">ptr修饰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本编辑模式"><span class="nav-number">1.2.6.</span> <span class="nav-text">文本编辑模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形模式编程"><span class="nav-number">1.2.7.</span> <span class="nav-text">图形模式编程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数集"><span class="nav-number">1.3.</span> <span class="nav-text">函数集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#int-21h-函数集"><span class="nav-number">1.3.1.</span> <span class="nav-text">int 21h 函数集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-10h"><span class="nav-number">1.3.2.</span> <span class="nav-text">int 10h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-13h"><span class="nav-number">1.3.3.</span> <span class="nav-text">int 13h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-16h"><span class="nav-number">1.3.4.</span> <span class="nav-text">int 16h</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关网站"><span class="nav-number">1.4.</span> <span class="nav-text">相关网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例程"><span class="nav-number">1.5.</span> <span class="nav-text">例程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把输入存入数组，转大写并去掉空格后输出"><span class="nav-number">1.5.1.</span> <span class="nav-text">把输入存入数组，转大写并去掉空格后输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在文本模式下打印ascii码表"><span class="nav-number">1.5.2.</span> <span class="nav-text">在文本模式下打印ascii码表</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -544,20 +549,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -593,7 +598,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 11.7k 字</span>
+  <span class="post-count">全站共 13k 字</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
