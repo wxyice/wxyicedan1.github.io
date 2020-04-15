@@ -852,4 +852,59 @@
         <tag>汇编语言</tag>
       </tags>
   </entry>
+  <entry>
+    <title>OpenCv基础(1)</title>
+    <url>/2020/04/15/opencv/</url>
+    <content><![CDATA[<h1 id="OpenCv基础（一）"><a href="#OpenCv基础（一）" class="headerlink" title="OpenCv基础（一）"></a>OpenCv基础（一）</h1><p>Opencv是开源的跨平台计算机视觉库。它是轻量级并且高效的，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。目前版本已经迭代到opencv4.2。<br><a href="https://baike.baidu.com/item/opencv/10320623" target="_blank" rel="noopener">OpenCv 百度百科</a></p>
+<a id="more"></a>
+<h2 id="opencv-python-安装"><a href="#opencv-python-安装" class="headerlink" title="opencv python 安装"></a>opencv python 安装</h2><p>用conda下载安装相关库就可以了<br><code>conda install opencv</code><br><a href="https://opencv.org" target="_blank" rel="noopener">OpenCv官网</a></p>
+<h2 id="opencv-python的使用基础"><a href="#opencv-python的使用基础" class="headerlink" title="opencv python的使用基础"></a>opencv python的使用基础</h2><p>在使用使，需要import相关库，之后的代码默认已经有</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matlabplot           <span class="comment">#数据处理，matlab绘图接口库</span></span><br></pre></td></tr></table></figure>
+<p><strong>怎么读取并显示一张图片</strong><br>使用imread和imshow</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#读取图片</span></span><br><span class="line">img=cv2.imread(<span class="string">"img_path"</span>,<span class="number">0</span>)  <span class="comment">#文件路径，读取img,0是读取方式，表示读取灰度图像</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">cv2.imshow(<span class="string">'image'</span>,img)     <span class="comment">#‘image’是窗口名，输出img</span></span><br><span class="line"><span class="comment">#等价的显示方法</span></span><br><span class="line">plt.imshow(img, cmap = <span class="string">'gray'</span>, interpolation = <span class="string">'bicubic'</span>)<span class="comment">#以灰度图像显示图片</span></span><br><span class="line">plt.xticks([]), plt.yticks([]) <span class="comment">#隐藏x,y轴</span></span><br><span class="line">plt.show()                     <span class="comment">#显示图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">cv2.imwrite(<span class="string">"img.jpg"</span>,img)</span><br></pre></td></tr></table></figure>
+
+<p><strong>怎么读取视屏</strong><br>在opencv中，视频也是一帧一帧被读取的，称为视频流。代码如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建了一个cap视频流</span></span><br><span class="line">cap = cv2.VideoCapture(<span class="number">0</span>)<span class="comment">#- 0 本机摄像头- 1 外接摄像头</span></span><br><span class="line"><span class="comment">#修改视频流参数</span></span><br><span class="line">cap.get(propId) <span class="comment">#读取参数</span></span><br><span class="line">    <span class="comment">#其中propId=3表示每一帧高</span></span><br><span class="line">    <span class="comment">#其中propId=4表示每一帧高</span></span><br><span class="line">cap.set(propId,value) <span class="comment">#修改参数</span></span><br><span class="line"><span class="comment">#视频流初始化</span></span><br><span class="line"><span class="comment">#cap.isOpened()</span></span><br><span class="line">cap.read()</span><br><span class="line"><span class="comment">#保存视频流</span></span><br><span class="line">fourcc = cv2.cv.FOURCC(*<span class="string">'XVID'</span>) <span class="comment">#定义格式</span></span><br><span class="line">out = cv2.VideoWriter(<span class="string">'output.avi'</span>,fourcc, <span class="number">20.0</span>, (<span class="number">640</span>,<span class="number">480</span>))<span class="comment">#定义一个输出文件</span></span><br><span class="line"><span class="comment">#循环读取图片（帧）</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    ret, frame = cap.read()<span class="comment">#返回一个布尔值(True/False)</span></span><br><span class="line">    <span class="comment"># Our operations on the frame come here</span></span><br><span class="line">    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) </span><br><span class="line">    <span class="comment">#转换颜色空间* cv2.COLOR_BGR2GRAY</span></span><br><span class="line">    <span class="comment"># Display the resulting frame</span></span><br><span class="line">    cv2.imshow(<span class="string">'frame'</span>,gray) 显示视频流</span><br><span class="line">    out.write(frame)<span class="comment">#把frame写入文件，这个要放在while循环中</span></span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == ord(<span class="string">'q'</span>): <span class="comment">#表示当你按下键盘q时break</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment">#释放保存文件空间</span></span><br><span class="line">out.release()</span><br><span class="line"><span class="comment">#释放视频流</span></span><br><span class="line">cap.release()</span><br></pre></td></tr></table></figure>
+
+<h2 id="opencv的GUI特性"><a href="#opencv的GUI特性" class="headerlink" title="opencv的GUI特性"></a>opencv的GUI特性</h2><h3 id="绘图函数"><a href="#绘图函数" class="headerlink" title="绘图函数"></a>绘图函数</h3><p><strong>基本参数</strong></p>
+<ul>
+<li>img:你想要绘制图形的那幅图像。</li>
+<li>color:形状的颜色。以RGB为例，需要传入一个元组，例如:(255,0,0)代表蓝色。对于灰度图只需要传入灰度值。</li>
+<li>thickness:线条的粗细。如果给一个闭合图形设置为-1，那么这个图形就会被填充。默认值是1</li>
+<li>linetype:线条的类型，8连接，抗锯齿等。默认情况是8连接。<ul>
+<li>cv2.LINE_AA为抗锯齿，这样看起来会非常平滑</li>
+</ul>
+</li>
+</ul>
+<p><strong>函数</strong></p>
+<ul>
+<li>cv2.line() 画直线<pre><code>- 给起点终点</code></pre></li>
+<li>cv2.circle() 画圆<pre><code>- 给中心和半径</code></pre></li>
+<li>cv2.rectangle() 画矩形（感觉用的最多了）<pre><code>- 给左上和右下</code></pre></li>
+<li>cv2.ellipse()画椭圆<pre><code>- 给长轴和短轴旋转角度</code></pre></li>
+<li>cv2.putText()<ul>
+<li>文字</li>
+<li>位置</li>
+<li>字体</li>
+<li>大小</li>
+<li>颜色等属性</li>
+</ul>
+</li>
+<li>cv2.polylines() 可以被用来画很多条线</li>
+</ul>
+<h3 id="鼠标与事件"><a href="#鼠标与事件" class="headerlink" title="鼠标与事件"></a>鼠标与事件</h3><p>opencv捕获事件函数<br>    * cv2.setMouseCallback(‘image’,draw_circle)<br>    * cv2.waitKey(20)&amp;0xFF==27</p>
+<p><strong>如何查询事件</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#opencv查表</span></span><br><span class="line">events=[i <span class="keyword">for</span> i <span class="keyword">in</span> dir(cv2) <span class="keyword">if</span> <span class="string">'EVENT'</span><span class="keyword">in</span> i]</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">        - 事件查阅</span></span><br><span class="line"><span class="string">        - cv2.EVENT_LBUTTONDOWN</span></span><br><span class="line"><span class="string">        - cv2.EVENT_MOUSEMOVE</span></span><br><span class="line"><span class="string">        - cv2.EVENT_FLAG_LBUTTON</span></span><br><span class="line"><span class="string">        - cv2.EVENT_LBUTTONUP</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>计算机视觉</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>计算机视觉</tag>
+        <tag>opencv</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
 </search>
