@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>git</title>
-    <url>/2020/04/06/git/</url>
-    <content><![CDATA[<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>git是一种分布式版本控制方法。git可以高效的控制管理代码，完善恢复，帮助完成团队合作的任务。它记录的是修改记录，而不是文件。这也使的它可以在本地进行高效的版本控制，文章简单介绍git的使用方法，非常基础简单，仅供参考。</p>
-<a id="more"></a>
-
-<h2 id="创建自己的git仓库"><a href="#创建自己的git仓库" class="headerlink" title="创建自己的git仓库"></a>创建自己的git仓库</h2><p>首先要在自己的电脑上安装好git库，参考网上教程吧。可以在<a href="https://git-scm.com/" target="_blank" rel="noopener">官方网站</a>下载，安装。<br>安装好后，电脑上建立一个文件夹，从终端进入文件夹，输入代码<code>git init</code>就创建了一个git仓库。这个文件夹就被初始化成一个git仓库了。之后在这个文件夹进行的文件操作会被git所记录。</p>
-<h2 id="把东西搬到仓库里"><a href="#把东西搬到仓库里" class="headerlink" title="把东西搬到仓库里"></a>把东西搬到仓库里</h2><p>简单的说，git管理中有三个区域，分别是工作区，暂存区，储存区。这三个区并不是指切实的在硬盘上划分出来的区域，而是指某一文件的状态。工作区是对当前文件进行修改的状态，暂存区是将工作区文件的修改记录记下来，储存区就是将暂存区的许多文件打包成一个版本存下记录。</p>
-<p>用<code>git add filename</code>把文件放入暂存区，可以使用<code>git status</code>查看当前工作区和暂存区的文件内容。使用<code>git commit -m&quot;介绍&quot;</code>创建版本快照，完整的放入存储室。这样就完成了一次提交，使用<code>git log</code>就可以查看到提交情况。</p>
-<h2 id="查看自己的仓库"><a href="#查看自己的仓库" class="headerlink" title="查看自己的仓库"></a>查看自己的仓库</h2><p><code>git log</code>可以查看自己的仓库库存，可以加入<code>--pretty==oneline</code> 使显示变的亲和一些。</p>
-<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>可以使用<code>git tag&lt;name&gt;</code>对生成的版本进行打标签工作。可以用<code>git tag -d &lt;name&gt;</code>删除标签。</p>
-<p>引出分支：<code>git branch branchname</code>这样会创建一个branchname的分支。<br>查看分支：<code>git branch</code>这样可以直接查看分支。<br>切换分支：<code>git switc branchname</code><br>合并分支：<code>git merge branchname</code><br>删除分支：<code>git branch -d branchname</code></p>
-<p>当有一个版本后，git鼓励在分支上工作，等调试完了在并入主支，分支功能也是高效合作的关键功能。<br>版本回退：<code>git reset --hard HEAD^</code>表示回退到上一个版本，回退几个版本就加几个^。<br>指令记录查看：<code>git reflog</code>可以查看进行过的指令，这里可以找到被调整过的版本号。</p>
-<p>查看变化：<code>git diff HEAD -- file</code>可以查看file工作区与版本库之间的差别。</p>
-<p>撤销修改：<code>git checkout --file</code>可以撤销做的文件修改。</p>
-<h2 id="常用代码"><a href="#常用代码" class="headerlink" title="常用代码"></a>常用代码</h2><h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p>配置git用户名：<code>git config --global user.name &quot;name&quot;</code><br>配置git邮箱：<code>git config --global user.email &quot;email&quot;</code><br>查看git用户名：<code>git config --global user.name</code><br>查看git邮箱：<code>git config --global user.email</code></p>
-<p>查看全局配置：<code>git config --global --list</code><br>查看本地配置：<code>git config --local --list</code><br>查看全部配置：<code>git config --list</code><br>设置git彩色ui特性：<code>git config --global color.ui true</code>（但是我没有成功过hhh，展示不知道怎么回事）</p>
-<h3 id="管理代码类"><a href="#管理代码类" class="headerlink" title="管理代码类"></a>管理代码类</h3><p>工作区的文件加到暂存区：<code>git add filename</code><br>添加所有被tracked的文件的修改到暂存区：<code>git add -u</code><br>添加所有tracked文件修改和没修改文件和untracked文件：<code>git add -A</code><br>将当前工作区的所有文件都加入暂存区：<code>git add .</code><br>进入交互界面模式，按需添加文件到缓存区：<code>git add -i</code></p>
-<p>暂存区提交到本地仓库：<code>git commit -m</code><br>直接提交到仓库：<code>git commit -a -m</code></p>
-<p>查看git管理状态：<code>git status</code><br>修改文件名字：<code>git rm filename</code></p>
-<h3 id="调用版本、分支管理"><a href="#调用版本、分支管理" class="headerlink" title="调用版本、分支管理"></a>调用版本、分支管理</h3><p><code>git diff</code><br><code>git diff branchname</code><br><code>git diff HEAD</code><br><code>git diff id path</code><br><code>git diff --stage</code><br><code>git diff TAG</code><br><code>git diff branchA branchB</code><br>跳转到此分支：<code>git checkout -b dev</code><br>新建分支并跳转到此分支：<code>git branch dev</code><br>查看分支：<code>git checkout dev</code><br>查看分支：<code>git branch</code><br>合并分支：<code>git merge dev</code><br>回退版本：<code>git reset HEAD^</code><br>查看历史命令：<code>git reflog</code><br>回退到指定版本：<code>git reset --hard 版本号</code></p>
-<h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><p><code>git tag &lt;name&gt;</code><br><code>git tag</code><br><code>git show &lt;tagname&gt;</code><br><code>git tag -a v0.1 -m</code><br><code>git tag -l &lt;版本号&gt;</code></p>
-<h3 id="提交记录"><a href="#提交记录" class="headerlink" title="提交记录"></a>提交记录</h3><p><code>git log</code><br><code>git log -p -times</code><br><code>git log --stat</code><br><code>git log --name-only</code><br><code>git log -oneline</code><br><code>git log --graph --all --oneline</code><br><code>git log filename</code></p>
-<h3 id="远端git交互"><a href="#远端git交互" class="headerlink" title="远端git交互"></a>远端git交互</h3><p>把本地仓库代码推送到远端：<code>git push -u origin master</code><br>将远端代码下载到本地仓库：<code>git clone</code></p>
-<h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><p>GitHub是最大的代码托管中心。可以将自己的代码托管在这个网站上（简单说相当于是给自己的代码提供了一个云盘存放，当然GitHub本身其实是有很多很方便的特性）。<br>.io库，是github提供的一个服务器，相当于一个静态网页代码的托管，可以用它完成个人主页的创建，之后会有专门的文章记录我的个人主页创建过程。</p>
-<p>文章之后还会慢慢修改补充，当前只整理了这些。<br>感谢大佬的教程相助！</p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/04/05/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>51单片机基础</title>
     <url>/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="微机原理——51单片机"><a href="#微机原理——51单片机" class="headerlink" title="微机原理——51单片机"></a>微机原理——51单片机</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>单片机是单片微型计算机的简称，是典型的嵌入式微控制器。由运算器、控制器、存储器、输入输出设备构成。</p>
@@ -382,75 +329,57 @@
       </tags>
   </entry>
   <entry>
-    <title>专利申请和文件撰写</title>
-    <url>/2020/04/06/%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%92%8C%E6%96%87%E4%BB%B6%E6%92%B0%E5%86%99/</url>
-    <content><![CDATA[<h1 id="专利申请文件"><a href="#专利申请文件" class="headerlink" title="专利申请文件"></a>专利申请文件</h1><h2 id="1-文件构成"><a href="#1-文件构成" class="headerlink" title="1.文件构成"></a>1.文件构成</h2><p>对于专利发明和实用新型需要包括</p>
+    <title>git</title>
+    <url>/2020/04/06/git/</url>
+    <content><![CDATA[<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>git是一种分布式版本控制方法。git可以高效的控制管理代码，完善恢复，帮助完成团队合作的任务。它记录的是修改记录，而不是文件。这也使的它可以在本地进行高效的版本控制，文章简单介绍git的使用方法，非常基础简单，仅供参考。</p>
 <a id="more"></a>
-<ul>
-<li>请求书</li>
-<li>权利要求书</li>
-<li>说明书</li>
-<li>说明书附图</li>
-<li>摘要</li>
-</ul>
-<p>对于外观设计专利需要包括</p>
-<ul>
-<li>请求书</li>
-<li>外观设计的图片和照片</li>
-<li>简要说明</li>
-</ul>
-<h3 id="1-1请求书"><a href="#1-1请求书" class="headerlink" title="1.1请求书"></a>1.1请求书</h3><h3 id="1-2说明书"><a href="#1-2说明书" class="headerlink" title="1.2说明书"></a>1.2说明书</h3><p>说明书是专利申请文件的核心，是权利要求书的依据，为权利要求书提供解释</p>
-<h3 id="1-3权利要求书"><a href="#1-3权利要求书" class="headerlink" title="1.3权利要求书"></a>1.3权利要求书</h3><p>权利要求书分为两类</p>
-<ul>
-<li>产品权利要求书</li>
-<li>方法权利要求书</li>
-</ul>
-<p>撰写中权利要求书中使用的科技术语应当与说明书中使用的一致，可以有化学式或数学式， 必要时可以有表格，但不得有插图。不得使用“如说明书……部分所述”或者“如图……所示”等用语。</p>
-<p>权利要求的概念：</p>
-<ol>
-<li>并列独立权利<br>并列独立权利要求:产品、制造产品的方法，产品的用途，制造产品的设备;方法，为该方法设计 的设备。与产品描述是相互独立、并列的。可以理解为权利要求分成总分(并列独立权利)分(从属权利 要求)结构。例(沿用之前铅笔的例子):一种如权利要求 1 所述铅笔的加工方法，其特征在于:在加工过 程中在铅笔的末端固定一个橡皮。</li>
-<li>独立权利<br>独立权利要求:独立权利要求从总体上体现发明构思，保护范围最大。解决问题的不可缺少的技术特征、相对于现有技术具有新颖性和创造性。可以通过列写出发明所有的技术 特征，删去非必要技术特征、与发明不相干的特征实现。</li>
-<li>从属权利<br>从属权利要求:为独立权利 要求做限定的、附加的技术特征，构建多层保护体系。示例:根据权利要求 1 所属的汽车，其特征在于， 所述合金材料为不锈钢<h4 id="1-3-1产品权利要求书"><a href="#1-3-1产品权利要求书" class="headerlink" title="1.3.1产品权利要求书"></a>1.3.1产品权利要求书</h4>包括：物品、物质、材料、工具、 装置、设备等<br>产品权利要求需要说明产品的技术特征:零件、元器件、部件、材料、器具、设备的形状、结构尺寸; 产品元素、含量等等。示例:一种汽车，包括底盘，其特征在于底盘由合金材料制成。<h4 id="1-3-2方法权利要求书"><a href="#1-3-2方法权利要求书" class="headerlink" title="1.3.2方法权利要求书"></a>1.3.2方法权利要求书</h4>包括制造方法，使用方法，通讯方法，处理方法，将产品适用于特定用途 的方法</li>
-</ol>
-<h2 id="撰写"><a href="#撰写" class="headerlink" title="撰写"></a>撰写</h2><h3 id="权利要求书的撰写"><a href="#权利要求书的撰写" class="headerlink" title="权利要求书的撰写"></a>权利要求书的撰写</h3><p>权利要求撰写步骤</p>
-<ol>
-<li>找出主要特征，弄清关系、作用;</li>
-<li>根据现有特征确定必要技术特征;</li>
-<li>比较现有技术找到共同必要技术和特征;</li>
-<li>分析附加技术特征，将附加技术特征写入从权。</li>
-</ol>
+
+<h2 id="创建自己的git仓库"><a href="#创建自己的git仓库" class="headerlink" title="创建自己的git仓库"></a>创建自己的git仓库</h2><p>首先要在自己的电脑上安装好git库，参考网上教程吧。可以在<a href="https://git-scm.com/" target="_blank" rel="noopener">官方网站</a>下载，安装。<br>安装好后，电脑上建立一个文件夹，从终端进入文件夹，输入代码<code>git init</code>就创建了一个git仓库。这个文件夹就被初始化成一个git仓库了。之后在这个文件夹进行的文件操作会被git所记录。</p>
+<h2 id="把东西搬到仓库里"><a href="#把东西搬到仓库里" class="headerlink" title="把东西搬到仓库里"></a>把东西搬到仓库里</h2><p>简单的说，git管理中有三个区域，分别是工作区，暂存区，储存区。这三个区并不是指切实的在硬盘上划分出来的区域，而是指某一文件的状态。工作区是对当前文件进行修改的状态，暂存区是将工作区文件的修改记录记下来，储存区就是将暂存区的许多文件打包成一个版本存下记录。</p>
+<p>用<code>git add filename</code>把文件放入暂存区，可以使用<code>git status</code>查看当前工作区和暂存区的文件内容。使用<code>git commit -m&quot;介绍&quot;</code>创建版本快照，完整的放入存储室。这样就完成了一次提交，使用<code>git log</code>就可以查看到提交情况。</p>
+<h2 id="查看自己的仓库"><a href="#查看自己的仓库" class="headerlink" title="查看自己的仓库"></a>查看自己的仓库</h2><p><code>git log</code>可以查看自己的仓库库存，可以加入<code>--pretty==oneline</code> 使显示变的亲和一些。</p>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>可以使用<code>git tag&lt;name&gt;</code>对生成的版本进行打标签工作。可以用<code>git tag -d &lt;name&gt;</code>删除标签。</p>
+<p>引出分支：<code>git branch branchname</code>这样会创建一个branchname的分支。<br>查看分支：<code>git branch</code>这样可以直接查看分支。<br>切换分支：<code>git switc branchname</code><br>合并分支：<code>git merge branchname</code><br>删除分支：<code>git branch -d branchname</code></p>
+<p>当有一个版本后，git鼓励在分支上工作，等调试完了在并入主支，分支功能也是高效合作的关键功能。<br>版本回退：<code>git reset --hard HEAD^</code>表示回退到上一个版本，回退几个版本就加几个^。<br>指令记录查看：<code>git reflog</code>可以查看进行过的指令，这里可以找到被调整过的版本号。</p>
+<p>查看变化：<code>git diff HEAD -- file</code>可以查看file工作区与版本库之间的差别。</p>
+<p>撤销修改：<code>git checkout --file</code>可以撤销做的文件修改。</p>
+<h2 id="常用代码"><a href="#常用代码" class="headerlink" title="常用代码"></a>常用代码</h2><h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p>配置git用户名：<code>git config --global user.name &quot;name&quot;</code><br>配置git邮箱：<code>git config --global user.email &quot;email&quot;</code><br>查看git用户名：<code>git config --global user.name</code><br>查看git邮箱：<code>git config --global user.email</code></p>
+<p>查看全局配置：<code>git config --global --list</code><br>查看本地配置：<code>git config --local --list</code><br>查看全部配置：<code>git config --list</code><br>设置git彩色ui特性：<code>git config --global color.ui true</code>（但是我没有成功过hhh，展示不知道怎么回事）</p>
+<h3 id="管理代码类"><a href="#管理代码类" class="headerlink" title="管理代码类"></a>管理代码类</h3><p>工作区的文件加到暂存区：<code>git add filename</code><br>添加所有被tracked的文件的修改到暂存区：<code>git add -u</code><br>添加所有tracked文件修改和没修改文件和untracked文件：<code>git add -A</code><br>将当前工作区的所有文件都加入暂存区：<code>git add .</code><br>进入交互界面模式，按需添加文件到缓存区：<code>git add -i</code></p>
+<p>暂存区提交到本地仓库：<code>git commit -m</code><br>直接提交到仓库：<code>git commit -a -m</code></p>
+<p>查看git管理状态：<code>git status</code><br>修改文件名字：<code>git rm filename</code></p>
+<h3 id="调用版本、分支管理"><a href="#调用版本、分支管理" class="headerlink" title="调用版本、分支管理"></a>调用版本、分支管理</h3><p><code>git diff</code><br><code>git diff branchname</code><br><code>git diff HEAD</code><br><code>git diff id path</code><br><code>git diff --stage</code><br><code>git diff TAG</code><br><code>git diff branchA branchB</code><br>跳转到此分支：<code>git checkout -b dev</code><br>新建分支并跳转到此分支：<code>git branch dev</code><br>查看分支：<code>git checkout dev</code><br>查看分支：<code>git branch</code><br>合并分支：<code>git merge dev</code><br>回退版本：<code>git reset HEAD^</code><br>查看历史命令：<code>git reflog</code><br>回退到指定版本：<code>git reset --hard 版本号</code></p>
+<h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><p><code>git tag &lt;name&gt;</code><br><code>git tag</code><br><code>git show &lt;tagname&gt;</code><br><code>git tag -a v0.1 -m</code><br><code>git tag -l &lt;版本号&gt;</code></p>
+<h3 id="提交记录"><a href="#提交记录" class="headerlink" title="提交记录"></a>提交记录</h3><p><code>git log</code><br><code>git log -p -times</code><br><code>git log --stat</code><br><code>git log --name-only</code><br><code>git log -oneline</code><br><code>git log --graph --all --oneline</code><br><code>git log filename</code></p>
+<h3 id="远端git交互"><a href="#远端git交互" class="headerlink" title="远端git交互"></a>远端git交互</h3><p>把本地仓库代码推送到远端：<code>git push -u origin master</code><br>将远端代码下载到本地仓库：<code>git clone</code></p>
+<h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><p>GitHub是最大的代码托管中心。可以将自己的代码托管在这个网站上（简单说相当于是给自己的代码提供了一个云盘存放，当然GitHub本身其实是有很多很方便的特性）。<br>.io库，是github提供的一个服务器，相当于一个静态网页代码的托管，可以用它完成个人主页的创建，之后会有专门的文章记录我的个人主页创建过程。</p>
+<p>文章之后还会慢慢修改补充，当前只整理了这些。<br>感谢大佬的教程相助！</p>
 ]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
       <tags>
-        <tag>学习笔记</tag>
-        <tag>专利申请</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
-    <title>心理学导论-条件反射和学习</title>
-    <url>/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E6%9D%A1%E4%BB%B6%E5%8F%8D%E5%B0%84%E5%92%8C%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="心理学导论——条件反射和学习"><a href="#心理学导论——条件反射和学习" class="headerlink" title="心理学导论——条件反射和学习"></a>心理学导论——条件反射和学习</h1><h2 id="学习的定义"><a href="#学习的定义" class="headerlink" title="学习的定义"></a>学习的定义</h2><p>学习是由经验引起的相对持久的行为变化。</p>
-<p>经典条件反射：形成取决于一个反应前发生的事<br>操作性条件反射：建立在反应结果的基础上，结果决定反应是否再次发生</p>
+    <title>Hello World</title>
+    <url>/2020/04/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
-<h3 id="经典条件反射"><a href="#经典条件反射" class="headerlink" title="经典条件反射"></a>经典条件反射</h3><p>经典条件反射，人们会学会刺激与反应的关系建立，基础是人的非条件反射，通过条件刺激在非条件刺激周围徘徊，可以使条件刺激与非条件反应建立联系，从而实现条件反射。<br>习得：条件刺激在无条件刺激前出现，紧密，很快就会习得<br>期望：认知会建立新的心理期望<br>消退：条件反射是会消退的<br>自动恢复：消退不是一次性完成的，中间会有反复<br>泛化：将刺激广泛的应用到别的联系上<br>辨别：出现类似刺激，在多次训练不同强化后会辨别不同刺激的结果，也是泛化消退</p>
-<p>人类的条件反射和情绪<br>条件性情绪反射：经历后，人们会形成反射<br>间接性情绪反射：听说后人们也会建立情绪反射</p>
-<h3 id="操作性条件反射"><a href="#操作性条件反射" class="headerlink" title="操作性条件反射"></a>操作性条件反射</h3><p>这是一种把行为和结果联系起来的反射。（是人们认为这个操作可以对应一个结果，这个结果决定这个操作再发生的可能性）</p>
-<p>习得：也叫强化，通过调整结果，改变以拥有技能的出现频次，强化的时间要在正确反应后的较短时间内。但是人有期望性，所以也没关系。</p>
-<p>操作性条件反射可以解释迷信行为，即在结果和正确反应之间有别的动作参与，我们认为这个反应是正确的并也得到了强化。</p>
-<p>强化方式有正强化和负强化<br>正强化：反应得到的结果是愉快的<br>负强化：反应得到的结果是结束不愉快的<br>其实我个人感觉差不多，都是向好的。</p>
-<p>强化还可以通过惩罚和反应代价实现<br>惩罚：反应得到的结果是不愉快的<br>反应代价：反应得到的结果是结束愉快<br>这两个我个人感觉是向负的</p>
-<p>操作性消退：同样需要时间，也会反复</p>
-<p>操作性强化物：分为一级、二级强化物、反馈<br>一级强化物：指具有生理基础，满足生理需要<br>二级强化物：有习得性，可以和一级挂钩（比如钱），有比一级强化性更长的强化效应<br>反馈：给人信息来强化行为</p>
-<p>部分强化：相对连续强化，多次反应后再给出结果，有不同的间隔模式，比如：固定比率FR，不定比率VR，固定时间FI，不定时间VI<br>VR模式比FR更不容易消退，同样VI也有更好的抑制消退的效果</p>
-<h4 id="惩罚"><a href="#惩罚" class="headerlink" title="惩罚"></a>惩罚</h4><p>惩罚的正确应用：要有一致性、及时性、适度<br>惩罚的副作用：对惩罚者的情绪恶意、产生逃避反应、攻击性上升</p>
-<h3 id="其他学习方式"><a href="#其他学习方式" class="headerlink" title="其他学习方式"></a>其他学习方式</h3><p>认知学习：就是我们说的理解的学，包括潜在学习、发现式学习也是理解学习的方式。<br>榜样学习：通过观察加模仿</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>心理学</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>心理学</tag>
-      </tags>
   </entry>
   <entry>
     <title>markdown语法基础</title>
@@ -584,73 +513,74 @@
       </tags>
   </entry>
   <entry>
-    <title>计算机网络——概述</title>
-    <url>/2020/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="计算机网络——概述"><a href="#计算机网络——概述" class="headerlink" title="计算机网络——概述"></a>计算机网络——概述</h1><p>参考书：《计算机网络》</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>计算机网络由若干节点和链接这些节点的链路组成。节点可以是计算机，集线器，路由器等等。互连网把许多网络用路由器链接起来。习惯上，与网络相连的计算机称为主机</p>
+    <title>专利申请和文件撰写</title>
+    <url>/2020/04/06/%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%92%8C%E6%96%87%E4%BB%B6%E6%92%B0%E5%86%99/</url>
+    <content><![CDATA[<h1 id="专利申请文件"><a href="#专利申请文件" class="headerlink" title="专利申请文件"></a>专利申请文件</h1><h2 id="1-文件构成"><a href="#1-文件构成" class="headerlink" title="1.文件构成"></a>1.文件构成</h2><p>对于专利发明和实用新型需要包括</p>
 <a id="more"></a>
-<h3 id="互联网基础结构发展"><a href="#互联网基础结构发展" class="headerlink" title="互联网基础结构发展"></a>互联网基础结构发展</h3><p>第一阶段：由ARPANET向互联网发展。（互连网和互联网不同）<br>第二阶段：建成三级结构的互联网<br>第三阶段：逐渐形成多层次ISP（互联网服务提供者（就类似移动，联通））结构的互联网，逐渐出现IXP（互联网交换点），用于快速的交换不同分组。</p>
-<h4 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h4><p>互联网拓扑结构复杂，地理上覆盖全球，工作方式上分为两块：</p>
+<ul>
+<li>请求书</li>
+<li>权利要求书</li>
+<li>说明书</li>
+<li>说明书附图</li>
+<li>摘要</li>
+</ul>
+<p>对于外观设计专利需要包括</p>
+<ul>
+<li>请求书</li>
+<li>外观设计的图片和照片</li>
+<li>简要说明</li>
+</ul>
+<h3 id="1-1请求书"><a href="#1-1请求书" class="headerlink" title="1.1请求书"></a>1.1请求书</h3><h3 id="1-2说明书"><a href="#1-2说明书" class="headerlink" title="1.2说明书"></a>1.2说明书</h3><p>说明书是专利申请文件的核心，是权利要求书的依据，为权利要求书提供解释</p>
+<h3 id="1-3权利要求书"><a href="#1-3权利要求书" class="headerlink" title="1.3权利要求书"></a>1.3权利要求书</h3><p>权利要求书分为两类</p>
+<ul>
+<li>产品权利要求书</li>
+<li>方法权利要求书</li>
+</ul>
+<p>撰写中权利要求书中使用的科技术语应当与说明书中使用的一致，可以有化学式或数学式， 必要时可以有表格，但不得有插图。不得使用“如说明书……部分所述”或者“如图……所示”等用语。</p>
+<p>权利要求的概念：</p>
 <ol>
-<li>边缘部分：由所有在互联网上的主机组成</li>
-<li>核心部分：由大量网络和链接网络的路由器组成，为边缘部分提供服务</li>
+<li>并列独立权利<br>并列独立权利要求:产品、制造产品的方法，产品的用途，制造产品的设备;方法，为该方法设计 的设备。与产品描述是相互独立、并列的。可以理解为权利要求分成总分(并列独立权利)分(从属权利 要求)结构。例(沿用之前铅笔的例子):一种如权利要求 1 所述铅笔的加工方法，其特征在于:在加工过 程中在铅笔的末端固定一个橡皮。</li>
+<li>独立权利<br>独立权利要求:独立权利要求从总体上体现发明构思，保护范围最大。解决问题的不可缺少的技术特征、相对于现有技术具有新颖性和创造性。可以通过列写出发明所有的技术 特征，删去非必要技术特征、与发明不相干的特征实现。</li>
+<li>从属权利<br>从属权利要求:为独立权利 要求做限定的、附加的技术特征，构建多层保护体系。示例:根据权利要求 1 所属的汽车，其特征在于， 所述合金材料为不锈钢<h4 id="1-3-1产品权利要求书"><a href="#1-3-1产品权利要求书" class="headerlink" title="1.3.1产品权利要求书"></a>1.3.1产品权利要求书</h4>包括：物品、物质、材料、工具、 装置、设备等<br>产品权利要求需要说明产品的技术特征:零件、元器件、部件、材料、器具、设备的形状、结构尺寸; 产品元素、含量等等。示例:一种汽车，包括底盘，其特征在于底盘由合金材料制成。<h4 id="1-3-2方法权利要求书"><a href="#1-3-2方法权利要求书" class="headerlink" title="1.3.2方法权利要求书"></a>1.3.2方法权利要求书</h4>包括制造方法，使用方法，通讯方法，处理方法，将产品适用于特定用途 的方法</li>
 </ol>
-<h5 id="边缘部分"><a href="#边缘部分" class="headerlink" title="边缘部分"></a>边缘部分</h5><p>这些边缘部分的主机又称为端系统。边缘部分利用核心部分提供的服务使得众多主机之间能够相互通信并交换或共享信息。计算机通信是指主机A的某个进程和主机B的另一个进程进行通信。在网络边缘的端系统之间的通信方式可以分为两大类：客户-服务器（C/S方式）和对等方式（P2P)</p>
-<h5 id="核心部分"><a href="#核心部分" class="headerlink" title="核心部分"></a>核心部分</h5><p>网络核心部分起特殊作用的是路由器，是一种专用计算机，是实现分组交换的关键构件，任务是转发收到的分组。</p>
-<p>1.电路交换：特点，端到端资源全部占用<br>2.分组交换：采用存储转发技术，把报文划分成多个等长的数据段，每个小段前面加上必要的控制信息组成的首部，构成一个分组，分组也叫包，首部叫包头</p>
-<p>报文：要发送的整块数据称为一个报文</p>
-<h4 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h4><p>按照网络的作用范围来分：</p>
+<h2 id="撰写"><a href="#撰写" class="headerlink" title="撰写"></a>撰写</h2><h3 id="权利要求书的撰写"><a href="#权利要求书的撰写" class="headerlink" title="权利要求书的撰写"></a>权利要求书的撰写</h3><p>权利要求撰写步骤</p>
 <ol>
-<li>WAN 广域网</li>
-<li>MAN 城域网</li>
-<li>LAN 局域网</li>
-<li>PAN 个人区域网</li>
+<li>找出主要特征，弄清关系、作用;</li>
+<li>根据现有特征确定必要技术特征;</li>
+<li>比较现有技术找到共同必要技术和特征;</li>
+<li>分析附加技术特征，将附加技术特征写入从权。</li>
 </ol>
-<p>按照使用者：</p>
-<ol>
-<li>公用网</li>
-<li>专用网</li>
-</ol>
-<h4 id="计算机网络性能"><a href="#计算机网络性能" class="headerlink" title="计算机网络性能"></a>计算机网络性能</h4><p>性能指标有以下7个：</p>
-<ul>
-<li>速率：bit是一个二进制数字（0，1），速率指比特率，单位bit/s，或bps，一般提到网络速率时是指额定数率或标称速率。</li>
-<li>带宽：单位时间可以通过的最高数据率，单位bit/s</li>
-<li>吞吐量：实际单位时间通过的数据量</li>
-<li>时延：从一段到另一端需要的时间，它由发送时延，传播时延，处理时延，排队时延</li>
-<li>时延带宽积</li>
-<li>往返时间RTT</li>
-<li>利用率</li>
-</ul>
-<p>网络的非性能指标：</p>
-<ul>
-<li>费用</li>
-<li>质量</li>
-<li>标准化</li>
-<li>可靠性</li>
-<li>可扩展性和可升级性</li>
-<li>易于管理和维护</li>
-</ul>
-<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p>网络数据交换需要建立规则，也就是网络协议。网络协议主要由以下三个要素组成：</p>
-<ul>
-<li>语法：数据与控制信息的结构或格式</li>
-<li>语义：发出何种控制信息，完成何种动作以及何种响应</li>
-<li>同步：事件实现顺序的详细说明</li>
-</ul>
-<p>五层网络结构：</p>
-<ul>
-<li>应用层</li>
-<li>运输层：任务是负责向两台主机进程之间的通信提供数据传输服务</li>
-<li>网络层</li>
-<li>数据链路层</li>
-<li>物理层</li>
-</ul>
+]]></content>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>专利申请</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>心理学导论-条件反射和学习</title>
+    <url>/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E6%9D%A1%E4%BB%B6%E5%8F%8D%E5%B0%84%E5%92%8C%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="心理学导论——条件反射和学习"><a href="#心理学导论——条件反射和学习" class="headerlink" title="心理学导论——条件反射和学习"></a>心理学导论——条件反射和学习</h1><h2 id="学习的定义"><a href="#学习的定义" class="headerlink" title="学习的定义"></a>学习的定义</h2><p>学习是由经验引起的相对持久的行为变化。</p>
+<p>经典条件反射：形成取决于一个反应前发生的事<br>操作性条件反射：建立在反应结果的基础上，结果决定反应是否再次发生</p>
+<a id="more"></a>
+<h3 id="经典条件反射"><a href="#经典条件反射" class="headerlink" title="经典条件反射"></a>经典条件反射</h3><p>经典条件反射，人们会学会刺激与反应的关系建立，基础是人的非条件反射，通过条件刺激在非条件刺激周围徘徊，可以使条件刺激与非条件反应建立联系，从而实现条件反射。<br>习得：条件刺激在无条件刺激前出现，紧密，很快就会习得<br>期望：认知会建立新的心理期望<br>消退：条件反射是会消退的<br>自动恢复：消退不是一次性完成的，中间会有反复<br>泛化：将刺激广泛的应用到别的联系上<br>辨别：出现类似刺激，在多次训练不同强化后会辨别不同刺激的结果，也是泛化消退</p>
+<p>人类的条件反射和情绪<br>条件性情绪反射：经历后，人们会形成反射<br>间接性情绪反射：听说后人们也会建立情绪反射</p>
+<h3 id="操作性条件反射"><a href="#操作性条件反射" class="headerlink" title="操作性条件反射"></a>操作性条件反射</h3><p>这是一种把行为和结果联系起来的反射。（是人们认为这个操作可以对应一个结果，这个结果决定这个操作再发生的可能性）</p>
+<p>习得：也叫强化，通过调整结果，改变以拥有技能的出现频次，强化的时间要在正确反应后的较短时间内。但是人有期望性，所以也没关系。</p>
+<p>操作性条件反射可以解释迷信行为，即在结果和正确反应之间有别的动作参与，我们认为这个反应是正确的并也得到了强化。</p>
+<p>强化方式有正强化和负强化<br>正强化：反应得到的结果是愉快的<br>负强化：反应得到的结果是结束不愉快的<br>其实我个人感觉差不多，都是向好的。</p>
+<p>强化还可以通过惩罚和反应代价实现<br>惩罚：反应得到的结果是不愉快的<br>反应代价：反应得到的结果是结束愉快<br>这两个我个人感觉是向负的</p>
+<p>操作性消退：同样需要时间，也会反复</p>
+<p>操作性强化物：分为一级、二级强化物、反馈<br>一级强化物：指具有生理基础，满足生理需要<br>二级强化物：有习得性，可以和一级挂钩（比如钱），有比一级强化性更长的强化效应<br>反馈：给人信息来强化行为</p>
+<p>部分强化：相对连续强化，多次反应后再给出结果，有不同的间隔模式，比如：固定比率FR，不定比率VR，固定时间FI，不定时间VI<br>VR模式比FR更不容易消退，同样VI也有更好的抑制消退的效果</p>
+<h4 id="惩罚"><a href="#惩罚" class="headerlink" title="惩罚"></a>惩罚</h4><p>惩罚的正确应用：要有一致性、及时性、适度<br>惩罚的副作用：对惩罚者的情绪恶意、产生逃避反应、攻击性上升</p>
+<h3 id="其他学习方式"><a href="#其他学习方式" class="headerlink" title="其他学习方式"></a>其他学习方式</h3><p>认知学习：就是我们说的理解的学，包括潜在学习、发现式学习也是理解学习的方式。<br>榜样学习：通过观察加模仿</p>
 ]]></content>
       <categories>
-        <category>计算机网络</category>
+        <category>心理学</category>
       </categories>
       <tags>
         <tag>学习笔记</tag>
-        <tag>计算机网络</tag>
+        <tag>心理学</tag>
       </tags>
   </entry>
   <entry>
@@ -954,6 +884,76 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——概述</title>
+    <url>/2020/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="计算机网络——概述"><a href="#计算机网络——概述" class="headerlink" title="计算机网络——概述"></a>计算机网络——概述</h1><p>参考书：《计算机网络》</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>计算机网络由若干节点和链接这些节点的链路组成。节点可以是计算机，集线器，路由器等等。互连网把许多网络用路由器链接起来。习惯上，与网络相连的计算机称为主机</p>
+<a id="more"></a>
+<h3 id="互联网基础结构发展"><a href="#互联网基础结构发展" class="headerlink" title="互联网基础结构发展"></a>互联网基础结构发展</h3><p>第一阶段：由ARPANET向互联网发展。（互连网和互联网不同）<br>第二阶段：建成三级结构的互联网<br>第三阶段：逐渐形成多层次ISP（互联网服务提供者（就类似移动，联通））结构的互联网，逐渐出现IXP（互联网交换点），用于快速的交换不同分组。</p>
+<h4 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h4><p>互联网拓扑结构复杂，地理上覆盖全球，工作方式上分为两块：</p>
+<ol>
+<li>边缘部分：由所有在互联网上的主机组成</li>
+<li>核心部分：由大量网络和链接网络的路由器组成，为边缘部分提供服务</li>
+</ol>
+<h5 id="边缘部分"><a href="#边缘部分" class="headerlink" title="边缘部分"></a>边缘部分</h5><p>这些边缘部分的主机又称为端系统。边缘部分利用核心部分提供的服务使得众多主机之间能够相互通信并交换或共享信息。计算机通信是指主机A的某个进程和主机B的另一个进程进行通信。在网络边缘的端系统之间的通信方式可以分为两大类：客户-服务器（C/S方式）和对等方式（P2P)</p>
+<h5 id="核心部分"><a href="#核心部分" class="headerlink" title="核心部分"></a>核心部分</h5><p>网络核心部分起特殊作用的是路由器，是一种专用计算机，是实现分组交换的关键构件，任务是转发收到的分组。</p>
+<p>1.电路交换：特点，端到端资源全部占用<br>2.分组交换：采用存储转发技术，把报文划分成多个等长的数据段，每个小段前面加上必要的控制信息组成的首部，构成一个分组，分组也叫包，首部叫包头</p>
+<p>报文：要发送的整块数据称为一个报文</p>
+<h4 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h4><p>按照网络的作用范围来分：</p>
+<ol>
+<li>WAN 广域网</li>
+<li>MAN 城域网</li>
+<li>LAN 局域网</li>
+<li>PAN 个人区域网</li>
+</ol>
+<p>按照使用者：</p>
+<ol>
+<li>公用网</li>
+<li>专用网</li>
+</ol>
+<h4 id="计算机网络性能"><a href="#计算机网络性能" class="headerlink" title="计算机网络性能"></a>计算机网络性能</h4><p>性能指标有以下7个：</p>
+<ul>
+<li>速率：bit是一个二进制数字（0，1），速率指比特率，单位bit/s，或bps，一般提到网络速率时是指额定数率或标称速率。</li>
+<li>带宽：单位时间可以通过的最高数据率，单位bit/s</li>
+<li>吞吐量：实际单位时间通过的数据量</li>
+<li>时延：从一段到另一端需要的时间，它由发送时延，传播时延，处理时延，排队时延</li>
+<li>时延带宽积</li>
+<li>往返时间RTT</li>
+<li>利用率</li>
+</ul>
+<p>网络的非性能指标：</p>
+<ul>
+<li>费用</li>
+<li>质量</li>
+<li>标准化</li>
+<li>可靠性</li>
+<li>可扩展性和可升级性</li>
+<li>易于管理和维护</li>
+</ul>
+<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p>网络数据交换需要建立规则，也就是网络协议。网络协议主要由以下三个要素组成：</p>
+<ul>
+<li>语法：数据与控制信息的结构或格式</li>
+<li>语义：发出何种控制信息，完成何种动作以及何种响应</li>
+<li>同步：事件实现顺序的详细说明</li>
+</ul>
+<p>五层网络结构：</p>
+<ul>
+<li>应用层</li>
+<li>运输层：任务是负责向两台主机进程之间的通信提供数据传输服务</li>
+<li>网络层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
