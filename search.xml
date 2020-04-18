@@ -381,12 +381,21 @@
 
 <p>配置就基本完成了(原博客中还有部分配置，但next主题更新后有些配置文件找不到了，我发现不进行也没有影响)</p>
 <h2 id="之后做些啥"><a href="#之后做些啥" class="headerlink" title="之后做些啥"></a>之后做些啥</h2><p>这次相册的配置主要是对流程的熟悉过程，大概了解是如果进行分资源存放。<br>这个相册的效果是ins的风格，我更愿意使用类似瀑布流形式的图片UI，所以之后应该会参考别的博客对UI进行一些改变，还有就是raw.githubusercontent.com国内无法访问的问题，也许需要更改存放资源的位置。</p>
+<h2 id="raw-githubusercontent-comDNS污染问题"><a href="#raw-githubusercontent-comDNS污染问题" class="headerlink" title="raw.githubusercontent.comDNS污染问题"></a>raw.githubusercontent.comDNS污染问题</h2><p>DNS污染：网域服务器缓存污染（DNS cache pollution），又称域名服务器缓存投毒（DNS cache poisoning），是指一些刻意制造或无意中制造出来的域名服务器数据包，把域名指往不正确的IP地址。<br>因为DNS污染，人们很难访问raw.githubusercontent.com，但是可以解决。<br>在 <a href="https://githubusercontent.com.ipaddress.com/raw.githubusercontent.com" target="_blank" rel="noopener">Ipaddress</a>查到raw.githubusercontent.com的ip，然后修改电脑上的配置</p>
+<h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><p>终端输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>在打开的vim中键入i，然后在文末加一行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">199.232.68.133 raw.githubusercontent.com</span><br></pre></td></tr></table></figure>
+<p>在按esc，输入：wq！<br>就可以访问raw.githubusercontent.com了，也就意味这个人主页上的照片可以查看了</p>
+<h3 id="Win"><a href="#Win" class="headerlink" title="Win"></a>Win</h3><p>Windows系统<br>打开目录：C:/Windows/System32/drivers/etc/<br>找到hosts文件，使用管理员模式打开记事本<br>将hosts文件拖到管理员模式下的记事本中，然后在文件尾部添加以下文本：<br>199.232.68.133 raw.githubusercontent.com<br>保存文件</p>
 <p>参考文章：</p>
 <ul>
 <li><a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">利用Github实现Hexo博客相册</a></li>
 <li><a href="https://blog.csdn.net/u013082989/article/details/70162293" target="_blank" rel="noopener">Hexo+Github实现相册功能</a></li>
 <li><a href="https://timding.top/2017/09/18/Hexo-NexT-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C-%E4%BA%8C/" target="_blank" rel="noopener">Tim’sBlog</a></li>
 <li><a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">github/HexoAlbumData</a></li>
+<li><a href="https://www.jianshu.com/p/bbd79e0444ea" target="_blank" rel="noopener">DNS污染解决</a></li>
+<li><a href="https://www.cnblogs.com/youhui/articles/12668435.html" target="_blank" rel="noopener">DNS污染</a></li>
 </ul>
 ]]></content>
       <categories>
