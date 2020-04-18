@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo博客搭建相册</title>
+    <url>/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/</url>
+    <content><![CDATA[<h1 id="Hexo-NexT主题搭建博客相册"><a href="#Hexo-NexT主题搭建博客相册" class="headerlink" title="Hexo-NexT主题搭建博客相册"></a>Hexo-NexT主题搭建博客相册</h1><p>想着怎么可以给主页搭建一个相册提供图片分享，但我对前端知识一无所知，在查看了好多<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>后，借大佬的前端代码经过一些配置后总算是实现了。但是还是有一些问题。</p>
+<a id="more"></a>
+
+<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><p>大概就是要解决两件事，一件是图片资源怎么放到网上，二是个人主页怎么调用资源。因为使用的是GitHub Page搭建的个人主页，每个git仓库只有1G的大小，放图片的话容量显得有些捉襟见肘，所以很多博客也推荐，把图片和网页分开存放。可以使用的云存储可以有如下一些</p>
+<ul>
+<li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
+<li><a href="https://www.aliyun.com/product/oss?utm_content=se_1005589194" target="_blank" rel="noopener">阿里云OSS</a></li>
+<li><a href="https://www.qiniu.com" target="_blank" rel="noopener">七牛云</a></li>
+<li><a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a></li>
+<li><a href="https://cloud.tencent.com/product/coding" target="_blank" rel="noopener">coding.me</a>和腾讯云是一起的</li>
+</ul>
+<p>以上这些作为图床各有优缺点，其中GitHub，coding是免费且不需要实名的，七牛云强制实名认证，但是实名后有10G的容量，阿里云和腾讯云属于需要付费使用。</p>
+<p>我选择的是GitHub，在GitHub上再开一个仓库用来存放图片。但是GitHub有一个问题，它作为资源服务的raw.githubusercontent.com服务被中国墙了，所以目前需要查看我的图片必须通过科学上网。<br>(不过也有博客说是由于DNS污染的原因，但是小菜鸟现在还不懂这些，之后会试着解决一下)</p>
+<p><strong>raw.githubusercontent.com和GitHub</strong><br>raw.githubusercontent.com是github 的素材服务器 (assets server), 分开存放避免跟主服务抢占负载。</p>
+<p>选好图床了，接下来就是下载代码和配置，可以参考<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>,主要是这样几个步骤</p>
+<ol>
+<li>GitHub上的配置</li>
+<li>Hexo-next配置</li>
+</ol>
+<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p>建立一个新的仓库，选择公开，然后把网址复制下来。<br>在自己喜欢的地方建一个文件夹(album)，进入终端，确保自己电脑上已经有git的情况下输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd album</span><br><span class="line">mkdir photos</span><br><span class="line">git init</span><br><span class="line">git clone githubaddress ;把建好的仓库拷贝下来</span><br><span class="line">git remote add origin yourrepositroy@gitaddress ;与刚刚建好的库建立远端链接</span><br></pre></td></tr></table></figure>
+<p>把自己想放上去的图片重新以YY-MM-DD_des.jpg的格式命名，放到photos文件夹<br>复制<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">这个项目</a>中的tool.py到ablum文件夹中,注意修改json文件的生成路径。<br>运行tool.py文件，如果报错检查相关依赖包是否都安装完成（比如PIL图像处理库）<br>tool.py会自己把图片剪裁，压缩，保存json文件，并且推送到远端的GitHub仓库中<br>tool.py文件中有一处代码有些奇怪，我自己进行的一些修改以保证它的正确运行，是针对其中的compress_photo函数，修改为下面代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compress_photo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''调用压缩图片的函数</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    src_dir, des_dir = <span class="string">"photos/"</span>, <span class="string">"min_photos/"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(src_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(src_dir):</span></span><br><span class="line">        make_directory(src_dir)</span><br><span class="line">        <span class="comment"># business logic</span></span><br><span class="line">    file_list_src = list_img_file(src_dir)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(des_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(des_dir):</span></span><br><span class="line">        make_directory(des_dir)</span><br><span class="line">    file_list_des = list_img_file(des_dir)</span><br><span class="line">        <span class="comment"># print file_list</span></span><br><span class="line">    <span class="string">'''如果已经压缩了，就不再压缩'''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(file_list_des)):</span><br><span class="line">        <span class="keyword">if</span> file_list_des[i] <span class="keyword">in</span> file_list_src:</span><br><span class="line">            file_list_src.remove(file_list_des[i])</span><br><span class="line">    compress(<span class="string">'1'</span>, des_dir, src_dir, file_list_src)</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程仓库push出现问题</strong><br>第一次运行tool文件时在git推送远端的时候报错（不好意思忘记截图了）<br>大概错误是分支冲突的感觉所以我使用了git pull命令，但是还是没有解决<br>查了一些方法后，可以通过如下操作强行将远端和本地统一，这样就不会冲突，在进行add和commit就不会出问题了，shell的代码如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories;强制统一</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>如果<code>git pull</code>出现如下报错</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">error: You have not concluded your merge (MERGE_HEAD exists).</span><br><span class="line">hint: Please, commit your changes before merging.</span><br><span class="line">fatal: Exiting because of unfinished merge.</span><br></pre></td></tr></table></figure>
+<p>可以通过一下git代码放弃本地修改来解决</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Hexo-next配置"><a href="#Hexo-next配置" class="headerlink" title="Hexo-next配置"></a>Hexo-next配置</h2><p>分显示配置和资源配置</p>
+<h3 id="建立新的Page"><a href="#建立新的Page" class="headerlink" title="建立新的Page"></a>建立新的Page</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd 你的博客文件夹</span><br><span class="line">hexo new page photos</span><br></pre></td></tr></table></figure>
+<p>在theme/hexo-theme-next/_config.yml中的menu中新建一个photos栏（需要中文翻译的话，需要去，theme/hexo-theme-next/languages/zh-CN.yml中添加对应字段）</p>
+<p>然后在source/photos/index.md中复制入如下代码（我暂时还不是很理解，大概就是分快和调用了json文件）</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 图片</span><br><span class="line">date: </span><br><span class="line">type: "photos"</span><br><span class="line">fancybox: false</span><br><span class="line">comments: true</span><br><span class="line">---</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/ins.css"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/photoswipe.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/default-skin/default-skin.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"photos-btn-wrap"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"photos-btn active"</span> <span class="attr">href</span>=<span class="string">"javascript:void(0)"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">rel</span>=<span class="string">"external"</span>&gt;</span></span>分栏<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"instagram itemscope"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"修改成你自己的网址"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">class</span>=<span class="string">"open-ins"</span>&gt;</span></span>图片正在加载中…<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">  (function() &#123;</span><br><span class="line"><span class="code">    var loadScript = function(path) &#123;</span></span><br><span class="line"><span class="code">      var $script = document.createElement('script')</span></span><br><span class="line"><span class="code">      document.getElementsByTagName('body')[0].appendChild($script)</span></span><br><span class="line"><span class="code">      $script.setAttribute('src', path)</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">    setTimeout(function() &#123;</span></span><br><span class="line"><span class="code">        loadScript('../lib/album/ins.js')</span></span><br><span class="line"><span class="code">    &#125;, 0)</span></span><br><span class="line">  &#125;)()</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置资源调用"><a href="#配置资源调用" class="headerlink" title="配置资源调用"></a>配置资源调用</h3><p>然后在theme/hexo-theme-next/source/lib/album(自己建一个)，把json文件放入，同时把<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">项目</a>的JS&amp;CSS文件夹下的所有文件拷贝到其中。<br>针对刚刚拷入的文件，其中的ins.js文件，修改其中的两行为(可以用ctrl+F)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> minSrc = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/min_photos/'</span> + data.link[i];        </span><br><span class="line"><span class="keyword">var</span> src = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/photos/'</span> + data.link[i];</span><br></pre></td></tr></table></figure>
+<p>最后把photoswipe-ui-default.min.js, photoswipe.min.js两个文件添加到themes/hexo-theme-next/source/js/src中。（没有src文件夹自己建一个就行）</p>
+<p>以上资源配置完成</p>
+<h3 id="配置查看图片插件"><a href="#配置查看图片插件" class="headerlink" title="配置查看图片插件"></a>配置查看图片插件</h3><p>在hexo-theme-next/layout/_layout.swig的头部前添加对js文件的引用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe.min.js?v=&#123;&#123; theme.version &#125;&#125;"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="&#123;&#123; url_for(theme.js) &#125;&#125;/</span>src/photoswipe-ui-<span class="keyword">default</span>.min.js?v=&#123;&#123; theme.version &#125;&#125;<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在body部分添加</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.type === <span class="string">"photos"</span> %&#125;</span><br><span class="line">  &lt;!-- Root element <span class="keyword">of</span> PhotoSwipe. Must have <span class="class"><span class="keyword">class</span> <span class="title">pswp</span>. --&gt;</span></span><br><span class="line"><span class="class">  &lt;<span class="title">div</span> <span class="title">class</span></span>=<span class="string">"pswp"</span> tabindex=<span class="string">"-1"</span> role=<span class="string">"dialog"</span> aria-hidden=<span class="string">"true"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__bg"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div class="pswp__scroll-wrap"&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__container"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__ui pswp__ui--hidden"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__top-bar"&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div class="pswp__counter"&gt;&lt;/</span>div&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--close"</span> title=<span class="string">"Close (Esc)"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--share" title="Share"&gt;&lt;/</span>button&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--fs"</span> title=<span class="string">"Toggle fullscreen"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--zoom" title="Zoom in/</span>out<span class="string">"&gt;&lt;/button&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR --&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- element will get class pswp__preloader--active when preloader is running --&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__preloader<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class="</span>pswp__preloader__icn<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                      &lt;div class="</span>pswp__preloader__cut<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class="</span>pswp__preloader__donut<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                      &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__share-modal pswp__share-modal--hidden pswp__single-tap<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__share-tooltip<span class="string">"&gt;&lt;/div&gt; </span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--left<span class="string">" title="</span>Previous (arrow left)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--right<span class="string">" title="</span>Next (arrow right)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__caption<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__caption__center<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置就基本完成了(原博客中还有部分配置，但next主题更新后有些配置文件找不到了，我发现不进行也没有影响)</p>
+<h2 id="之后做些啥"><a href="#之后做些啥" class="headerlink" title="之后做些啥"></a>之后做些啥</h2><p>这次相册的配置主要是对流程的熟悉过程，大概了解是如果进行分资源存放。<br>这个相册的效果是ins的风格，我更愿意使用类似瀑布流形式的图片UI，所以之后应该会参考别的博客对UI进行一些改变，还有就是raw.githubusercontent.com国内无法访问的问题，也许需要更改存放资源的位置。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">利用Github实现Hexo博客相册</a></li>
+<li><a href="https://blog.csdn.net/u013082989/article/details/70162293" target="_blank" rel="noopener">Hexo+Github实现相册功能</a></li>
+<li><a href="https://timding.top/2017/09/18/Hexo-NexT-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C-%E4%BA%8C/" target="_blank" rel="noopener">Tim’sBlog</a></li>
+<li><a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">github/HexoAlbumData</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>51单片机基础</title>
     <url>/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="微机原理——51单片机"><a href="#微机原理——51单片机" class="headerlink" title="微机原理——51单片机"></a>微机原理——51单片机</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>单片机是单片微型计算机的简称，是典型的嵌入式微控制器。由运算器、控制器、存储器、输入输出设备构成。</p>
@@ -329,6 +397,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2020/04/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>git</title>
     <url>/2020/04/06/git/</url>
     <content><![CDATA[<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>git是一种分布式版本控制方法。git可以高效的控制管理代码，完善恢复，帮助完成团队合作的任务。它记录的是修改记录，而不是文件。这也使的它可以在本地进行高效的版本控制，文章简单介绍git的使用方法，非常基础简单，仅供参考。</p>
@@ -361,25 +448,6 @@
       <tags>
         <tag>git</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/04/05/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>markdown语法基础</title>
@@ -643,6 +711,55 @@
       </tags>
   </entry>
   <entry>
+    <title>算法导论（一）</title>
+    <url>/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="算法导论"><a href="#算法导论" class="headerlink" title="算法导论"></a>算法导论</h1><p>参考书《算法导论》</p>
+<h2 id="1-算法的意义"><a href="#1-算法的意义" class="headerlink" title="1.算法的意义"></a>1.算法的意义</h2><p>计算机资源是廉价的，但不是免费的，优秀的算法可以节省资源，强化功能。</p>
+<a id="more"></a>
+<h2 id="2-算法基础"><a href="#2-算法基础" class="headerlink" title="2.算法基础"></a>2.算法基础</h2><p>从排序问题开始<br>输入：n个数的一个序列（a1，a2…an）<br>输出：升序</p>
+<h3 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h3><p>每次拿一个元素，插入集合的正确位置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">insertion-sort:</span><br><span class="line">for j&#x3D;2 to A.length         ;</span><br><span class="line">    key&#x3D;A[j]                ;</span><br><span class="line">    i&#x3D;j-1                   ;把A插入</span><br><span class="line">    while i&gt;0 and A[i]&gt;key</span><br><span class="line">        A[i+1]&#x3D;A[i]         ;腾位子</span><br><span class="line">        i&#x3D;i-1               ;1～j是已经排好的序列</span><br><span class="line">    A[i+1]&#x3D;key</span><br></pre></td></tr></table></figure>
+<p><strong><em>循环不变式</em></strong><br>主要用于帮助理解算法的正确性，必须有三条性质</p>
+<ol>
+<li>初始化：循环的第一次迭代之前，它为真</li>
+<li>保持：如果循环的某次迭代之前是真，那么下次迭代之前它还是真</li>
+<li>终止：在循环终止时，不变式为我们提供一个有用的性质，有助于证明算法正确性</li>
+</ol>
+<h3 id="2-2-分析算法"><a href="#2-2-分析算法" class="headerlink" title="2.2 分析算法"></a>2.2 分析算法</h3><p>使用的是RAM模型，指令是一条条的执行的，不考虑数据读取的影响<br>输入规模：量度是输入中的相数<br>运行时间：量度是执行的基本操作数或步数</p>
+<p>讨论时一般讨论最坏情况的计算</p>
+<p><strong><em>增长量级</em></strong><br>只考虑运行时间中最重要的项，同时也忽略常系数。如果一个算法的最坏情况运行时间具有比另一个算法更低的增长量级，一般认为前者更有效</p>
+<p>选择排序：找到最小值，然后把它和a1交换</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for j&#x3D;1 to A.length-1          ;n-1</span><br><span class="line">    i&#x3D;j                        ;n-1</span><br><span class="line">    min&#x3D;A[i]                   ;n-1</span><br><span class="line">    for i to A.length          ;(n-1)*n&#x2F;2</span><br><span class="line">        if min&gt;A[i]            ;(n-1)*n&#x2F;2</span><br><span class="line">            temp&#x3D;min</span><br><span class="line">            min&#x3D;A[i]</span><br><span class="line">            A[i]&#x3D;temp</span><br><span class="line">    A[j]&#x3D;min</span><br></pre></td></tr></table></figure>
+<p>所以选择排序也是$n^2$级别的算法</p>
+<h3 id="2-3-设计算法"><a href="#2-3-设计算法" class="headerlink" title="2.3 设计算法"></a>2.3 设计算法</h3><h4 id="2-3-1-分治法"><a href="#2-3-1-分治法" class="headerlink" title="2.3.1 分治法"></a>2.3.1 分治法</h4><p>思路：把原问题分解为几个规模比较小但类似的问题，递归求解这些子问题，然后再合并这些子问题的解来建立原问题的解<br>分治模式在每一层都有三个步骤：</p>
+<ol>
+<li>分解</li>
+<li>解决</li>
+<li>合并</li>
+</ol>
+<p><strong><em>归并排序</em></strong><br>思路：</p>
+<ol>
+<li>分解：分解为n/2个元素的两个子序列</li>
+<li>解决：使用归并排序递归解决两个子序列的排序</li>
+<li>合并：合并两个排好的子序列<br>合并的过程是关键，所做的事情就是，每次比较两个的最上面的牌，取较小的那个，当有一个被取完的时候，剩下的一个数组就全部放入框。<br>这个步骤用一个n级的merge函数完成</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">merge(A,p,q,r)</span><br><span class="line">    n1&#x3D;q-p+1</span><br><span class="line">    n2&#x3D;r-q</span><br><span class="line">    let L[1...n1+1] and R[1,n2+1] be new arrays</span><br><span class="line">    for i&#x3D;1 to n1</span><br><span class="line">        L[i]&#x3D;A[p+i-1]</span><br><span class="line">    for j&#x3D;1 to n2</span><br><span class="line">        R[j]&#x3D;A[q+j]</span><br><span class="line">    L[n1+1]&#x3D;MAX</span><br><span class="line">    R[n2+1]&#x3D;MAX</span><br><span class="line">    i&#x3D;1</span><br><span class="line">    j&#x3D;1</span><br><span class="line">    for k&#x3D;p to r</span><br><span class="line">        if L[i]&lt;&#x3D;R[j]</span><br><span class="line">            A[k]&#x3D;L[i]</span><br><span class="line">            i&#x3D;i+1</span><br><span class="line">        else </span><br><span class="line">            A[k]&#x3D;R[j]</span><br><span class="line">            j&#x3D;j+1</span><br></pre></td></tr></table></figure>
+
+<p>python实现 用python的list的特性可以很方便的实现归并排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    c = []</span><br><span class="line">    h = j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> (j &lt; len(a) <span class="keyword">and</span> h &lt; len(b)):</span><br><span class="line">        <span class="keyword">if</span> a[j] &lt; b[h]:</span><br><span class="line">            c.append(a[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            c.append(b[h])</span><br><span class="line">            h += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> j == len(a):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> b[h:]:</span><br><span class="line">            c.append(i)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> a[j:]:</span><br><span class="line">            c.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(lists) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> lists</span><br><span class="line">    middle = int(len(lists)/<span class="number">2</span>)</span><br><span class="line">    left = merge_sort(lists[:middle])</span><br><span class="line">    right = merge_sort(lists[middle:])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> merge(left, right)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-分析分治算法"><a href="#2-3-2-分析分治算法" class="headerlink" title="2.3.2 分析分治算法"></a>2.3.2 分析分治算法</h3><p>分治算法的时间一般来自三个部分，假设T(n)是规模为n的一个问题，设D(n)是分解子问题需要的时间，C(n)是合并子问题需要的时间，a是一个子问题需要的时间，分解成b个问题，则<br>$$T(n)=\Xi (1)···········n&lt;=c$$<br>$$T(n)=aT(\frac{n}{b})+D(n)+C(n)$$</p>
+<p>通过构建递归树，每一层的代价是n，一共有$n\log n+1$层，所以，递归的代价是$n\log n$</p>
+<h2 id="插入排序和选择排序"><a href="#插入排序和选择排序" class="headerlink" title="插入排序和选择排序"></a>插入排序和选择排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">listsorted</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,A)</span>:</span></span><br><span class="line">        self.A=A</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchsorted</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,len(self.A)<span class="number">-1</span>):</span><br><span class="line">            i=j</span><br><span class="line">            Min=self.A[i]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(j,len(self.A)):</span><br><span class="line">                <span class="keyword">if</span> Min&gt;self.A[i]:</span><br><span class="line">                    Min,self.A[i]=self.A[i],Min</span><br><span class="line">            A[j]=Min</span><br><span class="line">        <span class="keyword">return</span> self.A</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insertionsorted</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,len(self.AA)):</span><br><span class="line">            key=self.A[j]</span><br><span class="line">            i=j<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> i&gt;=<span class="number">0</span> <span class="keyword">and</span> key&lt;self.A[i]:</span><br><span class="line">                self.A[i+<span class="number">1</span>]=self.A[i]</span><br><span class="line">                i=i<span class="number">-1</span></span><br><span class="line">            self.A[i+<span class="number">1</span>]=key</span><br><span class="line">        <span class="keyword">return</span> A</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>汇编语言基础</title>
     <url>/2020/04/07/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><p>汇编语言是对机器语言的符号化标记</p>
@@ -835,55 +952,6 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>汇编语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法导论（一）</title>
-    <url>/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="算法导论"><a href="#算法导论" class="headerlink" title="算法导论"></a>算法导论</h1><p>参考书《算法导论》</p>
-<h2 id="1-算法的意义"><a href="#1-算法的意义" class="headerlink" title="1.算法的意义"></a>1.算法的意义</h2><p>计算机资源是廉价的，但不是免费的，优秀的算法可以节省资源，强化功能。</p>
-<a id="more"></a>
-<h2 id="2-算法基础"><a href="#2-算法基础" class="headerlink" title="2.算法基础"></a>2.算法基础</h2><p>从排序问题开始<br>输入：n个数的一个序列（a1，a2…an）<br>输出：升序</p>
-<h3 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h3><p>每次拿一个元素，插入集合的正确位置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">insertion-sort:</span><br><span class="line">for j&#x3D;2 to A.length         ;</span><br><span class="line">    key&#x3D;A[j]                ;</span><br><span class="line">    i&#x3D;j-1                   ;把A插入</span><br><span class="line">    while i&gt;0 and A[i]&gt;key</span><br><span class="line">        A[i+1]&#x3D;A[i]         ;腾位子</span><br><span class="line">        i&#x3D;i-1               ;1～j是已经排好的序列</span><br><span class="line">    A[i+1]&#x3D;key</span><br></pre></td></tr></table></figure>
-<p><strong><em>循环不变式</em></strong><br>主要用于帮助理解算法的正确性，必须有三条性质</p>
-<ol>
-<li>初始化：循环的第一次迭代之前，它为真</li>
-<li>保持：如果循环的某次迭代之前是真，那么下次迭代之前它还是真</li>
-<li>终止：在循环终止时，不变式为我们提供一个有用的性质，有助于证明算法正确性</li>
-</ol>
-<h3 id="2-2-分析算法"><a href="#2-2-分析算法" class="headerlink" title="2.2 分析算法"></a>2.2 分析算法</h3><p>使用的是RAM模型，指令是一条条的执行的，不考虑数据读取的影响<br>输入规模：量度是输入中的相数<br>运行时间：量度是执行的基本操作数或步数</p>
-<p>讨论时一般讨论最坏情况的计算</p>
-<p><strong><em>增长量级</em></strong><br>只考虑运行时间中最重要的项，同时也忽略常系数。如果一个算法的最坏情况运行时间具有比另一个算法更低的增长量级，一般认为前者更有效</p>
-<p>选择排序：找到最小值，然后把它和a1交换</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for j&#x3D;1 to A.length-1          ;n-1</span><br><span class="line">    i&#x3D;j                        ;n-1</span><br><span class="line">    min&#x3D;A[i]                   ;n-1</span><br><span class="line">    for i to A.length          ;(n-1)*n&#x2F;2</span><br><span class="line">        if min&gt;A[i]            ;(n-1)*n&#x2F;2</span><br><span class="line">            temp&#x3D;min</span><br><span class="line">            min&#x3D;A[i]</span><br><span class="line">            A[i]&#x3D;temp</span><br><span class="line">    A[j]&#x3D;min</span><br></pre></td></tr></table></figure>
-<p>所以选择排序也是$n^2$级别的算法</p>
-<h3 id="2-3-设计算法"><a href="#2-3-设计算法" class="headerlink" title="2.3 设计算法"></a>2.3 设计算法</h3><h4 id="2-3-1-分治法"><a href="#2-3-1-分治法" class="headerlink" title="2.3.1 分治法"></a>2.3.1 分治法</h4><p>思路：把原问题分解为几个规模比较小但类似的问题，递归求解这些子问题，然后再合并这些子问题的解来建立原问题的解<br>分治模式在每一层都有三个步骤：</p>
-<ol>
-<li>分解</li>
-<li>解决</li>
-<li>合并</li>
-</ol>
-<p><strong><em>归并排序</em></strong><br>思路：</p>
-<ol>
-<li>分解：分解为n/2个元素的两个子序列</li>
-<li>解决：使用归并排序递归解决两个子序列的排序</li>
-<li>合并：合并两个排好的子序列<br>合并的过程是关键，所做的事情就是，每次比较两个的最上面的牌，取较小的那个，当有一个被取完的时候，剩下的一个数组就全部放入框。<br>这个步骤用一个n级的merge函数完成</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">merge(A,p,q,r)</span><br><span class="line">    n1&#x3D;q-p+1</span><br><span class="line">    n2&#x3D;r-q</span><br><span class="line">    let L[1...n1+1] and R[1,n2+1] be new arrays</span><br><span class="line">    for i&#x3D;1 to n1</span><br><span class="line">        L[i]&#x3D;A[p+i-1]</span><br><span class="line">    for j&#x3D;1 to n2</span><br><span class="line">        R[j]&#x3D;A[q+j]</span><br><span class="line">    L[n1+1]&#x3D;MAX</span><br><span class="line">    R[n2+1]&#x3D;MAX</span><br><span class="line">    i&#x3D;1</span><br><span class="line">    j&#x3D;1</span><br><span class="line">    for k&#x3D;p to r</span><br><span class="line">        if L[i]&lt;&#x3D;R[j]</span><br><span class="line">            A[k]&#x3D;L[i]</span><br><span class="line">            i&#x3D;i+1</span><br><span class="line">        else </span><br><span class="line">            A[k]&#x3D;R[j]</span><br><span class="line">            j&#x3D;j+1</span><br></pre></td></tr></table></figure>
-
-<p>python实现 用python的list的特性可以很方便的实现归并排序</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    c = []</span><br><span class="line">    h = j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> (j &lt; len(a) <span class="keyword">and</span> h &lt; len(b)):</span><br><span class="line">        <span class="keyword">if</span> a[j] &lt; b[h]:</span><br><span class="line">            c.append(a[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            c.append(b[h])</span><br><span class="line">            h += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> j == len(a):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> b[h:]:</span><br><span class="line">            c.append(i)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> a[j:]:</span><br><span class="line">            c.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(lists) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> lists</span><br><span class="line">    middle = int(len(lists)/<span class="number">2</span>)</span><br><span class="line">    left = merge_sort(lists[:middle])</span><br><span class="line">    right = merge_sort(lists[middle:])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> merge(left, right)</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-2-分析分治算法"><a href="#2-3-2-分析分治算法" class="headerlink" title="2.3.2 分析分治算法"></a>2.3.2 分析分治算法</h3><p>分治算法的时间一般来自三个部分，假设T(n)是规模为n的一个问题，设D(n)是分解子问题需要的时间，C(n)是合并子问题需要的时间，a是一个子问题需要的时间，分解成b个问题，则<br>$$T(n)=\Xi (1)···········n&lt;=c$$<br>$$T(n)=aT(\frac{n}{b})+D(n)+C(n)$$</p>
-<p>通过构建递归树，每一层的代价是n，一共有$n\log n+1$层，所以，递归的代价是$n\log n$</p>
-<h2 id="插入排序和选择排序"><a href="#插入排序和选择排序" class="headerlink" title="插入排序和选择排序"></a>插入排序和选择排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">listsorted</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,A)</span>:</span></span><br><span class="line">        self.A=A</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchsorted</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,len(self.A)<span class="number">-1</span>):</span><br><span class="line">            i=j</span><br><span class="line">            Min=self.A[i]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(j,len(self.A)):</span><br><span class="line">                <span class="keyword">if</span> Min&gt;self.A[i]:</span><br><span class="line">                    Min,self.A[i]=self.A[i],Min</span><br><span class="line">            A[j]=Min</span><br><span class="line">        <span class="keyword">return</span> self.A</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insertionsorted</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,len(self.AA)):</span><br><span class="line">            key=self.A[j]</span><br><span class="line">            i=j<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> i&gt;=<span class="number">0</span> <span class="keyword">and</span> key&lt;self.A[i]:</span><br><span class="line">                self.A[i+<span class="number">1</span>]=self.A[i]</span><br><span class="line">                i=i<span class="number">-1</span></span><br><span class="line">            self.A[i+<span class="number">1</span>]=key</span><br><span class="line">        <span class="keyword">return</span> A</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>

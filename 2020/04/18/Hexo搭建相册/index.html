@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<script src="/js/src/photoswipe.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Hexo-NexT主题搭建博客相册想着怎么可以给主页搭建一个相册提供图片分享，但我对前端知识一无所知，在查看了好多大佬的博客后，借大佬的前端代码经过一些配置后总算是实现了。但是还是有一些问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建相册">
+<meta property="og:url" content="http://yoursite.com/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/index.html">
+<meta property="og:site_name" content="WxyIce">
+<meta property="og:description" content="Hexo-NexT主题搭建博客相册想着怎么可以给主页搭建一个相册提供图片分享，但我对前端知识一无所知，在查看了好多大佬的博客后，借大佬的前端代码经过一些配置后总算是实现了。但是还是有一些问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-18T01:40:45.000Z">
+<meta property="article:modified_time" content="2020-04-18T02:52:38.852Z">
+<meta property="article:author" content="wxyice">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hexo博客搭建相册 | WxyIce</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WxyIce</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">蜗牛的成长日记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-photos">
+
+    <a href="/photos/" rel="section"><i class="fa fa-calendar fa-fw"></i>相册</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wxyice">
+      <meta itemprop="description" content="慢慢慢爬～">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WxyIce">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客搭建相册
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-18 09:40:45 / 修改时间：10:52:38" itemprop="dateCreated datePublished" datetime="2020-04-18T09:40:45+08:00">2020-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Hexo-NexT主题搭建博客相册"><a href="#Hexo-NexT主题搭建博客相册" class="headerlink" title="Hexo-NexT主题搭建博客相册"></a>Hexo-NexT主题搭建博客相册</h1><p>想着怎么可以给主页搭建一个相册提供图片分享，但我对前端知识一无所知，在查看了好多<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>后，借大佬的前端代码经过一些配置后总算是实现了。但是还是有一些问题。</p>
+<a id="more"></a>
+
+<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><p>大概就是要解决两件事，一件是图片资源怎么放到网上，二是个人主页怎么调用资源。因为使用的是GitHub Page搭建的个人主页，每个git仓库只有1G的大小，放图片的话容量显得有些捉襟见肘，所以很多博客也推荐，把图片和网页分开存放。可以使用的云存储可以有如下一些</p>
+<ul>
+<li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
+<li><a href="https://www.aliyun.com/product/oss?utm_content=se_1005589194" target="_blank" rel="noopener">阿里云OSS</a></li>
+<li><a href="https://www.qiniu.com" target="_blank" rel="noopener">七牛云</a></li>
+<li><a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a></li>
+<li><a href="https://cloud.tencent.com/product/coding" target="_blank" rel="noopener">coding.me</a>和腾讯云是一起的</li>
+</ul>
+<p>以上这些作为图床各有优缺点，其中GitHub，coding是免费且不需要实名的，七牛云强制实名认证，但是实名后有10G的容量，阿里云和腾讯云属于需要付费使用。</p>
+<p>我选择的是GitHub，在GitHub上再开一个仓库用来存放图片。但是GitHub有一个问题，它作为资源服务的raw.githubusercontent.com服务被中国墙了，所以目前需要查看我的图片必须通过科学上网。<br>(不过也有博客说是由于DNS污染的原因，但是小菜鸟现在还不懂这些，之后会试着解决一下)</p>
+<p><strong>raw.githubusercontent.com和GitHub</strong><br>raw.githubusercontent.com是github 的素材服务器 (assets server), 分开存放避免跟主服务抢占负载。</p>
+<p>选好图床了，接下来就是下载代码和配置，可以参考<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>,主要是这样几个步骤</p>
+<ol>
+<li>GitHub上的配置</li>
+<li>Hexo-next配置</li>
+</ol>
+<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p>建立一个新的仓库，选择公开，然后把网址复制下来。<br>在自己喜欢的地方建一个文件夹(album)，进入终端，确保自己电脑上已经有git的情况下输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd album</span><br><span class="line">mkdir photos</span><br><span class="line">git init</span><br><span class="line">git clone githubaddress ;把建好的仓库拷贝下来</span><br><span class="line">git remote add origin yourrepositroy@gitaddress ;与刚刚建好的库建立远端链接</span><br></pre></td></tr></table></figure>
+<p>把自己想放上去的图片重新以YY-MM-DD_des.jpg的格式命名，放到photos文件夹<br>复制<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">这个项目</a>中的tool.py到ablum文件夹中,注意修改json文件的生成路径。<br>运行tool.py文件，如果报错检查相关依赖包是否都安装完成（比如PIL图像处理库）<br>tool.py会自己把图片剪裁，压缩，保存json文件，并且推送到远端的GitHub仓库中<br>tool.py文件中有一处代码有些奇怪，我自己进行的一些修改以保证它的正确运行，是针对其中的compress_photo函数，修改为下面代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compress_photo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''调用压缩图片的函数</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    src_dir, des_dir = <span class="string">"photos/"</span>, <span class="string">"min_photos/"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(src_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(src_dir):</span></span><br><span class="line">        make_directory(src_dir)</span><br><span class="line">        <span class="comment"># business logic</span></span><br><span class="line">    file_list_src = list_img_file(src_dir)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(des_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(des_dir):</span></span><br><span class="line">        make_directory(des_dir)</span><br><span class="line">    file_list_des = list_img_file(des_dir)</span><br><span class="line">        <span class="comment"># print file_list</span></span><br><span class="line">    <span class="string">'''如果已经压缩了，就不再压缩'''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(file_list_des)):</span><br><span class="line">        <span class="keyword">if</span> file_list_des[i] <span class="keyword">in</span> file_list_src:</span><br><span class="line">            file_list_src.remove(file_list_des[i])</span><br><span class="line">    compress(<span class="string">'1'</span>, des_dir, src_dir, file_list_src)</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程仓库push出现问题</strong><br>第一次运行tool文件时在git推送远端的时候报错（不好意思忘记截图了）<br>大概错误是分支冲突的感觉所以我使用了git pull命令，但是还是没有解决<br>查了一些方法后，可以通过如下操作强行将远端和本地统一，这样就不会冲突，在进行add和commit就不会出问题了，shell的代码如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories;强制统一</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>如果<code>git pull</code>出现如下报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">error: You have not concluded your merge (MERGE_HEAD exists).</span><br><span class="line">hint: Please, commit your changes before merging.</span><br><span class="line">fatal: Exiting because of unfinished merge.</span><br></pre></td></tr></table></figure>
+<p>可以通过一下git代码放弃本地修改来解决</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Hexo-next配置"><a href="#Hexo-next配置" class="headerlink" title="Hexo-next配置"></a>Hexo-next配置</h2><p>分显示配置和资源配置</p>
+<h3 id="建立新的Page"><a href="#建立新的Page" class="headerlink" title="建立新的Page"></a>建立新的Page</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 你的博客文件夹</span><br><span class="line">hexo new page photos</span><br></pre></td></tr></table></figure>
+<p>在theme/hexo-theme-next/_config.yml中的menu中新建一个photos栏（需要中文翻译的话，需要去，theme/hexo-theme-next/languages/zh-CN.yml中添加对应字段）</p>
+<p>然后在source/photos/index.md中复制入如下代码（我暂时还不是很理解，大概就是分快和调用了json文件）</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 图片</span><br><span class="line">date: </span><br><span class="line">type: "photos"</span><br><span class="line">fancybox: false</span><br><span class="line">comments: true</span><br><span class="line">---</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/ins.css"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/photoswipe.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/default-skin/default-skin.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"photos-btn-wrap"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"photos-btn active"</span> <span class="attr">href</span>=<span class="string">"javascript:void(0)"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">rel</span>=<span class="string">"external"</span>&gt;</span></span>分栏<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"instagram itemscope"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"修改成你自己的网址"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">class</span>=<span class="string">"open-ins"</span>&gt;</span></span>图片正在加载中…<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">  (function() &#123;</span><br><span class="line"><span class="code">    var loadScript = function(path) &#123;</span></span><br><span class="line"><span class="code">      var $script = document.createElement('script')</span></span><br><span class="line"><span class="code">      document.getElementsByTagName('body')[0].appendChild($script)</span></span><br><span class="line"><span class="code">      $script.setAttribute('src', path)</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">    setTimeout(function() &#123;</span></span><br><span class="line"><span class="code">        loadScript('../lib/album/ins.js')</span></span><br><span class="line"><span class="code">    &#125;, 0)</span></span><br><span class="line">  &#125;)()</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置资源调用"><a href="#配置资源调用" class="headerlink" title="配置资源调用"></a>配置资源调用</h3><p>然后在theme/hexo-theme-next/source/lib/album(自己建一个)，把json文件放入，同时把<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">项目</a>的JS&amp;CSS文件夹下的所有文件拷贝到其中。<br>针对刚刚拷入的文件，其中的ins.js文件，修改其中的两行为(可以用ctrl+F)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> minSrc = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/min_photos/'</span> + data.link[i];        </span><br><span class="line"><span class="keyword">var</span> src = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/photos/'</span> + data.link[i];</span><br></pre></td></tr></table></figure>
+<p>最后把photoswipe-ui-default.min.js, photoswipe.min.js两个文件添加到themes/hexo-theme-next/source/js/src中。（没有src文件夹自己建一个就行）</p>
+<p>以上资源配置完成</p>
+<h3 id="配置查看图片插件"><a href="#配置查看图片插件" class="headerlink" title="配置查看图片插件"></a>配置查看图片插件</h3><p>在hexo-theme-next/layout/_layout.swig的头部前添加对js文件的引用如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe.min.js?v=&#123;&#123; theme.version &#125;&#125;"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="&#123;&#123; url_for(theme.js) &#125;&#125;/</span>src/photoswipe-ui-<span class="keyword">default</span>.min.js?v=&#123;&#123; theme.version &#125;&#125;<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在body部分添加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.type === <span class="string">"photos"</span> %&#125;</span><br><span class="line">  &lt;!-- Root element <span class="keyword">of</span> PhotoSwipe. Must have <span class="class"><span class="keyword">class</span> <span class="title">pswp</span>. --&gt;</span></span><br><span class="line"><span class="class">  &lt;<span class="title">div</span> <span class="title">class</span></span>=<span class="string">"pswp"</span> tabindex=<span class="string">"-1"</span> role=<span class="string">"dialog"</span> aria-hidden=<span class="string">"true"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__bg"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div class="pswp__scroll-wrap"&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__container"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__ui pswp__ui--hidden"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__top-bar"&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div class="pswp__counter"&gt;&lt;/</span>div&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--close"</span> title=<span class="string">"Close (Esc)"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--share" title="Share"&gt;&lt;/</span>button&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--fs"</span> title=<span class="string">"Toggle fullscreen"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--zoom" title="Zoom in/</span>out<span class="string">"&gt;&lt;/button&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR --&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- element will get class pswp__preloader--active when preloader is running --&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__preloader<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class="</span>pswp__preloader__icn<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                      &lt;div class="</span>pswp__preloader__cut<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class="</span>pswp__preloader__donut<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                      &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__share-modal pswp__share-modal--hidden pswp__single-tap<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__share-tooltip<span class="string">"&gt;&lt;/div&gt; </span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--left<span class="string">" title="</span>Previous (arrow left)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--right<span class="string">" title="</span>Next (arrow right)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__caption<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__caption__center<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置就基本完成了(原博客中还有部分配置，但next主题更新后有些配置文件找不到了，我发现不进行也没有影响)</p>
+<h2 id="之后做些啥"><a href="#之后做些啥" class="headerlink" title="之后做些啥"></a>之后做些啥</h2><p>这次相册的配置主要是对流程的熟悉过程，大概了解是如果进行分资源存放。<br>这个相册的效果是ins的风格，我更愿意使用类似瀑布流形式的图片UI，所以之后应该会参考别的博客对UI进行一些改变，还有就是raw.githubusercontent.com国内无法访问的问题，也许需要更改存放资源的位置。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">利用Github实现Hexo博客相册</a></li>
+<li><a href="https://blog.csdn.net/u013082989/article/details/70162293" target="_blank" rel="noopener">Hexo+Github实现相册功能</a></li>
+<li><a href="https://timding.top/2017/09/18/Hexo-NexT-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C-%E4%BA%8C/" target="_blank" rel="noopener">Tim’sBlog</a></li>
+<li><a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">github/HexoAlbumData</a></li>
+</ul>
+
+    </div>
+
+    <span title="post.wordcount">
+                  1.9k words
+                </span>
+
+  <span title="post.min2read">
+                  8 min
+                </span>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="算法导论（一）">
+      <i class="fa fa-chevron-left"></i> 算法导论（一）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+
+  
+  
+  
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo-NexT主题搭建博客相册"><span class="nav-number">1.</span> <span class="nav-text">Hexo-NexT主题搭建博客相册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要步骤"><span class="nav-number">1.1.</span> <span class="nav-text">主要步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub配置"><span class="nav-number">1.2.</span> <span class="nav-text">GitHub配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-next配置"><span class="nav-number">1.3.</span> <span class="nav-text">Hexo-next配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立新的Page"><span class="nav-number">1.3.1.</span> <span class="nav-text">建立新的Page</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置资源调用"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置资源调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置查看图片插件"><span class="nav-number">1.3.3.</span> <span class="nav-text">配置查看图片插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#之后做些啥"><span class="nav-number">1.4.</span> <span class="nav-text">之后做些啥</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wxyice"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">wxyice</p>
+  <div class="site-description" itemprop="description">慢慢慢爬～</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+
+    
+
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wxyice</span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">全站共 16.9k 字</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'AxFyfhP54Cb4BfAnqSu5mMFo-gzGzoHsz',
+      appKey     : 'jhGG6AuJFC0qQywD1mSr6Km5',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
