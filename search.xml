@@ -1,138 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/wxyice.github.io/2020/04/05/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Hexo博客搭建相册</title>
-    <url>/wxyice.github.io/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/</url>
-    <content><![CDATA[<h1 id="Hexo-NexT主题搭建博客相册"><a href="#Hexo-NexT主题搭建博客相册" class="headerlink" title="Hexo-NexT主题搭建博客相册"></a>Hexo-NexT主题搭建博客相册</h1><p>想着怎么可以给主页搭建一个相册提供图片分享，但我对前端知识一无所知，在查看了好多<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>后，借大佬的前端代码经过一些配置后总算是实现了。但是还是有一些问题。</p>
-<a id="more"></a>
-
-<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><p>大概就是要解决两件事，一件是图片资源怎么放到网上，二是个人主页怎么调用资源。因为使用的是GitHub Page搭建的个人主页，每个git仓库只有1G的大小，放图片的话容量显得有些捉襟见肘，所以很多博客也推荐，把图片和网页分开存放。可以使用的云存储可以有如下一些</p>
-<ul>
-<li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
-<li><a href="https://www.aliyun.com/product/oss?utm_content=se_1005589194" target="_blank" rel="noopener">阿里云OSS</a></li>
-<li><a href="https://www.qiniu.com" target="_blank" rel="noopener">七牛云</a></li>
-<li><a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a></li>
-<li><a href="https://cloud.tencent.com/product/coding" target="_blank" rel="noopener">coding.me</a>和腾讯云是一起的</li>
-</ul>
-<p>以上这些作为图床各有优缺点，其中GitHub，coding是免费且不需要实名的，七牛云强制实名认证，但是实名后有10G的容量，阿里云和腾讯云属于需要付费使用。</p>
-<p>我选择的是GitHub，在GitHub上再开一个仓库用来存放图片。但是GitHub有一个问题，它作为资源服务的raw.githubusercontent.com服务被中国墙了，所以目前需要查看我的图片必须通过科学上网。<br>(不过也有博客说是由于DNS污染的原因，但是小菜鸟现在还不懂这些，之后会试着解决一下)</p>
-<p><strong>raw.githubusercontent.com和GitHub</strong><br>raw.githubusercontent.com是github 的素材服务器 (assets server), 分开存放避免跟主服务抢占负载。</p>
-<p>选好图床了，接下来就是下载代码和配置，可以参考<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>,主要是这样几个步骤</p>
-<ol>
-<li>GitHub上的配置</li>
-<li>Hexo-next配置</li>
-</ol>
-<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p>建立一个新的仓库，选择公开，然后把网址复制下来。<br>在自己喜欢的地方建一个文件夹(album)，进入终端，确保自己电脑上已经有git的情况下输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd album</span><br><span class="line">mkdir photos</span><br><span class="line">git init</span><br><span class="line">git clone githubaddress ;把建好的仓库拷贝下来</span><br><span class="line">git remote add origin yourrepositroy@gitaddress ;与刚刚建好的库建立远端链接</span><br></pre></td></tr></table></figure>
-<p>把自己想放上去的图片重新以YY-MM-DD_des.jpg的格式命名，放到photos文件夹<br>复制<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">这个项目</a>中的tool.py到ablum文件夹中,注意修改json文件的生成路径。<br>运行tool.py文件，如果报错检查相关依赖包是否都安装完成（比如PIL图像处理库）<br>tool.py会自己把图片剪裁，压缩，保存json文件，并且推送到远端的GitHub仓库中<br>tool.py文件中有一处代码有些奇怪，我自己进行的一些修改以保证它的正确运行，是针对其中的compress_photo函数，修改为下面代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compress_photo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''调用压缩图片的函数</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    src_dir, des_dir = <span class="string">"photos/"</span>, <span class="string">"min_photos/"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(src_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(src_dir):</span></span><br><span class="line">        make_directory(src_dir)</span><br><span class="line">        <span class="comment"># business logic</span></span><br><span class="line">    file_list_src = list_img_file(src_dir)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(des_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(des_dir):</span></span><br><span class="line">        make_directory(des_dir)</span><br><span class="line">    file_list_des = list_img_file(des_dir)</span><br><span class="line">        <span class="comment"># print file_list</span></span><br><span class="line">    <span class="string">'''如果已经压缩了，就不再压缩'''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(file_list_des)):</span><br><span class="line">        <span class="keyword">if</span> file_list_des[i] <span class="keyword">in</span> file_list_src:</span><br><span class="line">            file_list_src.remove(file_list_des[i])</span><br><span class="line">    compress(<span class="string">'1'</span>, des_dir, src_dir, file_list_src)</span><br></pre></td></tr></table></figure>
-
-<p><strong>远程仓库push出现问题</strong><br>第一次运行tool文件时在git推送远端的时候报错（不好意思忘记截图了）<br>大概错误是分支冲突的感觉所以我使用了git pull命令，但是还是没有解决<br>查了一些方法后，可以通过如下操作强行将远端和本地统一，这样就不会冲突，在进行add和commit就不会出问题了，shell的代码如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories;强制统一</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-<p>如果<code>git pull</code>出现如下报错</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">error: You have not concluded your merge (MERGE_HEAD exists).</span><br><span class="line">hint: Please, commit your changes before merging.</span><br><span class="line">fatal: Exiting because of unfinished merge.</span><br></pre></td></tr></table></figure>
-<p>可以通过一下git代码放弃本地修改来解决</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Hexo-next配置"><a href="#Hexo-next配置" class="headerlink" title="Hexo-next配置"></a>Hexo-next配置</h2><p>分显示配置和资源配置</p>
-<h3 id="建立新的Page"><a href="#建立新的Page" class="headerlink" title="建立新的Page"></a>建立新的Page</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd 你的博客文件夹</span><br><span class="line">hexo new page photos</span><br></pre></td></tr></table></figure>
-<p>在theme/hexo-theme-next/_config.yml中的menu中新建一个photos栏（需要中文翻译的话，需要去，theme/hexo-theme-next/languages/zh-CN.yml中添加对应字段）</p>
-<p>然后在source/photos/index.md中复制入如下代码（我暂时还不是很理解，大概就是分快和调用了json文件）</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 图片</span><br><span class="line">date: </span><br><span class="line">type: "photos"</span><br><span class="line">fancybox: false</span><br><span class="line">comments: true</span><br><span class="line">---</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/ins.css"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/photoswipe.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/default-skin/default-skin.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"photos-btn-wrap"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"photos-btn active"</span> <span class="attr">href</span>=<span class="string">"javascript:void(0)"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">rel</span>=<span class="string">"external"</span>&gt;</span></span>分栏<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"instagram itemscope"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"修改成你自己的网址"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">class</span>=<span class="string">"open-ins"</span>&gt;</span></span>图片正在加载中…<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">  (function() &#123;</span><br><span class="line"><span class="code">    var loadScript = function(path) &#123;</span></span><br><span class="line"><span class="code">      var $script = document.createElement('script')</span></span><br><span class="line"><span class="code">      document.getElementsByTagName('body')[0].appendChild($script)</span></span><br><span class="line"><span class="code">      $script.setAttribute('src', path)</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">    setTimeout(function() &#123;</span></span><br><span class="line"><span class="code">        loadScript('../lib/album/ins.js')</span></span><br><span class="line"><span class="code">    &#125;, 0)</span></span><br><span class="line">  &#125;)()</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="配置资源调用"><a href="#配置资源调用" class="headerlink" title="配置资源调用"></a>配置资源调用</h3><p>然后在theme/hexo-theme-next/source/lib/album(自己建一个)，把json文件放入，同时把<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">项目</a>的JS&amp;CSS文件夹下的所有文件拷贝到其中。<br>针对刚刚拷入的文件，其中的ins.js文件，修改其中的两行为(可以用ctrl+F)</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> minSrc = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/min_photos/'</span> + data.link[i];        </span><br><span class="line"><span class="keyword">var</span> src = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/photos/'</span> + data.link[i];</span><br></pre></td></tr></table></figure>
-<p>最后把photoswipe-ui-default.min.js, photoswipe.min.js两个文件添加到themes/hexo-theme-next/source/js/src中。（没有src文件夹自己建一个就行）</p>
-<p>以上资源配置完成</p>
-<h3 id="配置查看图片插件"><a href="#配置查看图片插件" class="headerlink" title="配置查看图片插件"></a>配置查看图片插件</h3><p>在hexo-theme-next/layout/_layout.swig的头部前添加对js文件的引用如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe.min.js?v=&#123;&#123; theme.version &#125;&#125;"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="&#123;&#123; url_for(theme.js) &#125;&#125;/</span>src/photoswipe-ui-<span class="keyword">default</span>.min.js?v=&#123;&#123; theme.version &#125;&#125;<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在body部分添加</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.type === <span class="string">"photos"</span> %&#125;</span><br><span class="line">  &lt;!-- Root element <span class="keyword">of</span> PhotoSwipe. Must have <span class="class"><span class="keyword">class</span> <span class="title">pswp</span>. --&gt;</span></span><br><span class="line"><span class="class">  &lt;<span class="title">div</span> <span class="title">class</span></span>=<span class="string">"pswp"</span> tabindex=<span class="string">"-1"</span> role=<span class="string">"dialog"</span> aria-hidden=<span class="string">"true"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__bg"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div class="pswp__scroll-wrap"&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__container"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__ui pswp__ui--hidden"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__top-bar"&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div class="pswp__counter"&gt;&lt;/</span>div&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--close"</span> title=<span class="string">"Close (Esc)"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--share" title="Share"&gt;&lt;/</span>button&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--fs"</span> title=<span class="string">"Toggle fullscreen"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--zoom" title="Zoom in/</span>out<span class="string">"&gt; </span></span><br><span class="line"><span class="string">                &lt;/button&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR --&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- element will get class pswp__preloader--active when preloader is running --&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__preloader<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class="</span>pswp__preloader__icn<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                      &lt;div class="</span>pswp__preloader__cut<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class="</span>pswp__preloader__donut<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                      &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__share-modal pswp__share-modal--hidden pswp__single-tap<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__share-tooltip<span class="string">"&gt;&lt;/div&gt; </span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--left<span class="string">" title="</span>Previous (arrow left)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--right<span class="string">" title="</span>Next (arrow right)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__caption<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__caption__center<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>配置就基本完成了(原博客中还有部分配置，但next主题更新后有些配置文件找不到了，我发现不进行也没有影响)</p>
-<h2 id="之后做些啥"><a href="#之后做些啥" class="headerlink" title="之后做些啥"></a>之后做些啥</h2><p>这次相册的配置主要是对流程的熟悉过程，大概了解是如果进行分资源存放。<br>这个相册的效果是ins的风格，我更愿意使用类似瀑布流形式的图片UI，所以之后应该会参考别的博客对UI进行一些改变，还有就是raw.githubusercontent.com国内无法访问的问题，也许需要更改存放资源的位置。</p>
-<h2 id="raw-githubusercontent-comDNS污染问题"><a href="#raw-githubusercontent-comDNS污染问题" class="headerlink" title="raw.githubusercontent.comDNS污染问题"></a>raw.githubusercontent.comDNS污染问题</h2><p>DNS污染：网域服务器缓存污染（DNS cache pollution），又称域名服务器缓存投毒（DNS cache poisoning），是指一些刻意制造或无意中制造出来的域名服务器数据包，把域名指往不正确的IP地址。<br>因为DNS污染，人们很难访问raw.githubusercontent.com，但是可以解决。<br>在 <a href="https://githubusercontent.com.ipaddress.com/raw.githubusercontent.com" target="_blank" rel="noopener">Ipaddress</a>查到raw.githubusercontent.com的ip，然后修改电脑上的配置</p>
-<h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><p>终端输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td></tr></table></figure>
-<p>在打开的vim中键入i，然后在文末加一行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">199.232.68.133 raw.githubusercontent.com</span><br></pre></td></tr></table></figure>
-<p>在按esc，输入：wq！<br>就可以访问raw.githubusercontent.com了，也就意味这个人主页上的照片可以查看了</p>
-<h3 id="Win"><a href="#Win" class="headerlink" title="Win"></a>Win</h3><p>Windows系统<br>打开目录：C:/Windows/System32/drivers/etc/<br>找到hosts文件，使用管理员模式打开记事本<br>将hosts文件拖到管理员模式下的记事本中，然后在文件尾部添加以下文本：<br>199.232.68.133 raw.githubusercontent.com<br>保存文件</p>
-<p>参考文章：</p>
-<ul>
-<li><a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">利用Github实现Hexo博客相册</a></li>
-<li><a href="https://blog.csdn.net/u013082989/article/details/70162293" target="_blank" rel="noopener">Hexo+Github实现相册功能</a></li>
-<li><a href="https://timding.top/2017/09/18/Hexo-NexT-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C-%E4%BA%8C/" target="_blank" rel="noopener">Tim’sBlog</a></li>
-<li><a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">github/HexoAlbumData</a></li>
-<li><a href="https://www.jianshu.com/p/bbd79e0444ea" target="_blank" rel="noopener">DNS污染解决</a></li>
-<li><a href="https://www.cnblogs.com/youhui/articles/12668435.html" target="_blank" rel="noopener">DNS污染</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git</title>
-    <url>/wxyice.github.io/2020/04/06/git/</url>
-    <content><![CDATA[<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>git是一种分布式版本控制方法。git可以高效的控制管理代码，完善恢复，帮助完成团队合作的任务。它记录的是修改记录，而不是文件。这也使的它可以在本地进行高效的版本控制，文章简单介绍git的使用方法，非常基础简单，仅供参考。</p>
-<a id="more"></a>
-
-<h2 id="创建自己的git仓库"><a href="#创建自己的git仓库" class="headerlink" title="创建自己的git仓库"></a>创建自己的git仓库</h2><p>首先要在自己的电脑上安装好git库，参考网上教程吧。可以在<a href="https://git-scm.com/" target="_blank" rel="noopener">官方网站</a>下载，安装。<br>安装好后，电脑上建立一个文件夹，从终端进入文件夹，输入代码<code>git init</code>就创建了一个git仓库。这个文件夹就被初始化成一个git仓库了。之后在这个文件夹进行的文件操作会被git所记录。</p>
-<h2 id="把东西搬到仓库里"><a href="#把东西搬到仓库里" class="headerlink" title="把东西搬到仓库里"></a>把东西搬到仓库里</h2><p>简单的说，git管理中有三个区域，分别是工作区，暂存区，储存区。这三个区并不是指切实的在硬盘上划分出来的区域，而是指某一文件的状态。工作区是对当前文件进行修改的状态，暂存区是将工作区文件的修改记录记下来，储存区就是将暂存区的许多文件打包成一个版本存下记录。</p>
-<p>用<code>git add filename</code>把文件放入暂存区，可以使用<code>git status</code>查看当前工作区和暂存区的文件内容。使用<code>git commit -m&quot;介绍&quot;</code>创建版本快照，完整的放入存储室。这样就完成了一次提交，使用<code>git log</code>就可以查看到提交情况。</p>
-<h2 id="查看自己的仓库"><a href="#查看自己的仓库" class="headerlink" title="查看自己的仓库"></a>查看自己的仓库</h2><p><code>git log</code>可以查看自己的仓库库存，可以加入<code>--pretty==oneline</code> 使显示变的亲和一些。</p>
-<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>可以使用<code>git tag&lt;name&gt;</code>对生成的版本进行打标签工作。可以用<code>git tag -d &lt;name&gt;</code>删除标签。</p>
-<p>引出分支：<code>git branch branchname</code>这样会创建一个branchname的分支。<br>查看分支：<code>git branch</code>这样可以直接查看分支。<br>切换分支：<code>git switc branchname</code><br>合并分支：<code>git merge branchname</code><br>删除分支：<code>git branch -d branchname</code></p>
-<p>当有一个版本后，git鼓励在分支上工作，等调试完了在并入主支，分支功能也是高效合作的关键功能。<br>版本回退：<code>git reset --hard HEAD^</code>表示回退到上一个版本，回退几个版本就加几个^。<br>指令记录查看：<code>git reflog</code>可以查看进行过的指令，这里可以找到被调整过的版本号。</p>
-<p>查看变化：<code>git diff HEAD -- file</code>可以查看file工作区与版本库之间的差别。</p>
-<p>撤销修改：<code>git checkout --file</code>可以撤销做的文件修改。</p>
-<h2 id="常用代码"><a href="#常用代码" class="headerlink" title="常用代码"></a>常用代码</h2><h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p>配置git用户名：<code>git config --global user.name &quot;name&quot;</code><br>配置git邮箱：<code>git config --global user.email &quot;email&quot;</code><br>查看git用户名：<code>git config --global user.name</code><br>查看git邮箱：<code>git config --global user.email</code></p>
-<p>查看全局配置：<code>git config --global --list</code><br>查看本地配置：<code>git config --local --list</code><br>查看全部配置：<code>git config --list</code><br>设置git彩色ui特性：<code>git config --global color.ui true</code>（但是我没有成功过hhh，展示不知道怎么回事）</p>
-<h3 id="管理代码类"><a href="#管理代码类" class="headerlink" title="管理代码类"></a>管理代码类</h3><p>工作区的文件加到暂存区：<code>git add filename</code><br>添加所有被tracked的文件的修改到暂存区：<code>git add -u</code><br>添加所有tracked文件修改和没修改文件和untracked文件：<code>git add -A</code><br>将当前工作区的所有文件都加入暂存区：<code>git add .</code><br>进入交互界面模式，按需添加文件到缓存区：<code>git add -i</code></p>
-<p>暂存区提交到本地仓库：<code>git commit -m</code><br>直接提交到仓库：<code>git commit -a -m</code></p>
-<p>查看git管理状态：<code>git status</code><br>修改文件名字：<code>git rm filename</code></p>
-<h3 id="调用版本、分支管理"><a href="#调用版本、分支管理" class="headerlink" title="调用版本、分支管理"></a>调用版本、分支管理</h3><p><code>git diff</code><br><code>git diff branchname</code><br><code>git diff HEAD</code><br><code>git diff id path</code><br><code>git diff --stage</code><br><code>git diff TAG</code><br><code>git diff branchA branchB</code><br>跳转到此分支：<code>git checkout -b dev</code><br>新建分支并跳转到此分支：<code>git branch dev</code><br>查看分支：<code>git checkout dev</code><br>查看分支：<code>git branch</code><br>合并分支：<code>git merge dev</code><br>回退版本：<code>git reset HEAD^</code><br>查看历史命令：<code>git reflog</code><br>回退到指定版本：<code>git reset --hard 版本号</code></p>
-<h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><p><code>git tag &lt;name&gt;</code><br><code>git tag</code><br><code>git show &lt;tagname&gt;</code><br><code>git tag -a v0.1 -m</code><br><code>git tag -l &lt;版本号&gt;</code></p>
-<h3 id="提交记录"><a href="#提交记录" class="headerlink" title="提交记录"></a>提交记录</h3><p><code>git log</code><br><code>git log -p -times</code><br><code>git log --stat</code><br><code>git log --name-only</code><br><code>git log -oneline</code><br><code>git log --graph --all --oneline</code><br><code>git log filename</code></p>
-<h3 id="远端git交互"><a href="#远端git交互" class="headerlink" title="远端git交互"></a>远端git交互</h3><p>把本地仓库代码推送到远端：<code>git push -u origin master</code><br>将远端代码下载到本地仓库：<code>git clone</code></p>
-<h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><p>GitHub是最大的代码托管中心。可以将自己的代码托管在这个网站上（简单说相当于是给自己的代码提供了一个云盘存放，当然GitHub本身其实是有很多很方便的特性）。<br>.io库，是github提供的一个服务器，相当于一个静态网页代码的托管，可以用它完成个人主页的创建，之后会有专门的文章记录我的个人主页创建过程。</p>
-<p>文章之后还会慢慢修改补充，当前只整理了这些。<br>感谢大佬的教程相助！</p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>51单片机基础</title>
-    <url>/wxyice.github.io/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/</url>
+    <url>/2020/04/07/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="微机原理——51单片机"><a href="#微机原理——51单片机" class="headerlink" title="微机原理——51单片机"></a>微机原理——51单片机</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>单片机是单片微型计算机的简称，是典型的嵌入式微控制器。由运算器、控制器、存储器、输入输出设备构成。</p>
 <a id="more"></a>
 <p>单片机具有以下特点</p>
@@ -459,134 +329,138 @@
       </tags>
   </entry>
   <entry>
-    <title>专利申请和文件撰写</title>
-    <url>/wxyice.github.io/2020/04/06/%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%92%8C%E6%96%87%E4%BB%B6%E6%92%B0%E5%86%99/</url>
-    <content><![CDATA[<h1 id="专利申请文件"><a href="#专利申请文件" class="headerlink" title="专利申请文件"></a>专利申请文件</h1><h2 id="1-文件构成"><a href="#1-文件构成" class="headerlink" title="1.文件构成"></a>1.文件构成</h2><p>对于专利发明和实用新型需要包括</p>
+    <title>Hexo博客搭建相册</title>
+    <url>/2020/04/18/Hexo%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C/</url>
+    <content><![CDATA[<h1 id="Hexo-NexT主题搭建博客相册"><a href="#Hexo-NexT主题搭建博客相册" class="headerlink" title="Hexo-NexT主题搭建博客相册"></a>Hexo-NexT主题搭建博客相册</h1><p>想着怎么可以给主页搭建一个相册提供图片分享，但我对前端知识一无所知，在查看了好多<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>后，借大佬的前端代码经过一些配置后总算是实现了。但是还是有一些问题。</p>
 <a id="more"></a>
+
+<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><p>大概就是要解决两件事，一件是图片资源怎么放到网上，二是个人主页怎么调用资源。因为使用的是GitHub Page搭建的个人主页，每个git仓库只有1G的大小，放图片的话容量显得有些捉襟见肘，所以很多博客也推荐，把图片和网页分开存放。可以使用的云存储可以有如下一些</p>
 <ul>
-<li>请求书</li>
-<li>权利要求书</li>
-<li>说明书</li>
-<li>说明书附图</li>
-<li>摘要</li>
+<li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
+<li><a href="https://www.aliyun.com/product/oss?utm_content=se_1005589194" target="_blank" rel="noopener">阿里云OSS</a></li>
+<li><a href="https://www.qiniu.com" target="_blank" rel="noopener">七牛云</a></li>
+<li><a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a></li>
+<li><a href="https://cloud.tencent.com/product/coding" target="_blank" rel="noopener">coding.me</a>和腾讯云是一起的</li>
 </ul>
-<p>对于外观设计专利需要包括</p>
-<ul>
-<li>请求书</li>
-<li>外观设计的图片和照片</li>
-<li>简要说明</li>
-</ul>
-<h3 id="1-1请求书"><a href="#1-1请求书" class="headerlink" title="1.1请求书"></a>1.1请求书</h3><h3 id="1-2说明书"><a href="#1-2说明书" class="headerlink" title="1.2说明书"></a>1.2说明书</h3><p>说明书是专利申请文件的核心，是权利要求书的依据，为权利要求书提供解释</p>
-<h3 id="1-3权利要求书"><a href="#1-3权利要求书" class="headerlink" title="1.3权利要求书"></a>1.3权利要求书</h3><p>权利要求书分为两类</p>
-<ul>
-<li>产品权利要求书</li>
-<li>方法权利要求书</li>
-</ul>
-<p>撰写中权利要求书中使用的科技术语应当与说明书中使用的一致，可以有化学式或数学式， 必要时可以有表格，但不得有插图。不得使用“如说明书……部分所述”或者“如图……所示”等用语。</p>
-<p>权利要求的概念：</p>
+<p>以上这些作为图床各有优缺点，其中GitHub，coding是免费且不需要实名的，七牛云强制实名认证，但是实名后有10G的容量，阿里云和腾讯云属于需要付费使用。</p>
+<p>我选择的是GitHub，在GitHub上再开一个仓库用来存放图片。但是GitHub有一个问题，它作为资源服务的raw.githubusercontent.com服务被中国墙了，所以目前需要查看我的图片必须通过科学上网。<br>(不过也有博客说是由于DNS污染的原因，但是小菜鸟现在还不懂这些，之后会试着解决一下)</p>
+<p><strong>raw.githubusercontent.com和GitHub</strong><br>raw.githubusercontent.com是github 的素材服务器 (assets server), 分开存放避免跟主服务抢占负载。</p>
+<p>选好图床了，接下来就是下载代码和配置，可以参考<a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">大佬的博客</a>,主要是这样几个步骤</p>
 <ol>
-<li>并列独立权利<br>并列独立权利要求:产品、制造产品的方法，产品的用途，制造产品的设备;方法，为该方法设计 的设备。与产品描述是相互独立、并列的。可以理解为权利要求分成总分(并列独立权利)分(从属权利 要求)结构。例(沿用之前铅笔的例子):一种如权利要求 1 所述铅笔的加工方法，其特征在于:在加工过 程中在铅笔的末端固定一个橡皮。</li>
-<li>独立权利<br>独立权利要求:独立权利要求从总体上体现发明构思，保护范围最大。解决问题的不可缺少的技术特征、相对于现有技术具有新颖性和创造性。可以通过列写出发明所有的技术 特征，删去非必要技术特征、与发明不相干的特征实现。</li>
-<li>从属权利<br>从属权利要求:为独立权利 要求做限定的、附加的技术特征，构建多层保护体系。示例:根据权利要求 1 所属的汽车，其特征在于， 所述合金材料为不锈钢<h4 id="1-3-1产品权利要求书"><a href="#1-3-1产品权利要求书" class="headerlink" title="1.3.1产品权利要求书"></a>1.3.1产品权利要求书</h4>包括：物品、物质、材料、工具、 装置、设备等<br>产品权利要求需要说明产品的技术特征:零件、元器件、部件、材料、器具、设备的形状、结构尺寸; 产品元素、含量等等。示例:一种汽车，包括底盘，其特征在于底盘由合金材料制成。<h4 id="1-3-2方法权利要求书"><a href="#1-3-2方法权利要求书" class="headerlink" title="1.3.2方法权利要求书"></a>1.3.2方法权利要求书</h4>包括制造方法，使用方法，通讯方法，处理方法，将产品适用于特定用途 的方法</li>
+<li>GitHub上的配置</li>
+<li>Hexo-next配置</li>
 </ol>
-<h2 id="撰写"><a href="#撰写" class="headerlink" title="撰写"></a>撰写</h2><h3 id="权利要求书的撰写"><a href="#权利要求书的撰写" class="headerlink" title="权利要求书的撰写"></a>权利要求书的撰写</h3><p>权利要求撰写步骤</p>
-<ol>
-<li>找出主要特征，弄清关系、作用;</li>
-<li>根据现有特征确定必要技术特征;</li>
-<li>比较现有技术找到共同必要技术和特征;</li>
-<li>分析附加技术特征，将附加技术特征写入从权。</li>
-</ol>
+<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p>建立一个新的仓库，选择公开，然后把网址复制下来。<br>在自己喜欢的地方建一个文件夹(album)，进入终端，确保自己电脑上已经有git的情况下输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd album</span><br><span class="line">mkdir photos</span><br><span class="line">git init</span><br><span class="line">git clone githubaddress ;把建好的仓库拷贝下来</span><br><span class="line">git remote add origin yourrepositroy@gitaddress ;与刚刚建好的库建立远端链接</span><br></pre></td></tr></table></figure>
+<p>把自己想放上去的图片重新以YY-MM-DD_des.jpg的格式命名，放到photos文件夹<br>复制<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">这个项目</a>中的tool.py到ablum文件夹中,注意修改json文件的生成路径。<br>运行tool.py文件，如果报错检查相关依赖包是否都安装完成（比如PIL图像处理库）<br>tool.py会自己把图片剪裁，压缩，保存json文件，并且推送到远端的GitHub仓库中<br>tool.py文件中有一处代码有些奇怪，我自己进行的一些修改以保证它的正确运行，是针对其中的compress_photo函数，修改为下面代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compress_photo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''调用压缩图片的函数</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    src_dir, des_dir = <span class="string">"photos/"</span>, <span class="string">"min_photos/"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(src_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(src_dir):</span></span><br><span class="line">        make_directory(src_dir)</span><br><span class="line">        <span class="comment"># business logic</span></span><br><span class="line">    file_list_src = list_img_file(src_dir)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> directory_exists(des_dir):</span><br><span class="line">        <span class="comment">#if not directory_exists(des_dir):</span></span><br><span class="line">        make_directory(des_dir)</span><br><span class="line">    file_list_des = list_img_file(des_dir)</span><br><span class="line">        <span class="comment"># print file_list</span></span><br><span class="line">    <span class="string">'''如果已经压缩了，就不再压缩'''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(file_list_des)):</span><br><span class="line">        <span class="keyword">if</span> file_list_des[i] <span class="keyword">in</span> file_list_src:</span><br><span class="line">            file_list_src.remove(file_list_des[i])</span><br><span class="line">    compress(<span class="string">'1'</span>, des_dir, src_dir, file_list_src)</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程仓库push出现问题</strong><br>第一次运行tool文件时在git推送远端的时候报错（不好意思忘记截图了）<br>大概错误是分支冲突的感觉所以我使用了git pull命令，但是还是没有解决<br>查了一些方法后，可以通过如下操作强行将远端和本地统一，这样就不会冲突，在进行add和commit就不会出问题了，shell的代码如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories;强制统一</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>如果<code>git pull</code>出现如下报错</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">error: You have not concluded your merge (MERGE_HEAD exists).</span><br><span class="line">hint: Please, commit your changes before merging.</span><br><span class="line">fatal: Exiting because of unfinished merge.</span><br></pre></td></tr></table></figure>
+<p>可以通过一下git代码放弃本地修改来解决</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Hexo-next配置"><a href="#Hexo-next配置" class="headerlink" title="Hexo-next配置"></a>Hexo-next配置</h2><p>分显示配置和资源配置</p>
+<h3 id="建立新的Page"><a href="#建立新的Page" class="headerlink" title="建立新的Page"></a>建立新的Page</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd 你的博客文件夹</span><br><span class="line">hexo new page photos</span><br></pre></td></tr></table></figure>
+<p>在theme/hexo-theme-next/_config.yml中的menu中新建一个photos栏（需要中文翻译的话，需要去，theme/hexo-theme-next/languages/zh-CN.yml中添加对应字段）</p>
+<p>然后在source/photos/index.md中复制入如下代码（我暂时还不是很理解，大概就是分快和调用了json文件）</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 图片</span><br><span class="line">date: </span><br><span class="line">type: "photos"</span><br><span class="line">fancybox: false</span><br><span class="line">comments: true</span><br><span class="line">---</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/ins.css"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/photoswipe.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../lib/album/default-skin/default-skin.css"</span>&gt;</span></span> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"photos-btn-wrap"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"photos-btn active"</span> <span class="attr">href</span>=<span class="string">"javascript:void(0)"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">rel</span>=<span class="string">"external"</span>&gt;</span></span>分栏<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"instagram itemscope"</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"修改成你自己的网址"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">class</span>=<span class="string">"open-ins"</span>&gt;</span></span>图片正在加载中…<span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">  (function() &#123;</span><br><span class="line"><span class="code">    var loadScript = function(path) &#123;</span></span><br><span class="line"><span class="code">      var $script = document.createElement('script')</span></span><br><span class="line"><span class="code">      document.getElementsByTagName('body')[0].appendChild($script)</span></span><br><span class="line"><span class="code">      $script.setAttribute('src', path)</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">    setTimeout(function() &#123;</span></span><br><span class="line"><span class="code">        loadScript('../lib/album/ins.js')</span></span><br><span class="line"><span class="code">    &#125;, 0)</span></span><br><span class="line">  &#125;)()</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置资源调用"><a href="#配置资源调用" class="headerlink" title="配置资源调用"></a>配置资源调用</h3><p>然后在theme/hexo-theme-next/source/lib/album(自己建一个)，把json文件放入，同时把<a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">项目</a>的JS&amp;CSS文件夹下的所有文件拷贝到其中。<br>针对刚刚拷入的文件，其中的ins.js文件，修改其中的两行为(可以用ctrl+F)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> minSrc = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/min_photos/'</span> + data.link[i];        </span><br><span class="line"><span class="keyword">var</span> src = <span class="string">'https://raw.githubusercontent.com/yourgithub/repository/master/photos/'</span> + data.link[i];</span><br></pre></td></tr></table></figure>
+<p>最后把photoswipe-ui-default.min.js, photoswipe.min.js两个文件添加到themes/hexo-theme-next/source/js/src中。（没有src文件夹自己建一个就行）</p>
+<p>以上资源配置完成</p>
+<h3 id="配置查看图片插件"><a href="#配置查看图片插件" class="headerlink" title="配置查看图片插件"></a>配置查看图片插件</h3><p>在hexo-theme-next/layout/_layout.swig的头部前添加对js文件的引用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe.min.js?v=&#123;&#123; theme.version &#125;&#125;"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="&#123;&#123; url_for(theme.js) &#125;&#125;/</span>src/photoswipe-ui-<span class="keyword">default</span>.min.js?v=&#123;&#123; theme.version &#125;&#125;<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在body部分添加</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.type === <span class="string">"photos"</span> %&#125;</span><br><span class="line">  &lt;!-- Root element <span class="keyword">of</span> PhotoSwipe. Must have <span class="class"><span class="keyword">class</span> <span class="title">pswp</span>. --&gt;</span></span><br><span class="line"><span class="class">  &lt;<span class="title">div</span> <span class="title">class</span></span>=<span class="string">"pswp"</span> tabindex=<span class="string">"-1"</span> role=<span class="string">"dialog"</span> aria-hidden=<span class="string">"true"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__bg"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div class="pswp__scroll-wrap"&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__container"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__item"&gt;&lt;/</span>div&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__ui pswp__ui--hidden"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__top-bar"&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div class="pswp__counter"&gt;&lt;/</span>div&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--close"</span> title=<span class="string">"Close (Esc)"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--share" title="Share"&gt;&lt;/</span>button&gt;</span><br><span class="line">                &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--fs"</span> title=<span class="string">"Toggle fullscreen"</span>&gt;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button class="pswp__button pswp__button--zoom" title="Zoom in/</span>out<span class="string">"&gt; </span></span><br><span class="line"><span class="string">                &lt;/button&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR --&gt;</span></span><br><span class="line"><span class="string">                &lt;!-- element will get class pswp__preloader--active when preloader is running --&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__preloader<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class="</span>pswp__preloader__icn<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                      &lt;div class="</span>pswp__preloader__cut<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class="</span>pswp__preloader__donut<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                      &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__share-modal pswp__share-modal--hidden pswp__single-tap<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__share-tooltip<span class="string">"&gt;&lt;/div&gt; </span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--left<span class="string">" title="</span>Previous (arrow left)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;button class="</span>pswp__button pswp__button--arrow--right<span class="string">" title="</span>Next (arrow right)<span class="string">"&gt;</span></span><br><span class="line"><span class="string">            &lt;/button&gt;</span></span><br><span class="line"><span class="string">            &lt;div class="</span>pswp__caption<span class="string">"&gt;</span></span><br><span class="line"><span class="string">                &lt;div class="</span>pswp__caption__center<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置就基本完成了(原博客中还有部分配置，但next主题更新后有些配置文件找不到了，我发现不进行也没有影响)</p>
+<h2 id="之后做些啥"><a href="#之后做些啥" class="headerlink" title="之后做些啥"></a>之后做些啥</h2><p>这次相册的配置主要是对流程的熟悉过程，大概了解是如果进行分资源存放。<br>这个相册的效果是ins的风格，我更愿意使用类似瀑布流形式的图片UI，所以之后应该会参考别的博客对UI进行一些改变，还有就是raw.githubusercontent.com国内无法访问的问题，也许需要更改存放资源的位置。</p>
+<h2 id="raw-githubusercontent-comDNS污染问题"><a href="#raw-githubusercontent-comDNS污染问题" class="headerlink" title="raw.githubusercontent.comDNS污染问题"></a>raw.githubusercontent.comDNS污染问题</h2><p>DNS污染：网域服务器缓存污染（DNS cache pollution），又称域名服务器缓存投毒（DNS cache poisoning），是指一些刻意制造或无意中制造出来的域名服务器数据包，把域名指往不正确的IP地址。<br>因为DNS污染，人们很难访问raw.githubusercontent.com，但是可以解决。<br>在 <a href="https://githubusercontent.com.ipaddress.com/raw.githubusercontent.com" target="_blank" rel="noopener">Ipaddress</a>查到raw.githubusercontent.com的ip，然后修改电脑上的配置</p>
+<h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><p>终端输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>在打开的vim中键入i，然后在文末加一行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">199.232.68.133 raw.githubusercontent.com</span><br></pre></td></tr></table></figure>
+<p>在按esc，输入：wq！<br>就可以访问raw.githubusercontent.com了，也就意味这个人主页上的照片可以查看了</p>
+<h3 id="Win"><a href="#Win" class="headerlink" title="Win"></a>Win</h3><p>Windows系统<br>打开目录：C:/Windows/System32/drivers/etc/<br>找到hosts文件，使用管理员模式打开记事本<br>将hosts文件拖到管理员模式下的记事本中，然后在文件尾部添加以下文本：<br>199.232.68.133 raw.githubusercontent.com<br>保存文件</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://blog.csdn.net/qq_31279347/article/details/82427533" target="_blank" rel="noopener">利用Github实现Hexo博客相册</a></li>
+<li><a href="https://blog.csdn.net/u013082989/article/details/70162293" target="_blank" rel="noopener">Hexo+Github实现相册功能</a></li>
+<li><a href="https://timding.top/2017/09/18/Hexo-NexT-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%86%8C-%E4%BA%8C/" target="_blank" rel="noopener">Tim’sBlog</a></li>
+<li><a href="https://github.com/malizhigithub/HexoAlbumData" target="_blank" rel="noopener">github/HexoAlbumData</a></li>
+<li><a href="https://www.jianshu.com/p/bbd79e0444ea" target="_blank" rel="noopener">DNS污染解决</a></li>
+<li><a href="https://www.cnblogs.com/youhui/articles/12668435.html" target="_blank" rel="noopener">DNS污染</a></li>
+</ul>
 ]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
       <tags>
-        <tag>学习笔记</tag>
-        <tag>专利申请</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
-    <title>心理学导论-条件反射和学习</title>
-    <url>/wxyice.github.io/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E6%9D%A1%E4%BB%B6%E5%8F%8D%E5%B0%84%E5%92%8C%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="心理学导论——条件反射和学习"><a href="#心理学导论——条件反射和学习" class="headerlink" title="心理学导论——条件反射和学习"></a>心理学导论——条件反射和学习</h1><h2 id="学习的定义"><a href="#学习的定义" class="headerlink" title="学习的定义"></a>学习的定义</h2><p>学习是由经验引起的相对持久的行为变化。</p>
-<p>经典条件反射：形成取决于一个反应前发生的事<br>操作性条件反射：建立在反应结果的基础上，结果决定反应是否再次发生</p>
+    <title>git</title>
+    <url>/2020/04/06/git/</url>
+    <content><![CDATA[<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>git是一种分布式版本控制方法。git可以高效的控制管理代码，完善恢复，帮助完成团队合作的任务。它记录的是修改记录，而不是文件。这也使的它可以在本地进行高效的版本控制，文章简单介绍git的使用方法，非常基础简单，仅供参考。</p>
 <a id="more"></a>
-<h3 id="经典条件反射"><a href="#经典条件反射" class="headerlink" title="经典条件反射"></a>经典条件反射</h3><p>经典条件反射，人们会学会刺激与反应的关系建立，基础是人的非条件反射，通过条件刺激在非条件刺激周围徘徊，可以使条件刺激与非条件反应建立联系，从而实现条件反射。<br>习得：条件刺激在无条件刺激前出现，紧密，很快就会习得<br>期望：认知会建立新的心理期望<br>消退：条件反射是会消退的<br>自动恢复：消退不是一次性完成的，中间会有反复<br>泛化：将刺激广泛的应用到别的联系上<br>辨别：出现类似刺激，在多次训练不同强化后会辨别不同刺激的结果，也是泛化消退</p>
-<p>人类的条件反射和情绪<br>条件性情绪反射：经历后，人们会形成反射<br>间接性情绪反射：听说后人们也会建立情绪反射</p>
-<h3 id="操作性条件反射"><a href="#操作性条件反射" class="headerlink" title="操作性条件反射"></a>操作性条件反射</h3><p>这是一种把行为和结果联系起来的反射。（是人们认为这个操作可以对应一个结果，这个结果决定这个操作再发生的可能性）</p>
-<p>习得：也叫强化，通过调整结果，改变以拥有技能的出现频次，强化的时间要在正确反应后的较短时间内。但是人有期望性，所以也没关系。</p>
-<p>操作性条件反射可以解释迷信行为，即在结果和正确反应之间有别的动作参与，我们认为这个反应是正确的并也得到了强化。</p>
-<p>强化方式有正强化和负强化<br>正强化：反应得到的结果是愉快的<br>负强化：反应得到的结果是结束不愉快的<br>其实我个人感觉差不多，都是向好的。</p>
-<p>强化还可以通过惩罚和反应代价实现<br>惩罚：反应得到的结果是不愉快的<br>反应代价：反应得到的结果是结束愉快<br>这两个我个人感觉是向负的</p>
-<p>操作性消退：同样需要时间，也会反复</p>
-<p>操作性强化物：分为一级、二级强化物、反馈<br>一级强化物：指具有生理基础，满足生理需要<br>二级强化物：有习得性，可以和一级挂钩（比如钱），有比一级强化性更长的强化效应<br>反馈：给人信息来强化行为</p>
-<p>部分强化：相对连续强化，多次反应后再给出结果，有不同的间隔模式，比如：固定比率FR，不定比率VR，固定时间FI，不定时间VI<br>VR模式比FR更不容易消退，同样VI也有更好的抑制消退的效果</p>
-<h4 id="惩罚"><a href="#惩罚" class="headerlink" title="惩罚"></a>惩罚</h4><p>惩罚的正确应用：要有一致性、及时性、适度<br>惩罚的副作用：对惩罚者的情绪恶意、产生逃避反应、攻击性上升</p>
-<h3 id="其他学习方式"><a href="#其他学习方式" class="headerlink" title="其他学习方式"></a>其他学习方式</h3><p>认知学习：就是我们说的理解的学，包括潜在学习、发现式学习也是理解学习的方式。<br>榜样学习：通过观察加模仿</p>
+
+<h2 id="创建自己的git仓库"><a href="#创建自己的git仓库" class="headerlink" title="创建自己的git仓库"></a>创建自己的git仓库</h2><p>首先要在自己的电脑上安装好git库，参考网上教程吧。可以在<a href="https://git-scm.com/" target="_blank" rel="noopener">官方网站</a>下载，安装。<br>安装好后，电脑上建立一个文件夹，从终端进入文件夹，输入代码<code>git init</code>就创建了一个git仓库。这个文件夹就被初始化成一个git仓库了。之后在这个文件夹进行的文件操作会被git所记录。</p>
+<h2 id="把东西搬到仓库里"><a href="#把东西搬到仓库里" class="headerlink" title="把东西搬到仓库里"></a>把东西搬到仓库里</h2><p>简单的说，git管理中有三个区域，分别是工作区，暂存区，储存区。这三个区并不是指切实的在硬盘上划分出来的区域，而是指某一文件的状态。工作区是对当前文件进行修改的状态，暂存区是将工作区文件的修改记录记下来，储存区就是将暂存区的许多文件打包成一个版本存下记录。</p>
+<p>用<code>git add filename</code>把文件放入暂存区，可以使用<code>git status</code>查看当前工作区和暂存区的文件内容。使用<code>git commit -m&quot;介绍&quot;</code>创建版本快照，完整的放入存储室。这样就完成了一次提交，使用<code>git log</code>就可以查看到提交情况。</p>
+<h2 id="查看自己的仓库"><a href="#查看自己的仓库" class="headerlink" title="查看自己的仓库"></a>查看自己的仓库</h2><p><code>git log</code>可以查看自己的仓库库存，可以加入<code>--pretty==oneline</code> 使显示变的亲和一些。</p>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>可以使用<code>git tag&lt;name&gt;</code>对生成的版本进行打标签工作。可以用<code>git tag -d &lt;name&gt;</code>删除标签。</p>
+<p>引出分支：<code>git branch branchname</code>这样会创建一个branchname的分支。<br>查看分支：<code>git branch</code>这样可以直接查看分支。<br>切换分支：<code>git switc branchname</code><br>合并分支：<code>git merge branchname</code><br>删除分支：<code>git branch -d branchname</code></p>
+<p>当有一个版本后，git鼓励在分支上工作，等调试完了在并入主支，分支功能也是高效合作的关键功能。<br>版本回退：<code>git reset --hard HEAD^</code>表示回退到上一个版本，回退几个版本就加几个^。<br>指令记录查看：<code>git reflog</code>可以查看进行过的指令，这里可以找到被调整过的版本号。</p>
+<p>查看变化：<code>git diff HEAD -- file</code>可以查看file工作区与版本库之间的差别。</p>
+<p>撤销修改：<code>git checkout --file</code>可以撤销做的文件修改。</p>
+<h2 id="常用代码"><a href="#常用代码" class="headerlink" title="常用代码"></a>常用代码</h2><h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p>配置git用户名：<code>git config --global user.name &quot;name&quot;</code><br>配置git邮箱：<code>git config --global user.email &quot;email&quot;</code><br>查看git用户名：<code>git config --global user.name</code><br>查看git邮箱：<code>git config --global user.email</code></p>
+<p>查看全局配置：<code>git config --global --list</code><br>查看本地配置：<code>git config --local --list</code><br>查看全部配置：<code>git config --list</code><br>设置git彩色ui特性：<code>git config --global color.ui true</code>（但是我没有成功过hhh，展示不知道怎么回事）</p>
+<h3 id="管理代码类"><a href="#管理代码类" class="headerlink" title="管理代码类"></a>管理代码类</h3><p>工作区的文件加到暂存区：<code>git add filename</code><br>添加所有被tracked的文件的修改到暂存区：<code>git add -u</code><br>添加所有tracked文件修改和没修改文件和untracked文件：<code>git add -A</code><br>将当前工作区的所有文件都加入暂存区：<code>git add .</code><br>进入交互界面模式，按需添加文件到缓存区：<code>git add -i</code></p>
+<p>暂存区提交到本地仓库：<code>git commit -m</code><br>直接提交到仓库：<code>git commit -a -m</code></p>
+<p>查看git管理状态：<code>git status</code><br>修改文件名字：<code>git rm filename</code></p>
+<h3 id="调用版本、分支管理"><a href="#调用版本、分支管理" class="headerlink" title="调用版本、分支管理"></a>调用版本、分支管理</h3><p><code>git diff</code><br><code>git diff branchname</code><br><code>git diff HEAD</code><br><code>git diff id path</code><br><code>git diff --stage</code><br><code>git diff TAG</code><br><code>git diff branchA branchB</code><br>跳转到此分支：<code>git checkout -b dev</code><br>新建分支并跳转到此分支：<code>git branch dev</code><br>查看分支：<code>git checkout dev</code><br>查看分支：<code>git branch</code><br>合并分支：<code>git merge dev</code><br>回退版本：<code>git reset HEAD^</code><br>查看历史命令：<code>git reflog</code><br>回退到指定版本：<code>git reset --hard 版本号</code></p>
+<h3 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h3><p><code>git tag &lt;name&gt;</code><br><code>git tag</code><br><code>git show &lt;tagname&gt;</code><br><code>git tag -a v0.1 -m</code><br><code>git tag -l &lt;版本号&gt;</code></p>
+<h3 id="提交记录"><a href="#提交记录" class="headerlink" title="提交记录"></a>提交记录</h3><p><code>git log</code><br><code>git log -p -times</code><br><code>git log --stat</code><br><code>git log --name-only</code><br><code>git log -oneline</code><br><code>git log --graph --all --oneline</code><br><code>git log filename</code></p>
+<h3 id="远端git交互"><a href="#远端git交互" class="headerlink" title="远端git交互"></a>远端git交互</h3><p>把本地仓库代码推送到远端：<code>git push -u origin master</code><br>将远端代码下载到本地仓库：<code>git clone</code></p>
+<h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><p>GitHub是最大的代码托管中心。可以将自己的代码托管在这个网站上（简单说相当于是给自己的代码提供了一个云盘存放，当然GitHub本身其实是有很多很方便的特性）。<br>.io库，是github提供的一个服务器，相当于一个静态网页代码的托管，可以用它完成个人主页的创建，之后会有专门的文章记录我的个人主页创建过程。</p>
+<p>文章之后还会慢慢修改补充，当前只整理了这些。<br>感谢大佬的教程相助！</p>
 ]]></content>
       <categories>
-        <category>心理学</category>
+        <category>git</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
-        <tag>心理学</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
-    <title>OpenCv基础(1)</title>
-    <url>/wxyice.github.io/2020/04/15/opencv/</url>
-    <content><![CDATA[<h1 id="OpenCv基础（一）"><a href="#OpenCv基础（一）" class="headerlink" title="OpenCv基础（一）"></a>OpenCv基础（一）</h1><p>Opencv是开源的跨平台计算机视觉库。它是轻量级并且高效的，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。目前版本已经迭代到opencv4.2。<br><a href="https://baike.baidu.com/item/opencv/10320623" target="_blank" rel="noopener">OpenCv 百度百科</a></p>
+    <title>Hello World</title>
+    <url>/2020/04/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
-<h2 id="opencv-python-安装"><a href="#opencv-python-安装" class="headerlink" title="opencv python 安装"></a>opencv python 安装</h2><p>用conda下载安装相关库就可以了<br><code>conda install opencv</code><br><a href="https://opencv.org" target="_blank" rel="noopener">OpenCv官网</a></p>
-<h2 id="opencv-python的使用基础"><a href="#opencv-python的使用基础" class="headerlink" title="opencv python的使用基础"></a>opencv python的使用基础</h2><p>在使用使，需要import相关库，之后的代码默认已经有</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matlabplot           <span class="comment">#数据处理，matlab绘图接口库</span></span><br></pre></td></tr></table></figure>
-<p><strong>怎么读取并显示一张图片</strong><br>使用imread和imshow</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#读取图片</span></span><br><span class="line">img=cv2.imread(<span class="string">"img_path"</span>,<span class="number">0</span>)  <span class="comment">#文件路径，读取img,0是读取方式，表示读取灰度图像</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">cv2.imshow(<span class="string">'image'</span>,img)     <span class="comment">#‘image’是窗口名，输出img</span></span><br><span class="line"><span class="comment">#等价的显示方法</span></span><br><span class="line">plt.imshow(img, cmap = <span class="string">'gray'</span>, interpolation = <span class="string">'bicubic'</span>)<span class="comment">#以灰度图像显示图片</span></span><br><span class="line">plt.xticks([]), plt.yticks([]) <span class="comment">#隐藏x,y轴</span></span><br><span class="line">plt.show()                     <span class="comment">#显示图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">cv2.imwrite(<span class="string">"img.jpg"</span>,img)</span><br></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>怎么读取视屏</strong><br>在opencv中，视频也是一帧一帧被读取的，称为视频流。代码如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建了一个cap视频流</span></span><br><span class="line">cap = cv2.VideoCapture(<span class="number">0</span>)<span class="comment">#- 0 本机摄像头- 1 外接摄像头</span></span><br><span class="line"><span class="comment">#修改视频流参数</span></span><br><span class="line">cap.get(propId) <span class="comment">#读取参数</span></span><br><span class="line">    <span class="comment">#其中propId=3表示每一帧高</span></span><br><span class="line">    <span class="comment">#其中propId=4表示每一帧高</span></span><br><span class="line">cap.set(propId,value) <span class="comment">#修改参数</span></span><br><span class="line"><span class="comment">#视频流初始化</span></span><br><span class="line"><span class="comment">#cap.isOpened()</span></span><br><span class="line">cap.read()</span><br><span class="line"><span class="comment">#保存视频流</span></span><br><span class="line">fourcc = cv2.cv.FOURCC(*<span class="string">'XVID'</span>) <span class="comment">#定义格式</span></span><br><span class="line">out = cv2.VideoWriter(<span class="string">'output.avi'</span>,fourcc, <span class="number">20.0</span>, (<span class="number">640</span>,<span class="number">480</span>))<span class="comment">#定义一个输出文件</span></span><br><span class="line"><span class="comment">#循环读取图片（帧）</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    ret, frame = cap.read()<span class="comment">#返回一个布尔值(True/False)</span></span><br><span class="line">    <span class="comment"># Our operations on the frame come here</span></span><br><span class="line">    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) </span><br><span class="line">    <span class="comment">#转换颜色空间* cv2.COLOR_BGR2GRAY</span></span><br><span class="line">    <span class="comment"># Display the resulting frame</span></span><br><span class="line">    cv2.imshow(<span class="string">'frame'</span>,gray) 显示视频流</span><br><span class="line">    out.write(frame)<span class="comment">#把frame写入文件，这个要放在while循环中</span></span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == ord(<span class="string">'q'</span>): <span class="comment">#表示当你按下键盘q时break</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment">#释放保存文件空间</span></span><br><span class="line">out.release()</span><br><span class="line"><span class="comment">#释放视频流</span></span><br><span class="line">cap.release()</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<h2 id="opencv的GUI特性"><a href="#opencv的GUI特性" class="headerlink" title="opencv的GUI特性"></a>opencv的GUI特性</h2><h3 id="绘图函数"><a href="#绘图函数" class="headerlink" title="绘图函数"></a>绘图函数</h3><p><strong>基本参数</strong></p>
-<ul>
-<li>img:你想要绘制图形的那幅图像。</li>
-<li>color:形状的颜色。以RGB为例，需要传入一个元组，例如:(255,0,0)代表蓝色。对于灰度图只需要传入灰度值。</li>
-<li>thickness:线条的粗细。如果给一个闭合图形设置为-1，那么这个图形就会被填充。默认值是1</li>
-<li>linetype:线条的类型，8连接，抗锯齿等。默认情况是8连接。<ul>
-<li>cv2.LINE_AA为抗锯齿，这样看起来会非常平滑</li>
-</ul>
-</li>
-</ul>
-<p><strong>函数</strong></p>
-<ul>
-<li>cv2.line() 画直线<pre><code>- 给起点终点</code></pre></li>
-<li>cv2.circle() 画圆<pre><code>- 给中心和半径</code></pre></li>
-<li>cv2.rectangle() 画矩形（感觉用的最多了）<pre><code>- 给左上和右下</code></pre></li>
-<li>cv2.ellipse()画椭圆<pre><code>- 给长轴和短轴旋转角度</code></pre></li>
-<li>cv2.putText()<ul>
-<li>文字</li>
-<li>位置</li>
-<li>字体</li>
-<li>大小</li>
-<li>颜色等属性</li>
-</ul>
-</li>
-<li>cv2.polylines() 可以被用来画很多条线</li>
-</ul>
-<h3 id="鼠标与事件"><a href="#鼠标与事件" class="headerlink" title="鼠标与事件"></a>鼠标与事件</h3><p>opencv捕获事件函数<br>    * cv2.setMouseCallback(‘image’,draw_circle)<br>    * cv2.waitKey(20)&amp;0xFF==27</p>
-<p><strong>如何查询事件</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#opencv查表</span></span><br><span class="line">events=[i <span class="keyword">for</span> i <span class="keyword">in</span> dir(cv2) <span class="keyword">if</span> <span class="string">'EVENT'</span><span class="keyword">in</span> i]</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">        - 事件查阅</span></span><br><span class="line"><span class="string">        - cv2.EVENT_LBUTTONDOWN</span></span><br><span class="line"><span class="string">        - cv2.EVENT_MOUSEMOVE</span></span><br><span class="line"><span class="string">        - cv2.EVENT_FLAG_LBUTTON</span></span><br><span class="line"><span class="string">        - cv2.EVENT_LBUTTONUP</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>计算机视觉</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>计算机视觉</tag>
-        <tag>opencv</tag>
-        <tag>python</tag>
-      </tags>
   </entry>
   <entry>
     <title>markdown语法基础</title>
-    <url>/wxyice.github.io/2020/04/06/markdown/</url>
+    <url>/2020/04/06/markdown/</url>
     <content><![CDATA[<h1 id="markdown-语法基础"><a href="#markdown-语法基础" class="headerlink" title="markdown 语法基础"></a>markdown 语法基础</h1><p>介绍基础的markdown语法以及常用数学表达式的latex编辑方法。</p>
 <a id="more"></a>
 <h2 id="1-基础语法"><a href="#1-基础语法" class="headerlink" title="1.基础语法"></a>1.基础语法</h2><ol>
@@ -661,8 +535,134 @@
       </tags>
   </entry>
   <entry>
+    <title>OpenCv基础(1)</title>
+    <url>/2020/04/15/opencv/</url>
+    <content><![CDATA[<h1 id="OpenCv基础（一）"><a href="#OpenCv基础（一）" class="headerlink" title="OpenCv基础（一）"></a>OpenCv基础（一）</h1><p>Opencv是开源的跨平台计算机视觉库。它是轻量级并且高效的，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。目前版本已经迭代到opencv4.2。<br><a href="https://baike.baidu.com/item/opencv/10320623" target="_blank" rel="noopener">OpenCv 百度百科</a></p>
+<a id="more"></a>
+<h2 id="opencv-python-安装"><a href="#opencv-python-安装" class="headerlink" title="opencv python 安装"></a>opencv python 安装</h2><p>用conda下载安装相关库就可以了<br><code>conda install opencv</code><br><a href="https://opencv.org" target="_blank" rel="noopener">OpenCv官网</a></p>
+<h2 id="opencv-python的使用基础"><a href="#opencv-python的使用基础" class="headerlink" title="opencv python的使用基础"></a>opencv python的使用基础</h2><p>在使用使，需要import相关库，之后的代码默认已经有</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matlabplot           <span class="comment">#数据处理，matlab绘图接口库</span></span><br></pre></td></tr></table></figure>
+<p><strong>怎么读取并显示一张图片</strong><br>使用imread和imshow</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#读取图片</span></span><br><span class="line">img=cv2.imread(<span class="string">"img_path"</span>,<span class="number">0</span>)  <span class="comment">#文件路径，读取img,0是读取方式，表示读取灰度图像</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">cv2.imshow(<span class="string">'image'</span>,img)     <span class="comment">#‘image’是窗口名，输出img</span></span><br><span class="line"><span class="comment">#等价的显示方法</span></span><br><span class="line">plt.imshow(img, cmap = <span class="string">'gray'</span>, interpolation = <span class="string">'bicubic'</span>)<span class="comment">#以灰度图像显示图片</span></span><br><span class="line">plt.xticks([]), plt.yticks([]) <span class="comment">#隐藏x,y轴</span></span><br><span class="line">plt.show()                     <span class="comment">#显示图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">cv2.imwrite(<span class="string">"img.jpg"</span>,img)</span><br></pre></td></tr></table></figure>
+
+<p><strong>怎么读取视屏</strong><br>在opencv中，视频也是一帧一帧被读取的，称为视频流。代码如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建了一个cap视频流</span></span><br><span class="line">cap = cv2.VideoCapture(<span class="number">0</span>)<span class="comment">#- 0 本机摄像头- 1 外接摄像头</span></span><br><span class="line"><span class="comment">#修改视频流参数</span></span><br><span class="line">cap.get(propId) <span class="comment">#读取参数</span></span><br><span class="line">    <span class="comment">#其中propId=3表示每一帧高</span></span><br><span class="line">    <span class="comment">#其中propId=4表示每一帧高</span></span><br><span class="line">cap.set(propId,value) <span class="comment">#修改参数</span></span><br><span class="line"><span class="comment">#视频流初始化</span></span><br><span class="line"><span class="comment">#cap.isOpened()</span></span><br><span class="line">cap.read()</span><br><span class="line"><span class="comment">#保存视频流</span></span><br><span class="line">fourcc = cv2.cv.FOURCC(*<span class="string">'XVID'</span>) <span class="comment">#定义格式</span></span><br><span class="line">out = cv2.VideoWriter(<span class="string">'output.avi'</span>,fourcc, <span class="number">20.0</span>, (<span class="number">640</span>,<span class="number">480</span>))<span class="comment">#定义一个输出文件</span></span><br><span class="line"><span class="comment">#循环读取图片（帧）</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    ret, frame = cap.read()<span class="comment">#返回一个布尔值(True/False)</span></span><br><span class="line">    <span class="comment"># Our operations on the frame come here</span></span><br><span class="line">    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) </span><br><span class="line">    <span class="comment">#转换颜色空间* cv2.COLOR_BGR2GRAY</span></span><br><span class="line">    <span class="comment"># Display the resulting frame</span></span><br><span class="line">    cv2.imshow(<span class="string">'frame'</span>,gray) 显示视频流</span><br><span class="line">    out.write(frame)<span class="comment">#把frame写入文件，这个要放在while循环中</span></span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == ord(<span class="string">'q'</span>): <span class="comment">#表示当你按下键盘q时break</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment">#释放保存文件空间</span></span><br><span class="line">out.release()</span><br><span class="line"><span class="comment">#释放视频流</span></span><br><span class="line">cap.release()</span><br></pre></td></tr></table></figure>
+
+<h2 id="opencv的GUI特性"><a href="#opencv的GUI特性" class="headerlink" title="opencv的GUI特性"></a>opencv的GUI特性</h2><h3 id="绘图函数"><a href="#绘图函数" class="headerlink" title="绘图函数"></a>绘图函数</h3><p><strong>基本参数</strong></p>
+<ul>
+<li>img:你想要绘制图形的那幅图像。</li>
+<li>color:形状的颜色。以RGB为例，需要传入一个元组，例如:(255,0,0)代表蓝色。对于灰度图只需要传入灰度值。</li>
+<li>thickness:线条的粗细。如果给一个闭合图形设置为-1，那么这个图形就会被填充。默认值是1</li>
+<li>linetype:线条的类型，8连接，抗锯齿等。默认情况是8连接。<ul>
+<li>cv2.LINE_AA为抗锯齿，这样看起来会非常平滑</li>
+</ul>
+</li>
+</ul>
+<p><strong>函数</strong></p>
+<ul>
+<li>cv2.line() 画直线<pre><code>- 给起点终点</code></pre></li>
+<li>cv2.circle() 画圆<pre><code>- 给中心和半径</code></pre></li>
+<li>cv2.rectangle() 画矩形（感觉用的最多了）<pre><code>- 给左上和右下</code></pre></li>
+<li>cv2.ellipse()画椭圆<pre><code>- 给长轴和短轴旋转角度</code></pre></li>
+<li>cv2.putText()<ul>
+<li>文字</li>
+<li>位置</li>
+<li>字体</li>
+<li>大小</li>
+<li>颜色等属性</li>
+</ul>
+</li>
+<li>cv2.polylines() 可以被用来画很多条线</li>
+</ul>
+<h3 id="鼠标与事件"><a href="#鼠标与事件" class="headerlink" title="鼠标与事件"></a>鼠标与事件</h3><p>opencv捕获事件函数<br>    * cv2.setMouseCallback(‘image’,draw_circle)<br>    * cv2.waitKey(20)&amp;0xFF==27</p>
+<p><strong>如何查询事件</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#opencv查表</span></span><br><span class="line">events=[i <span class="keyword">for</span> i <span class="keyword">in</span> dir(cv2) <span class="keyword">if</span> <span class="string">'EVENT'</span><span class="keyword">in</span> i]</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">        - 事件查阅</span></span><br><span class="line"><span class="string">        - cv2.EVENT_LBUTTONDOWN</span></span><br><span class="line"><span class="string">        - cv2.EVENT_MOUSEMOVE</span></span><br><span class="line"><span class="string">        - cv2.EVENT_FLAG_LBUTTON</span></span><br><span class="line"><span class="string">        - cv2.EVENT_LBUTTONUP</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>计算机视觉</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>计算机视觉</tag>
+        <tag>opencv</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>专利申请和文件撰写</title>
+    <url>/2020/04/06/%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%92%8C%E6%96%87%E4%BB%B6%E6%92%B0%E5%86%99/</url>
+    <content><![CDATA[<h1 id="专利申请文件"><a href="#专利申请文件" class="headerlink" title="专利申请文件"></a>专利申请文件</h1><h2 id="1-文件构成"><a href="#1-文件构成" class="headerlink" title="1.文件构成"></a>1.文件构成</h2><p>对于专利发明和实用新型需要包括</p>
+<a id="more"></a>
+<ul>
+<li>请求书</li>
+<li>权利要求书</li>
+<li>说明书</li>
+<li>说明书附图</li>
+<li>摘要</li>
+</ul>
+<p>对于外观设计专利需要包括</p>
+<ul>
+<li>请求书</li>
+<li>外观设计的图片和照片</li>
+<li>简要说明</li>
+</ul>
+<h3 id="1-1请求书"><a href="#1-1请求书" class="headerlink" title="1.1请求书"></a>1.1请求书</h3><h3 id="1-2说明书"><a href="#1-2说明书" class="headerlink" title="1.2说明书"></a>1.2说明书</h3><p>说明书是专利申请文件的核心，是权利要求书的依据，为权利要求书提供解释</p>
+<h3 id="1-3权利要求书"><a href="#1-3权利要求书" class="headerlink" title="1.3权利要求书"></a>1.3权利要求书</h3><p>权利要求书分为两类</p>
+<ul>
+<li>产品权利要求书</li>
+<li>方法权利要求书</li>
+</ul>
+<p>撰写中权利要求书中使用的科技术语应当与说明书中使用的一致，可以有化学式或数学式， 必要时可以有表格，但不得有插图。不得使用“如说明书……部分所述”或者“如图……所示”等用语。</p>
+<p>权利要求的概念：</p>
+<ol>
+<li>并列独立权利<br>并列独立权利要求:产品、制造产品的方法，产品的用途，制造产品的设备;方法，为该方法设计 的设备。与产品描述是相互独立、并列的。可以理解为权利要求分成总分(并列独立权利)分(从属权利 要求)结构。例(沿用之前铅笔的例子):一种如权利要求 1 所述铅笔的加工方法，其特征在于:在加工过 程中在铅笔的末端固定一个橡皮。</li>
+<li>独立权利<br>独立权利要求:独立权利要求从总体上体现发明构思，保护范围最大。解决问题的不可缺少的技术特征、相对于现有技术具有新颖性和创造性。可以通过列写出发明所有的技术 特征，删去非必要技术特征、与发明不相干的特征实现。</li>
+<li>从属权利<br>从属权利要求:为独立权利 要求做限定的、附加的技术特征，构建多层保护体系。示例:根据权利要求 1 所属的汽车，其特征在于， 所述合金材料为不锈钢<h4 id="1-3-1产品权利要求书"><a href="#1-3-1产品权利要求书" class="headerlink" title="1.3.1产品权利要求书"></a>1.3.1产品权利要求书</h4>包括：物品、物质、材料、工具、 装置、设备等<br>产品权利要求需要说明产品的技术特征:零件、元器件、部件、材料、器具、设备的形状、结构尺寸; 产品元素、含量等等。示例:一种汽车，包括底盘，其特征在于底盘由合金材料制成。<h4 id="1-3-2方法权利要求书"><a href="#1-3-2方法权利要求书" class="headerlink" title="1.3.2方法权利要求书"></a>1.3.2方法权利要求书</h4>包括制造方法，使用方法，通讯方法，处理方法，将产品适用于特定用途 的方法</li>
+</ol>
+<h2 id="撰写"><a href="#撰写" class="headerlink" title="撰写"></a>撰写</h2><h3 id="权利要求书的撰写"><a href="#权利要求书的撰写" class="headerlink" title="权利要求书的撰写"></a>权利要求书的撰写</h3><p>权利要求撰写步骤</p>
+<ol>
+<li>找出主要特征，弄清关系、作用;</li>
+<li>根据现有特征确定必要技术特征;</li>
+<li>比较现有技术找到共同必要技术和特征;</li>
+<li>分析附加技术特征，将附加技术特征写入从权。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>专利申请</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>心理学导论-条件反射和学习</title>
+    <url>/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E6%9D%A1%E4%BB%B6%E5%8F%8D%E5%B0%84%E5%92%8C%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="心理学导论——条件反射和学习"><a href="#心理学导论——条件反射和学习" class="headerlink" title="心理学导论——条件反射和学习"></a>心理学导论——条件反射和学习</h1><h2 id="学习的定义"><a href="#学习的定义" class="headerlink" title="学习的定义"></a>学习的定义</h2><p>学习是由经验引起的相对持久的行为变化。</p>
+<p>经典条件反射：形成取决于一个反应前发生的事<br>操作性条件反射：建立在反应结果的基础上，结果决定反应是否再次发生</p>
+<a id="more"></a>
+<h3 id="经典条件反射"><a href="#经典条件反射" class="headerlink" title="经典条件反射"></a>经典条件反射</h3><p>经典条件反射，人们会学会刺激与反应的关系建立，基础是人的非条件反射，通过条件刺激在非条件刺激周围徘徊，可以使条件刺激与非条件反应建立联系，从而实现条件反射。<br>习得：条件刺激在无条件刺激前出现，紧密，很快就会习得<br>期望：认知会建立新的心理期望<br>消退：条件反射是会消退的<br>自动恢复：消退不是一次性完成的，中间会有反复<br>泛化：将刺激广泛的应用到别的联系上<br>辨别：出现类似刺激，在多次训练不同强化后会辨别不同刺激的结果，也是泛化消退</p>
+<p>人类的条件反射和情绪<br>条件性情绪反射：经历后，人们会形成反射<br>间接性情绪反射：听说后人们也会建立情绪反射</p>
+<h3 id="操作性条件反射"><a href="#操作性条件反射" class="headerlink" title="操作性条件反射"></a>操作性条件反射</h3><p>这是一种把行为和结果联系起来的反射。（是人们认为这个操作可以对应一个结果，这个结果决定这个操作再发生的可能性）</p>
+<p>习得：也叫强化，通过调整结果，改变以拥有技能的出现频次，强化的时间要在正确反应后的较短时间内。但是人有期望性，所以也没关系。</p>
+<p>操作性条件反射可以解释迷信行为，即在结果和正确反应之间有别的动作参与，我们认为这个反应是正确的并也得到了强化。</p>
+<p>强化方式有正强化和负强化<br>正强化：反应得到的结果是愉快的<br>负强化：反应得到的结果是结束不愉快的<br>其实我个人感觉差不多，都是向好的。</p>
+<p>强化还可以通过惩罚和反应代价实现<br>惩罚：反应得到的结果是不愉快的<br>反应代价：反应得到的结果是结束愉快<br>这两个我个人感觉是向负的</p>
+<p>操作性消退：同样需要时间，也会反复</p>
+<p>操作性强化物：分为一级、二级强化物、反馈<br>一级强化物：指具有生理基础，满足生理需要<br>二级强化物：有习得性，可以和一级挂钩（比如钱），有比一级强化性更长的强化效应<br>反馈：给人信息来强化行为</p>
+<p>部分强化：相对连续强化，多次反应后再给出结果，有不同的间隔模式，比如：固定比率FR，不定比率VR，固定时间FI，不定时间VI<br>VR模式比FR更不容易消退，同样VI也有更好的抑制消退的效果</p>
+<h4 id="惩罚"><a href="#惩罚" class="headerlink" title="惩罚"></a>惩罚</h4><p>惩罚的正确应用：要有一致性、及时性、适度<br>惩罚的副作用：对惩罚者的情绪恶意、产生逃避反应、攻击性上升</p>
+<h3 id="其他学习方式"><a href="#其他学习方式" class="headerlink" title="其他学习方式"></a>其他学习方式</h3><p>认知学习：就是我们说的理解的学，包括潜在学习、发现式学习也是理解学习的方式。<br>榜样学习：通过观察加模仿</p>
+]]></content>
+      <categories>
+        <category>心理学</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>心理学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>心理学导论—知觉</title>
-    <url>/wxyice.github.io/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E7%9F%A5%E8%A7%89/</url>
+    <url>/2020/04/06/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AF%BC%E8%AE%BA-%E7%9F%A5%E8%A7%89/</url>
     <content><![CDATA[<h1 id="心理学导论——知觉"><a href="#心理学导论——知觉" class="headerlink" title="心理学导论——知觉"></a>心理学导论——知觉</h1><h4 id="1-知觉的恒常性"><a href="#1-知觉的恒常性" class="headerlink" title="1. 知觉的恒常性"></a>1. 知觉的恒常性</h4><p>知觉有：大小恒常性、形状恒常性、亮度恒常性</p>
 <h4 id="2-知觉的组织性"><a href="#2-知觉的组织性" class="headerlink" title="2. 知觉的组织性"></a>2. 知觉的组织性</h4><p>人们按照格式塔原则进行知觉组织，原则包含一下规则：</p>
 <a id="more"></a>
@@ -720,200 +720,8 @@
       </tags>
   </entry>
   <entry>
-    <title>算法导论（二）</title>
-    <url>/wxyice.github.io/2020/04/20/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="算法导论"><a href="#算法导论" class="headerlink" title="算法导论"></a>算法导论</h1><p>参考书《算法导论》<br>3.函数的增长<br>4.分治策略</p>
-<a id="more"></a>
-<h2 id="3-函数的增长"><a href="#3-函数的增长" class="headerlink" title="3. 函数的增长"></a>3. 函数的增长</h2><p>当输入规模足够大的时候，运行时间只和增长量级有关，关注渐进效率。</p>
-<h3 id="3-1-渐进记号"><a href="#3-1-渐进记号" class="headerlink" title="3.1 渐进记号"></a>3.1 渐进记号</h3><ul>
-<li>$\Theta$记号<ul>
-<li>定义：对一个给定的函数$g(n)$，用$\Theta(g(n))$表示一下集合</li>
-<li>$\Theta(g(n))=\lbrack f(n)$:存在正常量$c_1$，$c_2$和$n_0$,使对所有的$n\geq n_0$,有$0\leq c_1g(n)\leq f(n)\leq c_2g(n)\rbrack$</li>
-</ul>
-</li>
-<li>$O$记号<ul>
-<li>渐近上界，比$\Theta$范围大</li>
-</ul>
-</li>
-<li>$\Omega$记号<ul>
-<li>渐近下界</li>
-</ul>
-</li>
-<li>$o$记号<ul>
-<li>渐近非紧确上界</li>
-</ul>
-</li>
-<li>$\omega$记号<ul>
-<li>渐近非紧确下界</li>
-</ul>
-</li>
-</ul>
-<p>以上各个记号之间有如下一些关系：</p>
-<ul>
-<li>传递性<ul>
-<li>ab相关，bc相关，则ac相关</li>
-</ul>
-</li>
-<li>自反性<ul>
-<li>a与记号a</li>
-</ul>
-</li>
-<li>对称性</li>
-<li>转置对称性</li>
-</ul>
-<h3 id="3-2-标准记号与常用函数"><a href="#3-2-标准记号与常用函数" class="headerlink" title="3.2 标准记号与常用函数"></a>3.2 标准记号与常用函数</h3><ul>
-<li>单调性</li>
-<li>向上取整和向下取整（打不出来）</li>
-<li>模运算 $mod$</li>
-<li>多项式</li>
-<li>指数<ul>
-<li>任意底大于1的指数函数比任意多项式函数增长的快</li>
-</ul>
-</li>
-<li>对数<ul>
-<li>任意正多项式函数都比任意多对数函数增长的快</li>
-</ul>
-</li>
-<li>阶乘<ul>
-<li>斯特林近似公式</li>
-<li>$$n!=\sqrt{2\pi n}(\frac{n}{e})^{n}(1+\Theta (\frac{1}{n}))$$</li>
-</ul>
-</li>
-<li>多重函数</li>
-<li>多重对数函数<ul>
-<li>增长非常的慢</li>
-</ul>
-</li>
-<li>斐波那契数<ul>
-<li>斐波那契数以指数形式增长</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-分治策略"><a href="#4-分治策略" class="headerlink" title="4.分治策略"></a>4.分治策略</h2><p>当子问题足够大，需要递归求解时，称为递归情况，当子问题足够小的时候，被称为基本情况。</p>
-<p>计算递归式渐近式的方法</p>
-<ul>
-<li>代入法，猜一个，数归证明</li>
-<li>递归树法，构建递归树，计算每一层的代价</li>
-<li>主方法<ul>
-<li>主要解决$T(n)=aT(\frac{n}{b})+f(n)$</li>
-<li>生成a个子问题，每个子问题的规模是原问题规模的1/b，分解合并一共用f(n)的时间</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-1-求解最大子数组问题"><a href="#4-1-求解最大子数组问题" class="headerlink" title="4.1 求解最大子数组问题"></a>4.1 求解最大子数组问题</h3><p>寻找一个序列的一个连续非空子序列，使得它的和最大</p>
-<p><strong>暴力求解</strong><br>对于一个n的序列，那就有$C_{2}^{n}$种可能，这是一个$\Theta(n^2)$的方法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">violentsearch</span><span class="params">(A)</span>:</span></span><br><span class="line">    maxsum=-float(<span class="string">"inf"</span>)</span><br><span class="line">    <span class="keyword">for</span> i  <span class="keyword">in</span> range(<span class="number">0</span>,len(A)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i,len(A)):</span><br><span class="line">            s=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(i,j+<span class="number">1</span>):</span><br><span class="line">                s=s+A[k]</span><br><span class="line">            <span class="keyword">if</span> s&gt;maxsum:</span><br><span class="line">                maxsum=s</span><br><span class="line">                indexleft=i</span><br><span class="line">                indexright=j</span><br><span class="line">    <span class="keyword">return</span> indexleft,indexright,maxsum</span><br></pre></td></tr></table></figure>
-
-<p><strong>用分治思想</strong><br>把原序列从中间分开，最大子数组一定会在如下三类中出现</p>
-<ul>
-<li><code>array[low,mid]</code></li>
-<li><code>array[mid,high]</code></li>
-<li>跨过中点的序列</li>
-</ul>
-<p>跨过中点的序列可以很好的在线性时间里面被求解，因为只要找到左右两边最大的序列，然后合并就可以了。而另外两个就是更小规模的原问题。<br>python实现</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_cross_max</span><span class="params">(A,low,mid,high)</span>:</span></span><br><span class="line">    maxleft=-float(<span class="string">"inf"</span>)</span><br><span class="line">    s=<span class="number">0</span></span><br><span class="line">    <span class="comment">#寻找左边的最大序列</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(mid,low<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        s=s+A[i]</span><br><span class="line">        <span class="keyword">if</span> s&gt;maxleft:</span><br><span class="line">            maxleft=s</span><br><span class="line">            indexleft=i</span><br><span class="line">    maxright=-float(<span class="string">"inf"</span>)</span><br><span class="line">    s=<span class="number">0</span></span><br><span class="line">    <span class="comment">#寻找右边的最大序列</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(mid+<span class="number">1</span>,high+<span class="number">1</span>):</span><br><span class="line">        s=s+A[i]</span><br><span class="line">        <span class="keyword">if</span> s&gt;maxright:</span><br><span class="line">            maxright=s</span><br><span class="line">            indexright=i</span><br><span class="line">    <span class="keyword">return</span> indexleft,indexright,maxright+maxleft</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_max</span><span class="params">(A,low,high)</span>:</span></span><br><span class="line">    <span class="comment">#base case 只有一个元素的时候返回这个元素</span></span><br><span class="line">    <span class="keyword">if</span> high==low:</span><br><span class="line">        <span class="keyword">return</span> low,high,A[low]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#分为左右两段</span></span><br><span class="line">        mid=(low+high)//<span class="number">2</span></span><br><span class="line">        left_low,left_high,left_sum=find_max(A,low,mid)</span><br><span class="line">        right_low,right_high,right_sum=find_max(A,mid+<span class="number">1</span>,high)</span><br><span class="line">        cross_low,cross_high,cross_sum=find_cross_max(A,low,mid,high)</span><br><span class="line">        <span class="keyword">if</span> left_sum&gt;=right_sum <span class="keyword">and</span> left_sum&gt;=cross_sum:</span><br><span class="line">            <span class="keyword">return</span> left_low,left_high,left_sum</span><br><span class="line">        <span class="keyword">elif</span> right_sum&gt;=left_sum <span class="keyword">and</span> right_sum&gt;=cross_sum:</span><br><span class="line">            <span class="keyword">return</span> right_low,right_high,right_sum</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> cross_low,cross_high,cross_sum</span><br></pre></td></tr></table></figure>
-
-<p><strong>如何直观的感受算法的优势</strong><br>从时间上看，要对比两个算法优劣，就看运行耗时，在python中可以使用time包很方便的对运行时间进行记录</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">start_time=time.time()          <span class="comment">#记录开始时间</span></span><br><span class="line">f(arg)                          <span class="comment">#中间是需要被运行的程序</span></span><br><span class="line">end_time=time.time()            <span class="comment">#记录结束时间</span></span><br><span class="line">used_time=end_time-start_time</span><br><span class="line">print(used_time)                <span class="comment">#打印耗时</span></span><br></pre></td></tr></table></figure>
-<p>分治算法相比暴力搜索的方法，在规模上百后就有非常明显的优势了</p>
-<h3 id="4-2-矩阵乘法"><a href="#4-2-矩阵乘法" class="headerlink" title="4.2 矩阵乘法"></a>4.2 矩阵乘法</h3><p>数学上定义的矩阵乘法，假设$A=(a_{ij})$和$B=(b_{ij})$是n*n的方阵则<br>$$c_{ij}=\sum_{k=1}^{n}a_{ik}·b_{kj}$$</p>
-<p>这个直接实现的程序时间渐近界将是$\Theta(n^3)$</p>
-<p>Strassen使用一种递归的算法，渐近复杂度优于一般实现($\Theta(n^{\log7})$)<br>运用分块的思想将方阵分解成4块进行乘法，不需要复制矩阵，而是选择用下标的方式来计算</p>
-<h3 id="4-3-主方法求解递归"><a href="#4-3-主方法求解递归" class="headerlink" title="4.3 主方法求解递归"></a>4.3 主方法求解递归</h3><p>求解问题<br>$$T(n)=aT(\frac{n}{b})+f(n)$$<br>$f(n)$是渐近正函数</p>
-<p><strong>主定理</strong>：<br>对于上面的递归式，$T(n)$有如下渐近界</p>
-<ol>
-<li>若对某个常数$\varepsilon&gt;0$有$f(n)=O(n^{\log_{b}a-\varepsilon})$则$T(n)=\Theta(n^{\log_{b}a})$</li>
-<li>若$f(n)=\Theta(n^{\log_{b}a})$则$T(n)=\Theta(n^{\log_{b}a}\log n)$</li>
-<li>若对于某个常数$\varepsilon&gt;0$有$f(n)=\Omega(n^{\log_{b}a+\varepsilon})$，且对某个常数$c&lt;1$和所有足够大的n有$af(\frac{n}{b})\leqq cf(n)$则 $T(n)=\Theta(f(n))$</li>
-</ol>
-<p>主定理是将f(n)于$\Theta(n^{\log_{b}a})$渐近比较，取更大的<br>必须是多项式意义上的小于才可以用主定理，主定理没有覆盖所有情况，有些递归式是无法使用的。</p>
-<p>链接文章：</p>
-<a href="/wxyice.github.io/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/" title="算法导论（一）">算法导论（一）</a>
-
-
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络——概述</title>
-    <url>/wxyice.github.io/2020/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="计算机网络——概述"><a href="#计算机网络——概述" class="headerlink" title="计算机网络——概述"></a>计算机网络——概述</h1><p>参考书：《计算机网络》</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>计算机网络由若干节点和链接这些节点的链路组成。节点可以是计算机，集线器，路由器等等。互连网把许多网络用路由器链接起来。习惯上，与网络相连的计算机称为主机</p>
-<a id="more"></a>
-<h3 id="互联网基础结构发展"><a href="#互联网基础结构发展" class="headerlink" title="互联网基础结构发展"></a>互联网基础结构发展</h3><p>第一阶段：由ARPANET向互联网发展。（互连网和互联网不同）<br>第二阶段：建成三级结构的互联网<br>第三阶段：逐渐形成多层次ISP（互联网服务提供者（就类似移动，联通））结构的互联网，逐渐出现IXP（互联网交换点），用于快速的交换不同分组。</p>
-<h4 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h4><p>互联网拓扑结构复杂，地理上覆盖全球，工作方式上分为两块：</p>
-<ol>
-<li>边缘部分：由所有在互联网上的主机组成</li>
-<li>核心部分：由大量网络和链接网络的路由器组成，为边缘部分提供服务</li>
-</ol>
-<h5 id="边缘部分"><a href="#边缘部分" class="headerlink" title="边缘部分"></a>边缘部分</h5><p>这些边缘部分的主机又称为端系统。边缘部分利用核心部分提供的服务使得众多主机之间能够相互通信并交换或共享信息。计算机通信是指主机A的某个进程和主机B的另一个进程进行通信。在网络边缘的端系统之间的通信方式可以分为两大类：客户-服务器（C/S方式）和对等方式（P2P)</p>
-<h5 id="核心部分"><a href="#核心部分" class="headerlink" title="核心部分"></a>核心部分</h5><p>网络核心部分起特殊作用的是路由器，是一种专用计算机，是实现分组交换的关键构件，任务是转发收到的分组。</p>
-<p>1.电路交换：特点，端到端资源全部占用<br>2.分组交换：采用存储转发技术，把报文划分成多个等长的数据段，每个小段前面加上必要的控制信息组成的首部，构成一个分组，分组也叫包，首部叫包头</p>
-<p>报文：要发送的整块数据称为一个报文</p>
-<h4 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h4><p>按照网络的作用范围来分：</p>
-<ol>
-<li>WAN 广域网</li>
-<li>MAN 城域网</li>
-<li>LAN 局域网</li>
-<li>PAN 个人区域网</li>
-</ol>
-<p>按照使用者：</p>
-<ol>
-<li>公用网</li>
-<li>专用网</li>
-</ol>
-<h4 id="计算机网络性能"><a href="#计算机网络性能" class="headerlink" title="计算机网络性能"></a>计算机网络性能</h4><p>性能指标有以下7个：</p>
-<ul>
-<li>速率：bit是一个二进制数字（0，1），速率指比特率，单位bit/s，或bps，一般提到网络速率时是指额定数率或标称速率。</li>
-<li>带宽：单位时间可以通过的最高数据率，单位bit/s</li>
-<li>吞吐量：实际单位时间通过的数据量</li>
-<li>时延：从一段到另一端需要的时间，它由发送时延，传播时延，处理时延，排队时延</li>
-<li>时延带宽积</li>
-<li>往返时间RTT</li>
-<li>利用率</li>
-</ul>
-<p>网络的非性能指标：</p>
-<ul>
-<li>费用</li>
-<li>质量</li>
-<li>标准化</li>
-<li>可靠性</li>
-<li>可扩展性和可升级性</li>
-<li>易于管理和维护</li>
-</ul>
-<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p>网络数据交换需要建立规则，也就是网络协议。网络协议主要由以下三个要素组成：</p>
-<ul>
-<li>语法：数据与控制信息的结构或格式</li>
-<li>语义：发出何种控制信息，完成何种动作以及何种响应</li>
-<li>同步：事件实现顺序的详细说明</li>
-</ul>
-<p>五层网络结构：</p>
-<ul>
-<li>应用层</li>
-<li>运输层：任务是负责向两台主机进程之间的通信提供数据传输服务</li>
-<li>网络层</li>
-<li>数据链路层</li>
-<li>物理层</li>
-</ul>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>汇编语言基础</title>
-    <url>/wxyice.github.io/2020/04/07/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
+    <url>/2020/04/07/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><p>汇编语言是对机器语言的符号化标记</p>
 <a id="more"></a>
 <h2 id="hello-world汇编"><a href="#hello-world汇编" class="headerlink" title="hello world汇编"></a>hello world汇编</h2><p>以下代码是16位的汇编程序</p>
@@ -1177,8 +985,130 @@
       </tags>
   </entry>
   <entry>
+    <title>算法导论（二）</title>
+    <url>/2020/04/20/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="算法导论"><a href="#算法导论" class="headerlink" title="算法导论"></a>算法导论</h1><p>参考书《算法导论》<br>3.函数的增长<br>4.分治策略</p>
+<a id="more"></a>
+<h2 id="3-函数的增长"><a href="#3-函数的增长" class="headerlink" title="3. 函数的增长"></a>3. 函数的增长</h2><p>当输入规模足够大的时候，运行时间只和增长量级有关，关注渐进效率。</p>
+<h3 id="3-1-渐进记号"><a href="#3-1-渐进记号" class="headerlink" title="3.1 渐进记号"></a>3.1 渐进记号</h3><ul>
+<li>$\Theta$记号<ul>
+<li>定义：对一个给定的函数$g(n)$，用$\Theta(g(n))$表示一下集合</li>
+<li>$\Theta(g(n))=\lbrack f(n)$:存在正常量$c_1$，$c_2$和$n_0$,使对所有的$n\geq n_0$,有$0\leq c_1g(n)\leq f(n)\leq c_2g(n)\rbrack$</li>
+</ul>
+</li>
+<li>$O$记号<ul>
+<li>渐近上界，比$\Theta$范围大</li>
+</ul>
+</li>
+<li>$\Omega$记号<ul>
+<li>渐近下界</li>
+</ul>
+</li>
+<li>$o$记号<ul>
+<li>渐近非紧确上界</li>
+</ul>
+</li>
+<li>$\omega$记号<ul>
+<li>渐近非紧确下界</li>
+</ul>
+</li>
+</ul>
+<p>以上各个记号之间有如下一些关系：</p>
+<ul>
+<li>传递性<ul>
+<li>ab相关，bc相关，则ac相关</li>
+</ul>
+</li>
+<li>自反性<ul>
+<li>a与记号a</li>
+</ul>
+</li>
+<li>对称性</li>
+<li>转置对称性</li>
+</ul>
+<h3 id="3-2-标准记号与常用函数"><a href="#3-2-标准记号与常用函数" class="headerlink" title="3.2 标准记号与常用函数"></a>3.2 标准记号与常用函数</h3><ul>
+<li>单调性</li>
+<li>向上取整和向下取整（打不出来）</li>
+<li>模运算 $mod$</li>
+<li>多项式</li>
+<li>指数<ul>
+<li>任意底大于1的指数函数比任意多项式函数增长的快</li>
+</ul>
+</li>
+<li>对数<ul>
+<li>任意正多项式函数都比任意多对数函数增长的快</li>
+</ul>
+</li>
+<li>阶乘<ul>
+<li>斯特林近似公式</li>
+<li>$$n!=\sqrt{2\pi n}(\frac{n}{e})^{n}(1+\Theta (\frac{1}{n}))$$</li>
+</ul>
+</li>
+<li>多重函数</li>
+<li>多重对数函数<ul>
+<li>增长非常的慢</li>
+</ul>
+</li>
+<li>斐波那契数<ul>
+<li>斐波那契数以指数形式增长</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-分治策略"><a href="#4-分治策略" class="headerlink" title="4.分治策略"></a>4.分治策略</h2><p>当子问题足够大，需要递归求解时，称为递归情况，当子问题足够小的时候，被称为基本情况。</p>
+<p>计算递归式渐近式的方法</p>
+<ul>
+<li>代入法，猜一个，数归证明</li>
+<li>递归树法，构建递归树，计算每一层的代价</li>
+<li>主方法<ul>
+<li>主要解决$T(n)=aT(\frac{n}{b})+f(n)$</li>
+<li>生成a个子问题，每个子问题的规模是原问题规模的1/b，分解合并一共用f(n)的时间</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-1-求解最大子数组问题"><a href="#4-1-求解最大子数组问题" class="headerlink" title="4.1 求解最大子数组问题"></a>4.1 求解最大子数组问题</h3><p>寻找一个序列的一个连续非空子序列，使得它的和最大</p>
+<p><strong>暴力求解</strong><br>对于一个n的序列，那就有$C_{2}^{n}$种可能，这是一个$\Theta(n^2)$的方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">violentsearch</span><span class="params">(A)</span>:</span></span><br><span class="line">    maxsum=-float(<span class="string">"inf"</span>)</span><br><span class="line">    <span class="keyword">for</span> i  <span class="keyword">in</span> range(<span class="number">0</span>,len(A)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i,len(A)):</span><br><span class="line">            s=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(i,j+<span class="number">1</span>):</span><br><span class="line">                s=s+A[k]</span><br><span class="line">            <span class="keyword">if</span> s&gt;maxsum:</span><br><span class="line">                maxsum=s</span><br><span class="line">                indexleft=i</span><br><span class="line">                indexright=j</span><br><span class="line">    <span class="keyword">return</span> indexleft,indexright,maxsum</span><br></pre></td></tr></table></figure>
+
+<p><strong>用分治思想</strong><br>把原序列从中间分开，最大子数组一定会在如下三类中出现</p>
+<ul>
+<li><code>array[low,mid]</code></li>
+<li><code>array[mid,high]</code></li>
+<li>跨过中点的序列</li>
+</ul>
+<p>跨过中点的序列可以很好的在线性时间里面被求解，因为只要找到左右两边最大的序列，然后合并就可以了。而另外两个就是更小规模的原问题。<br>python实现</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_cross_max</span><span class="params">(A,low,mid,high)</span>:</span></span><br><span class="line">    maxleft=-float(<span class="string">"inf"</span>)</span><br><span class="line">    s=<span class="number">0</span></span><br><span class="line">    <span class="comment">#寻找左边的最大序列</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(mid,low<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        s=s+A[i]</span><br><span class="line">        <span class="keyword">if</span> s&gt;maxleft:</span><br><span class="line">            maxleft=s</span><br><span class="line">            indexleft=i</span><br><span class="line">    maxright=-float(<span class="string">"inf"</span>)</span><br><span class="line">    s=<span class="number">0</span></span><br><span class="line">    <span class="comment">#寻找右边的最大序列</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(mid+<span class="number">1</span>,high+<span class="number">1</span>):</span><br><span class="line">        s=s+A[i]</span><br><span class="line">        <span class="keyword">if</span> s&gt;maxright:</span><br><span class="line">            maxright=s</span><br><span class="line">            indexright=i</span><br><span class="line">    <span class="keyword">return</span> indexleft,indexright,maxright+maxleft</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_max</span><span class="params">(A,low,high)</span>:</span></span><br><span class="line">    <span class="comment">#base case 只有一个元素的时候返回这个元素</span></span><br><span class="line">    <span class="keyword">if</span> high==low:</span><br><span class="line">        <span class="keyword">return</span> low,high,A[low]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#分为左右两段</span></span><br><span class="line">        mid=(low+high)//<span class="number">2</span></span><br><span class="line">        left_low,left_high,left_sum=find_max(A,low,mid)</span><br><span class="line">        right_low,right_high,right_sum=find_max(A,mid+<span class="number">1</span>,high)</span><br><span class="line">        cross_low,cross_high,cross_sum=find_cross_max(A,low,mid,high)</span><br><span class="line">        <span class="keyword">if</span> left_sum&gt;=right_sum <span class="keyword">and</span> left_sum&gt;=cross_sum:</span><br><span class="line">            <span class="keyword">return</span> left_low,left_high,left_sum</span><br><span class="line">        <span class="keyword">elif</span> right_sum&gt;=left_sum <span class="keyword">and</span> right_sum&gt;=cross_sum:</span><br><span class="line">            <span class="keyword">return</span> right_low,right_high,right_sum</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> cross_low,cross_high,cross_sum</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何直观的感受算法的优势</strong><br>从时间上看，要对比两个算法优劣，就看运行耗时，在python中可以使用time包很方便的对运行时间进行记录</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">start_time=time.time()          <span class="comment">#记录开始时间</span></span><br><span class="line">f(arg)                          <span class="comment">#中间是需要被运行的程序</span></span><br><span class="line">end_time=time.time()            <span class="comment">#记录结束时间</span></span><br><span class="line">used_time=end_time-start_time</span><br><span class="line">print(used_time)                <span class="comment">#打印耗时</span></span><br></pre></td></tr></table></figure>
+<p>分治算法相比暴力搜索的方法，在规模上百后就有非常明显的优势了</p>
+<h3 id="4-2-矩阵乘法"><a href="#4-2-矩阵乘法" class="headerlink" title="4.2 矩阵乘法"></a>4.2 矩阵乘法</h3><p>数学上定义的矩阵乘法，假设$A=(a_{ij})$和$B=(b_{ij})$是n*n的方阵则<br>$$c_{ij}=\sum_{k=1}^{n}a_{ik}·b_{kj}$$</p>
+<p>这个直接实现的程序时间渐近界将是$\Theta(n^3)$</p>
+<p>Strassen使用一种递归的算法，渐近复杂度优于一般实现($\Theta(n^{\log7})$)<br>运用分块的思想将方阵分解成4块进行乘法，不需要复制矩阵，而是选择用下标的方式来计算</p>
+<h3 id="4-3-主方法求解递归"><a href="#4-3-主方法求解递归" class="headerlink" title="4.3 主方法求解递归"></a>4.3 主方法求解递归</h3><p>求解问题<br>$$T(n)=aT(\frac{n}{b})+f(n)$$<br>$f(n)$是渐近正函数</p>
+<p><strong>主定理</strong>：<br>对于上面的递归式，$T(n)$有如下渐近界</p>
+<ol>
+<li>若对某个常数$\varepsilon&gt;0$有$f(n)=O(n^{\log_{b}a-\varepsilon})$则$T(n)=\Theta(n^{\log_{b}a})$</li>
+<li>若$f(n)=\Theta(n^{\log_{b}a})$则$T(n)=\Theta(n^{\log_{b}a}\log n)$</li>
+<li>若对于某个常数$\varepsilon&gt;0$有$f(n)=\Omega(n^{\log_{b}a+\varepsilon})$，且对某个常数$c&lt;1$和所有足够大的n有$af(\frac{n}{b})\leqq cf(n)$则 $T(n)=\Theta(f(n))$</li>
+</ol>
+<p>主定理是将f(n)于$\Theta(n^{\log_{b}a})$渐近比较，取更大的<br>必须是多项式意义上的小于才可以用主定理，主定理没有覆盖所有情况，有些递归式是无法使用的。</p>
+<p>链接文章：</p>
+<a href="/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/" title="算法导论（一）">算法导论（一）</a>
+
+
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法导论（一）</title>
-    <url>/wxyice.github.io/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <url>/2020/04/15/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="算法导论"><a href="#算法导论" class="headerlink" title="算法导论"></a>算法导论</h1><p>参考书《算法导论》</p>
 <h2 id="1-算法的意义"><a href="#1-算法的意义" class="headerlink" title="1.算法的意义"></a>1.算法的意义</h2><p>计算机资源是廉价的，但不是免费的，优秀的算法可以节省资源，强化功能。</p>
 <a id="more"></a>
@@ -1218,7 +1148,7 @@
 <p>通过构建递归树，每一层的代价是n，一共有$n\log n+1$层，所以，递归的代价是$n\log n$</p>
 <h2 id="插入排序和选择排序"><a href="#插入排序和选择排序" class="headerlink" title="插入排序和选择排序"></a>插入排序和选择排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">listsorted</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,A)</span>:</span></span><br><span class="line">        self.A=A</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchsorted</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,len(self.A)<span class="number">-1</span>):</span><br><span class="line">            i=j</span><br><span class="line">            Min=self.A[i]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(j,len(self.A)):</span><br><span class="line">                <span class="keyword">if</span> Min&gt;self.A[i]:</span><br><span class="line">                    Min,self.A[i]=self.A[i],Min</span><br><span class="line">            A[j]=Min</span><br><span class="line">        <span class="keyword">return</span> self.A</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insertionsorted</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,len(self.AA)):</span><br><span class="line">            key=self.A[j]</span><br><span class="line">            i=j<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> i&gt;=<span class="number">0</span> <span class="keyword">and</span> key&lt;self.A[i]:</span><br><span class="line">                self.A[i+<span class="number">1</span>]=self.A[i]</span><br><span class="line">                i=i<span class="number">-1</span></span><br><span class="line">            self.A[i+<span class="number">1</span>]=key</span><br><span class="line">        <span class="keyword">return</span> A</span><br></pre></td></tr></table></figure>
 <p>链接文章：</p>
-<a href="/wxyice.github.io/2020/04/20/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%BA%8C%EF%BC%89/" title="算法导论（二）">算法导论（二）</a>
+<a href="/2020/04/20/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%EF%BC%88%E4%BA%8C%EF%BC%89/" title="算法导论（二）">算法导论（二）</a>
 
 
 ]]></content>
@@ -1228,6 +1158,76 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——概述</title>
+    <url>/2020/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="计算机网络——概述"><a href="#计算机网络——概述" class="headerlink" title="计算机网络——概述"></a>计算机网络——概述</h1><p>参考书：《计算机网络》</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>计算机网络由若干节点和链接这些节点的链路组成。节点可以是计算机，集线器，路由器等等。互连网把许多网络用路由器链接起来。习惯上，与网络相连的计算机称为主机</p>
+<a id="more"></a>
+<h3 id="互联网基础结构发展"><a href="#互联网基础结构发展" class="headerlink" title="互联网基础结构发展"></a>互联网基础结构发展</h3><p>第一阶段：由ARPANET向互联网发展。（互连网和互联网不同）<br>第二阶段：建成三级结构的互联网<br>第三阶段：逐渐形成多层次ISP（互联网服务提供者（就类似移动，联通））结构的互联网，逐渐出现IXP（互联网交换点），用于快速的交换不同分组。</p>
+<h4 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h4><p>互联网拓扑结构复杂，地理上覆盖全球，工作方式上分为两块：</p>
+<ol>
+<li>边缘部分：由所有在互联网上的主机组成</li>
+<li>核心部分：由大量网络和链接网络的路由器组成，为边缘部分提供服务</li>
+</ol>
+<h5 id="边缘部分"><a href="#边缘部分" class="headerlink" title="边缘部分"></a>边缘部分</h5><p>这些边缘部分的主机又称为端系统。边缘部分利用核心部分提供的服务使得众多主机之间能够相互通信并交换或共享信息。计算机通信是指主机A的某个进程和主机B的另一个进程进行通信。在网络边缘的端系统之间的通信方式可以分为两大类：客户-服务器（C/S方式）和对等方式（P2P)</p>
+<h5 id="核心部分"><a href="#核心部分" class="headerlink" title="核心部分"></a>核心部分</h5><p>网络核心部分起特殊作用的是路由器，是一种专用计算机，是实现分组交换的关键构件，任务是转发收到的分组。</p>
+<p>1.电路交换：特点，端到端资源全部占用<br>2.分组交换：采用存储转发技术，把报文划分成多个等长的数据段，每个小段前面加上必要的控制信息组成的首部，构成一个分组，分组也叫包，首部叫包头</p>
+<p>报文：要发送的整块数据称为一个报文</p>
+<h4 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h4><p>按照网络的作用范围来分：</p>
+<ol>
+<li>WAN 广域网</li>
+<li>MAN 城域网</li>
+<li>LAN 局域网</li>
+<li>PAN 个人区域网</li>
+</ol>
+<p>按照使用者：</p>
+<ol>
+<li>公用网</li>
+<li>专用网</li>
+</ol>
+<h4 id="计算机网络性能"><a href="#计算机网络性能" class="headerlink" title="计算机网络性能"></a>计算机网络性能</h4><p>性能指标有以下7个：</p>
+<ul>
+<li>速率：bit是一个二进制数字（0，1），速率指比特率，单位bit/s，或bps，一般提到网络速率时是指额定数率或标称速率。</li>
+<li>带宽：单位时间可以通过的最高数据率，单位bit/s</li>
+<li>吞吐量：实际单位时间通过的数据量</li>
+<li>时延：从一段到另一端需要的时间，它由发送时延，传播时延，处理时延，排队时延</li>
+<li>时延带宽积</li>
+<li>往返时间RTT</li>
+<li>利用率</li>
+</ul>
+<p>网络的非性能指标：</p>
+<ul>
+<li>费用</li>
+<li>质量</li>
+<li>标准化</li>
+<li>可靠性</li>
+<li>可扩展性和可升级性</li>
+<li>易于管理和维护</li>
+</ul>
+<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p>网络数据交换需要建立规则，也就是网络协议。网络协议主要由以下三个要素组成：</p>
+<ul>
+<li>语法：数据与控制信息的结构或格式</li>
+<li>语义：发出何种控制信息，完成何种动作以及何种响应</li>
+<li>同步：事件实现顺序的详细说明</li>
+</ul>
+<p>五层网络结构：</p>
+<ul>
+<li>应用层</li>
+<li>运输层：任务是负责向两台主机进程之间的通信提供数据传输服务</li>
+<li>网络层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
